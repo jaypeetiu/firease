@@ -9,6 +9,7 @@
     </div>
 
     <div class="flex items-center">
+        <img src="build/assets/70b0310fbd4fb5c438f53fb71ec9ce6f.png" alt="logo" style="width: 40px; height: 40px" class="mx-4 rounded-full border border-red-600">
         <x-dropdown>
             <x-slot name="trigger">
                 <button @click="dropdownOpen = ! dropdownOpen" class="relative block overflow-hidden">
