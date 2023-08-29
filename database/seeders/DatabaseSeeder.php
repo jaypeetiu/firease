@@ -16,8 +16,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(10)->create();
 
+        \App\Models\User::factory()->create([
+            'name' => 'Super Admin',
+            'email' => 'super@admin.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
         \App\Models\User::factory()->create([
             'name' => 'Admin Admin',
             'email' => 'admin@admin.com',
@@ -26,6 +33,8 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+
+        \App\Models\User::factory(10)->create();
 
         $this->call([
             PermissionsTableSeeder::class,
