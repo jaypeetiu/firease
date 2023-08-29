@@ -33,39 +33,25 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
                     <div>
-                        <x-label for="name" :value="__('Name')"/>
-                        <x-input type="text"
-                                 name="name"
-                                 id="name"
-                                 value="{{ old('name', auth()->user()->name) }}"
-                                 required
-                        />
+                        <x-label for="name" :value="__('Name')" />
+                        <x-input type="text" name="name" id="name"
+                            value="{{ old('name', auth()->user()->name) }}" required />
                     </div>
 
                     <div>
-                        <x-label for="email" :value="__('Email')"/>
-                        <x-input type="email"
-                                 name="email"
-                                 id="email"
-                                 value="{{ old('email', auth()->user()->email) }}"
-                                 required
-                        />
+                        <x-label for="email" :value="__('Email')" />
+                        <x-input type="email" name="email" id="email"
+                            value="{{ old('email', auth()->user()->email) }}" required />
                     </div>
 
                     <div>
-                        <x-label for="password" :value="__('Password')"/>
-                        <x-input type="password"
-                                 name="password"
-                                 id="password"
-                        />
+                        <x-label for="password" :value="__('Password')" />
+                        <x-input type="password" name="password" id="password" />
                     </div>
 
                     <div>
-                        <x-label for="password_confirmation" :value="__('Confirm Password')"/>
-                        <x-input type="password"
-                                 name="password_confirmation"
-                                 id="password_confirmation"
-                        />
+                        <x-label for="password_confirmation" :value="__('Confirm Password')" />
+                        <x-input type="password" name="password_confirmation" id="password_confirmation" />
                     </div>
                 </div>
 

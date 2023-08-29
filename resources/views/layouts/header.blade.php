@@ -9,7 +9,7 @@
     </div>
 
     <div class="flex items-center">
-        <img src="build/assets/70b0310fbd4fb5c438f53fb71ec9ce6f.png" alt="logo" style="width: 40px; height: 40px" class="mx-4 rounded-full border border-red-600">
+        <img src="assets/70b0310fbd4fb5c438f53fb71ec9ce6f.png" alt="logo" style="width: 40px; height: 40px" class="mx-4 rounded-full border border-red-600">
         <x-dropdown>
             <x-slot name="trigger">
                 <button @click="dropdownOpen = ! dropdownOpen" class="relative block overflow-hidden">
@@ -18,13 +18,13 @@
             </x-slot>
 
             <x-slot name="content">
-                <x-dropdown-link href="{{ route('profile.show') }}" class="hover:bg-red-700">
+                <x-dropdown-link href="{{ route('profile.show') }}">
                     {{ __('My profile') }}
                 </x-dropdown-link>
 
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <x-dropdown-link href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" class="hover:bg-red-700">
+                    <x-dropdown-link href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
                             {{ __('Log out') }}
                     </x-dropdown-link>
                 </form>
