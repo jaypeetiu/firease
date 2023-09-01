@@ -1,11 +1,9 @@
-<div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false"
-     class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
+<div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
 
-<div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'"
-     class="fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0">
+<div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0">
     <div class="flex items-center justify-center mt-8">
         <div class="flex items-center">
-            <img src="assets/70b0310fbd4fb5c438f53fb71ec9ce6f.png" alt="logo" style="width: 50px; height: 50px">
+            <img class="h-14 w-14 flex-none rounded-full ring-yellow-600 m-2" src="assets/70b0310fbd4fb5c438f53fb71ec9ce6f.png" alt="">
 
             <span class="text-white text-2xl mx-2 font-semibold">{{ __('Dashboard') }}</span>
         </div>
@@ -15,14 +13,54 @@
         <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
             <x-slot name="icon">
                 <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
                 </svg>
             </x-slot>
             {{ __('Dashboard') }}
         </x-nav-link>
 
-        <x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
+        <x-nav-link href="{{ route('locations.index') }}" :active="request()->routeIs('locations.index')">
+            <x-slot name="icon">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" />
+                    <line x1="18" y1="6" x2="18" y2="6.01" />
+                    <path d="M18 13l-3.5 -5a4 4 0 1 1 7 0l-3.5 5" />
+                    <polyline points="10.5 4.75 9 4 3 7 3 20 9 17 15 20 21 17 21 15" />
+                    <line x1="9" y1="4" x2="9" y2="17" />
+                    <line x1="15" y1="15" x2="15" y2="20" />
+                </svg>
+            </x-slot>
+            {{ __('Location') }}
+        </x-nav-link>
+
+        <x-nav-link href="{{ route('messages.index') }}" :active="request()->routeIs('messages.index')">
+            <x-slot name="icon">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+                </svg>
+
+            </x-slot>
+            {{ __('Message') }}
+        </x-nav-link>
+
+        <x-nav-link href="{{ route('fires.index') }}" :active="request()->routeIs('fires.index')">
+            <x-slot name="icon">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" />
+                    <path d="M3.5 5.5l1.5 1.5l2.5 -2.5" />
+                    <path d="M3.5 11.5l1.5 1.5l2.5 -2.5" />
+                    <path d="M3.5 17.5l1.5 1.5l2.5 -2.5" />
+                    <line x1="11" y1="6" x2="20" y2="6" />
+                    <line x1="11" y1="12" x2="20" y2="12" />
+                    <line x1="11" y1="18" x2="20" y2="18" />
+                </svg>
+
+            </x-slot>
+            {{ __('Records') }}
+        </x-nav-link>
+
+        <!-- <x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
             <x-slot name="icon">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
@@ -49,16 +87,11 @@
             Two-level menu
         </x-nav-link>
         <template x-if="isMultiLevelMenuOpen">
-            <ul x-transition:enter="transition-all ease-in-out duration-300"
-                x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl"
-                x-transition:leave="transition-all ease-in-out duration-300"
-                x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0"
-                class="p-2 mx-4 mt-2 space-y-2 overflow-hidden text-sm font-medium text-white bg-gray-700 bg-opacity-50 rounded-md shadow-inner"
-                aria-label="submenu">
+            <ul x-transition:enter="transition-all ease-in-out duration-300" x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl" x-transition:leave="transition-all ease-in-out duration-300" x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0" class="p-2 mx-4 mt-2 space-y-2 overflow-hidden text-sm font-medium text-white bg-gray-700 bg-opacity-50 rounded-md shadow-inner" aria-label="submenu">
                 <li class="px-2 py-1 transition-colors duration-150">
                     <a class="w-full" href="#">Child menu</a>
                 </li>
             </ul>
-        </template>
+        </template> -->
     </nav>
 </div>

@@ -1,4 +1,7 @@
 <header class="flex justify-between items-center py-4 px-6 bg-white border-b-4 border-red-700">
+    <div class="flex item-center">
+        <h1>Station 1</h1>
+    </div>
     <div class="flex items-center">
         <button @click="sidebarOpen = true" class="text-gray-500 focus:outline-none lg:hidden">
             <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -9,7 +12,7 @@
     </div>
 
     <div class="flex items-center">
-        <img src="assets/70b0310fbd4fb5c438f53fb71ec9ce6f.png" alt="logo" style="width: 40px; height: 40px" class="mx-4 rounded-full border border-red-600">
+    <img class="h-10 w-10 flex-none rounded-full bg-gray-50 ring-2 ring-yellow-600 m-2" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
         <x-dropdown>
             <x-slot name="trigger">
                 <button @click="dropdownOpen = ! dropdownOpen" class="relative block overflow-hidden">
