@@ -70,13 +70,25 @@
                                     Warehouse
                                 </option>
                                 <option value="test1">
+                                    Rubbish Fire
+                                </option>
+                                <option value="test1">
                                     Electric Post Fire
+                                </option>
+                                <option value="test1">
+                                    Structural
+                                </option>
+                                <option value="test1">
+                                    Grass Fire
+                                </option>
+                                <option value="test1">
+                                    Forest Fire
                                 </option>
                             </select>
                         </div>
                     </div>
                     <div>
-                        <button class="p-2 pl-6 pr-6 bg-red-600 rounded-full text-white text-sm shadow-md">SEND ALARM</button>
+                        <button class="p-2 pl-6 pr-6 bg-red-500 rounded-full text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND ALARM</button>
                     </div>
                 </div>
             </div>
@@ -86,19 +98,19 @@
                     <li class="flex justify-between gap-x-6 py-5">
                         <p>Cagayan de oro city fire department</p>
                         <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                            <button class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-md">SEND</button>
+                            <button class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND</button>
                         </div>
                     </li>
                     <li class="flex justify-between gap-x-6 py-5">
                         <p>Cagayan de oro city fire department</p>
                         <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                            <button class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-md">SEND</button>
+                            <button class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND</button>
                         </div>
                     </li>
                     <li class="flex justify-between gap-x-6 py-5">
                         <p>Cagayan de oro city fire department</p>
                         <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                            <button class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-md">SEND</button>
+                            <button class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND</button>
                         </div>
                     </li>
                 </ul>
@@ -108,7 +120,7 @@
             <h2 class="font-bold">CURRENTLY IN TERRAIN</h2>
             <div class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
                 <ul role="list" class="divide-y divide-gray-100">
-                    <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md rounded mt-4">
+                    <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
                         <div class="flex min-w-0 gap-x-4">
                             <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" />
@@ -133,7 +145,7 @@
                             </svg>
                         </div>
                     </li>
-                    <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md rounded mt-4">
+                    <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
                         <div class="flex min-w-0 gap-x-4">
                             <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" />
@@ -158,7 +170,7 @@
                             </svg>
                         </div>
                     </li>
-                    <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md rounded mt-4">
+                    <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
                         <div class="flex min-w-0 gap-x-4">
                             <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" />
@@ -190,7 +202,7 @@
             <h2 class="font-bold">LATEST SENDER</h2>
             <div class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
                 <ul role="list" class="divide-y divide-gray-100">
-                    <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md rounded mt-4">
+                    <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
                         <div class="flex min-w-0 gap-x-4">
                             <img class="h-12 w-12 flex-none rounded-full bg-gray-50 ring-4 ring-yellow-600 m-2" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                             <div class="min-w-0 flex-auto">
@@ -200,7 +212,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md rounded mt-4">
+                    <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
                         <div class="flex min-w-0 gap-x-4">
                             <img class="h-12 w-12 flex-none rounded-full bg-gray-50 ring-4 ring-yellow-600 m-2" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                             <div class="min-w-0 flex-auto">
@@ -210,7 +222,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md rounded mt-4">
+                    <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
                         <div class="flex min-w-0 gap-x-4">
                             <img class="h-12 w-12 flex-none rounded-full bg-gray-50 ring-4 ring-yellow-600 m-2" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                             <div class="min-w-0 flex-auto">
