@@ -59,7 +59,7 @@
                     <div class="flex min-w-0 gap-x-4">
                         <div class="min-w-0 flex-auto">
                             <label for="type_of_fire">Type of Fire: </label>
-                            <select name="type_of_fire" id="type_of_fire" class="rounded">
+                            <select name="type_of_fire" id="type_of_fire" class="rounded max-w-full">
                                 <option value="test">
                                     Select
                                 </option>
@@ -87,7 +87,7 @@
                             </select>
                         </div>
                     </div>
-                    <div>
+                    <div class="place-self-center">
                         <button class="p-2 pl-6 pr-6 bg-red-500 rounded-full text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND ALARM</button>
                     </div>
                 </div>
@@ -95,19 +95,19 @@
             <div class="shadow-md mt-4 relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4">
                 <h4 class="font-bold">OTHER STATIONS NEARBY: </h4>
                 <ul role="list" class="divide-y divide-gray-100">
-                    <li class="flex justify-between gap-x-6 py-5">
+                    <li class="flex justify-between gap-x-6 py-5 items-center">
                         <p>Cagayan de oro city fire department</p>
                         <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
                             <button class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND</button>
                         </div>
                     </li>
-                    <li class="flex justify-between gap-x-6 py-5">
+                    <li class="flex justify-between gap-x-6 py-5 items-center">
                         <p>Cagayan de oro city fire department</p>
                         <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
                             <button class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND</button>
                         </div>
                     </li>
-                    <li class="flex justify-between gap-x-6 py-5">
+                    <li class="flex justify-between gap-x-6 py-5 items-center">
                         <p>Cagayan de oro city fire department</p>
                         <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
                             <button class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND</button>

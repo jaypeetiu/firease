@@ -34,4 +34,6 @@ Route::middleware('auth')->group(function () {
     Route::get('locations', [\App\Http\Controllers\LocationController::class, 'index'])->name('locations.index');
     Route::get('messages', [\App\Http\Controllers\MessageController::class, 'index'])->name('messages.index');
     Route::get('fires', [\App\Http\Controllers\FireController::class, 'index'])->name('fires.index');
+
+    Route::post('post', [\App\Http\Controllers\PostController::class, 'store'])->name('post.store');
 });

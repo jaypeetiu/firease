@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Location;
+use App\Models\Station;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LocationController extends Controller
+class StationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +16,9 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Auth::user()->stations;
+        $station = 1;
 
-        return view('locations.index', compact('locations'));
+        return view('locations.index', compact('station')); 
     }
 
     /**
@@ -49,7 +50,9 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-        //
+        $station = 1;
+
+        return view('locations.index', compact('station')); 
     }
 
     /**

@@ -3,9 +3,9 @@
 <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0">
     <div class="flex items-center justify-center mt-8">
         <div class="flex items-center">
-            <img class="h-14 w-14 flex-none rounded-full ring-yellow-600 m-2" src="assets/70b0310fbd4fb5c438f53fb71ec9ce6f.png" alt="">
+            <img class="h-16 w-16 flex-none rounded-full ring-yellow-600 m-2" src="assets/70b0310fbd4fb5c438f53fb71ec9ce6f.png" alt="">
 
-            <span class="text-white text-2xl mx-2 font-semibold">{{ __('Dashboard') }}</span>
+            <!-- <span class="text-white text-2xl mx-2 font-semibold">{{ __('Dashboard') }}</span> -->
         </div>
     </div>
 

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Location;
+use App\Http\Requests\CreatePostRequest;
+use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class LocationController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Auth::user()->stations;
-
-        return view('locations.index', compact('locations'));
+        //
     }
 
     /**
@@ -36,9 +34,12 @@ class LocationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
-        //
+        if ($request->validated()) {
+            $post = Post::create($request->all());
+            $post->save();
+        }
     }
 
     /**

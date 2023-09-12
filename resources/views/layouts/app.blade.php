@@ -33,5 +33,29 @@
         </div>
     </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.11.2/echo.min.js"></script>
+<script>
+    // Initialize Laravel Echo and configure it according to your needs
+    // const echo = new Echo({
+    //     broadcaster: 'pusher',
+    //     key: '{{ config(' broadcasting.connections.pusher.key ') }}',
+    //     cluster: '{{ config('
+    //     broadcasting.connections.pusher.options.cluster ') }}',
+    //     encrypted: true,
+    // });
+
+    // // Listen for the notification event
+    // echo.private(`user.${auth()->id()}`)
+    //     .notification((notification) => {
+    //         // Play the audio when a notification is received
+    //         const audio = document.getElementById('alertAudio');
+    //         audio.play();
+
+    //         // You can also display the notification message to the user here
+    //         alert(notification.message);
+    //     });
+    // const audio = document.getElementById('alertAudio');
+    // audio.play();
+</script>
 
 </html>
