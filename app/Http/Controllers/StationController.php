@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Station;
+use App\Models\StationUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -87,5 +88,14 @@ class StationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function addUser(Request $request)
+    {
+        $add = User::create($request->all());
+        $add->save();
+        User::findOrFail($add->id)->stations()->sync(1);
+
+        return redirect()->back()->with('success', 'User Added Successfully');
     }
 }

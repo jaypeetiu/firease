@@ -105,6 +105,66 @@ class PermissionsTableSeeder extends Seeder
                 'title'      => 'user_access',
                 'created_at' => '2019-04-16 08:40:35',
                 'updated_at' => '2019-04-16 08:40:35',
+            ],
+            [
+                'id'         => '17',
+                'title'      => 'super_create',
+                'created_at' => '2019-04-16 08:40:35',
+                'updated_at' => '2019-04-16 08:40:35',
+            ],
+            [
+                'id'         => '18',
+                'title'      => 'super_edit',
+                'created_at' => '2019-04-16 08:40:35',
+                'updated_at' => '2019-04-16 08:40:35',
+            ],
+            [
+                'id'         => '19',
+                'title'      => 'super_show',
+                'created_at' => '2019-04-16 08:40:35',
+                'updated_at' => '2019-04-16 08:40:35',
+            ],
+            [
+                'id'         => '20',
+                'title'      => 'super_delete',
+                'created_at' => '2019-04-16 08:40:35',
+                'updated_at' => '2019-04-16 08:40:35',
+            ],
+            [
+                'id'         => '21',
+                'title'      => 'super_access',
+                'created_at' => '2019-04-16 08:40:35',
+                'updated_at' => '2019-04-16 08:40:35',
+            ],
+            [
+                'id'         => '22',
+                'title'      => 'admin_create',
+                'created_at' => '2019-04-16 08:40:35',
+                'updated_at' => '2019-04-16 08:40:35',
+            ],
+            [
+                'id'         => '23',
+                'title'      => 'admin_edit',
+                'created_at' => '2019-04-16 08:40:35',
+                'updated_at' => '2019-04-16 08:40:35',
+            ],
+            [
+                'id'         => '24',
+                'title'      => 'admin_show',
+                'created_at' => '2019-04-16 08:40:35',
+                'updated_at' => '2019-04-16 08:40:35',
+            ],
+            [
+                'id'         => '25',
+                'title'      => 'admin_delete',
+                'created_at' => '2019-04-16 08:40:35',
+                'updated_at' => '2019-04-16 08:40:35',
+            ],
+            [
+                'id'         => '26',
+                'title'      => 'admin_access',
+                'created_at' => '2019-04-16 08:40:35',
+                'updated_at' => '2019-04-16 08:40:35',
             ]
         ];
 

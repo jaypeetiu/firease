@@ -31,7 +31,7 @@ class PostTest extends TestCase
         $this->assertAuthenticated();
         $log->assertRedirect(RouteServiceProvider::HOME);
 
-        $response = $this->post('/post', [
+        $response = $this->post('/post/add', [
             'message' => 'test',
             'user_id' => '1',
             'fire_type' => 'Residential',

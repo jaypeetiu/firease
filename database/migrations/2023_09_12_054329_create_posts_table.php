@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('fire_type')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        NewPostAdded::class => [
+            PlaySoundOnNewPost::class,
+        ],
     ];
 
     /**
@@ -27,7 +30,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Event::listen('App\Events\NewPostAdded', 'App\Listeners\PlaySoundOnNewPost');
     }
 
     /**

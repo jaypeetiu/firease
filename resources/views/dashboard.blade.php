@@ -8,7 +8,26 @@
             {{ __('You are logged in!') }}
         </div>
     </div> -->
+    <audio id="alertAudio">
+        <source src="{{ asset('assets/alarm.mp3') }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    @if(session()->has('success'))
+    <div class="alert alert-success">
+        <div class="flex items-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+                <span class="font-medium">{{ session()->get('success') }}</span>
+            </div>
+        </div>
+    </div>
+    @endif
     <div class="flex item-center grid grid-cols-3 gap-3 mt-4 m-2 p-2">
+        @if ($latestsender !== null && $latestsender->user !== null)
+        @can('admin_access')
         <div>
             <h2 class="font-bold">COGON STATION: 1</h2>
             <div x-data="imageSlider" class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
@@ -46,51 +65,55 @@
                 <div class="flex item-center grid grid-cols-2 gap-2 mt-4">
                     <div>
                         <div class="flex -space-x-2 overflow-hidden">
-                            <img class="inline-block h-20 w-20 rounded-full ring-4 ring-yellow-600 m-2" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                            <img class="inline-block h-20 w-20 rounded-full ring-4 ring-yellow-600 m-2" src="{{$latestsender->user->avatar?$latestsender->user->avatar:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'}}" alt="">
                         </div>
                     </div>
                     <div>
-                        <h4>Name: James Simene</h4>
-                        <h4>Age: 25</h4>
-                        <h4>Location: Lower Tambo Macasandig Cagayan de oro</h4>
+                        <h4>Name: {{$latestsender->user->name}}</h4>
+                        <h4>Age: {{$latestsender->user->age?$latestsender->user->age:0}}</h4>
+                        <h4>Location: {{$latestsender->user->location?$latestsender->user->location : 'Rm. 310 Natividad Building, Escolta Street'}}</h4>
                     </div>
                 </div>
-                <div class="flex item-center grid grid-cols-2 gap-2 mt-4">
-                    <div class="flex min-w-0 gap-x-4">
-                        <div class="min-w-0 flex-auto">
-                            <label for="type_of_fire">Type of Fire: </label>
-                            <select name="type_of_fire" id="type_of_fire" class="rounded max-w-full">
-                                <option value="test">
-                                    Select
-                                </option>
-                                <option value="test">
-                                    Residential
-                                </option>
-                                <option value="test1">
-                                    Warehouse
-                                </option>
-                                <option value="test1">
-                                    Rubbish Fire
-                                </option>
-                                <option value="test1">
-                                    Electric Post Fire
-                                </option>
-                                <option value="test1">
-                                    Structural
-                                </option>
-                                <option value="test1">
-                                    Grass Fire
-                                </option>
-                                <option value="test1">
-                                    Forest Fire
-                                </option>
-                            </select>
+                <form method="post" action="{{ route('post.update') }}" autocomplete="off">
+                    @csrf
+                    <div class="flex item-center grid grid-cols-2 gap-2 mt-4">
+                        <div class="flex min-w-0 gap-x-4">
+                            <div class="min-w-0 flex-auto">
+                                <input name="id" value='{{$latestsender->id}}' hidden />
+                                <label for="fire_type">Type of Fire: </label>
+                                <select name="fire_type" id="fire_type" class="rounded max-w-full">
+                                    <option>
+                                        Select
+                                    </option>
+                                    <option value="Residential">
+                                        Residential
+                                    </option>
+                                    <option value="Warehouse">
+                                        Warehouse
+                                    </option>
+                                    <option value="Rubbish Fire">
+                                        Rubbish Fire
+                                    </option>
+                                    <option value="Electric Post Fire">
+                                        Electric Post Fire
+                                    </option>
+                                    <option value="Structural">
+                                        Structural
+                                    </option>
+                                    <option value="Grass Fire">
+                                        Grass Fire
+                                    </option>
+                                    <option value="Forest Fire">
+                                        Forest Fire
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="place-self-center">
+                            <button type="submit" class="p-2 pl-6 pr-6 bg-red-500 rounded-full text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND ALARM</button>
                         </div>
                     </div>
-                    <div class="place-self-center">
-                        <button class="p-2 pl-6 pr-6 bg-red-500 rounded-full text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND ALARM</button>
-                    </div>
-                </div>
+                </form>
             </div>
             <div class="shadow-md mt-4 relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4">
                 <h4 class="font-bold">OTHER STATIONS NEARBY: </h4>
@@ -116,6 +139,16 @@
                 </ul>
             </div>
         </div>
+        @elseif ($latestsender === null)
+        <div>
+            <h2 class="font-bold">COGON STATION: 1</h2>
+            <div class="shadow-md mt-4 relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4">
+                No Reported Incidents
+            </div>
+        </div>
+        @endif
+        @endcan
+        @can('admin_access')
         <div>
             <h2 class="font-bold">CURRENTLY IN TERRAIN</h2>
             <div class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
@@ -198,54 +231,93 @@
                 </ul>
             </div>
         </div>
+        @endcan
         <div>
             <h2 class="font-bold">LATEST SENDER</h2>
-            <div class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
-                <ul role="list" class="divide-y divide-gray-100">
+            <div class="relative mx-auto max-w-2xl overflow-hidden min-h-screen rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
+                <ul role="list" class="divide-y divide-gray-100 overflow-scroll max-h-screen">
+                    @foreach($latests as $latest)
                     <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
                         <div class="flex min-w-0 gap-x-4">
-                            <img class="h-12 w-12 flex-none rounded-full bg-gray-50 ring-4 ring-yellow-600 m-2" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                            <img class="h-12 w-12 flex-none rounded-full bg-gray-50 ring-4 ring-yellow-600 m-2" src="{{$latest->user->avatar?$latest->user->avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'}}" alt="">
                             <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Name: Leslie Alexander</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: 28</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: Rm. 310 Natividad Building, Escolta Street</p>
+                                <p class="text-sm font-semibold leading-6 text-gray-900">Name: {{$latest->user->name}}</p>
+                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: {{ $latest->user->age? $latest->user->age: 0 }}</p>
+                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: {{$latest->user->location ? $latest->user->location : 'Rm. 310 Natividad Building, Escolta Street'}}</p>
                             </div>
                         </div>
                     </li>
-                    <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <img class="h-12 w-12 flex-none rounded-full bg-gray-50 ring-4 ring-yellow-600 m-2" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Name: Michael Foster</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: 30</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: 4010 Yague Street1200</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <img class="h-12 w-12 flex-none rounded-full bg-gray-50 ring-4 ring-yellow-600 m-2" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Name: Dries Vincent</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: 24</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: 1716 President Quirino Avenue, Pandacan</p>
-                            </div>
-                        </div>
-                    </li>
+                    @endforeach
                 </ul>
             </div>
         </div>
+        @can('super_access')
+        <div class="col-span-2">
+            <div class="flex item-center grid grid-cols-2 gap-3 ">
+                <h2 class="font-bold flex flex-row">ON RESCUE</h2>
+                <select name="fire_type" id="fire_type" class="rounded max-w-full">
+                    <option>
+                        Select
+                    </option>
+                    <option value="Station1">
+                        Station 1
+                    </option>
+                    <option value="Station2">
+                        Station 2
+                    </option>
+                    <option value="Station3">
+                        Station 3
+                    </option>
+                    <option value="Station4">
+                        Station 4
+                    </option>
+                </select>
+            </div>
+            <div class="relative w-full overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
+                <div class="flex min-w-0 gap-x-4">
+                    <div class="min-w-0 flex-none">
+                        <img class="h-12 w-12 flex-none rounded-full bg-gray-50 ring-4 ring-yellow-600 m-2" src="{{$latest->user->avatar?$latest->user->avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'}}" alt="">
+                        <p class="text-center mt-1 truncate text-xs leading-5 text-yellow-600">Responder</p>
+                    </div>
+                    <div class="min-w-0 flex-auto">
+                        <p class="text-sm font-semibold leading-6 text-gray-900">Name: {{$latest->user->name}}</p>
+                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: {{ $latest->user->age? $latest->user->age: 0 }}</p>
+                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: {{$latest->user->location ? $latest->user->location : 'Rm. 310 Natividad Building, Escolta Street'}}</p>
+                    </div>
+                </div>
+                <div class="flex min-w-0 gap-x-4">
+                    <img class="h-64 w-64 flex-none rounded bg-gray-50 m-2" src="{{$latest->user->avatar?$latest->user->avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'}}" alt="">
+                    <div class="min-w-0 flex-auto">
+                        <p class="text-sm font-semibold leading-6 text-gray-900">Details</p>
+                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">Type of fire: {{ $latest->user->age? $latest->user->age: 0 }}</p>
+                        <p class="text-sm font-semibold leading-6 text-gray-900">Response Needed: </p>
+                        <p class="text-sm font-semibold leading-6 text-gray-900 inline-flex">
+                            <img class="h-12 w-12 rounded m-2" src="{{$latest->user->avatar?$latest->user->avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'}}" alt="">
+                            <img class="h-12 w-12 rounded m-2" src="{{$latest->user->avatar?$latest->user->avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'}}" alt="">
+                            <img class="h-12 w-12 rounded m-2" src="{{$latest->user->avatar?$latest->user->avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'}}" alt="">
+                        </p>
+                        <p class="text-sm font-semibold leading-6 text-gray-900">RESPONDERS: </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endcan
     </div>
 </x-app-layout>
 
 <script>
+    // const audio = new Audio('assets/alarm.mp3');
+
+    // // Pag-alarm sa speaker
+    // function alarm() {
+    //     audio.play();
+    //     alert('Admin notification received!');
+    // }
     document.addEventListener("alpine:init", () => {
         Alpine.data("imageSlider", () => ({
             currentIndex: 1,
             images: [
-                "https://unsplash.it/640/425?image=30",
-                "https://unsplash.it/640/425?image=40",
-                "https://unsplash.it/640/425?image=50",
+                "{{$image}}",
             ],
             previous() {
                 if (this.currentIndex > 1) {

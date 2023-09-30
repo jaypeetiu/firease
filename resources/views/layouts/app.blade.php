@@ -35,6 +35,7 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.11.2/echo.min.js"></script>
 <script>
+    const audio = document.getElementById('alertAudio');
     // Initialize Laravel Echo and configure it according to your needs
     // const echo = new Echo({
     //     broadcaster: 'pusher',
@@ -43,6 +44,25 @@
     //     broadcasting.connections.pusher.options.cluster ') }}',
     //     encrypted: true,
     // });
+    // const audio = new Audio('assets/alarm.mp3');
+
+    // Pag-alarm sa speaker
+    // function alarm() {
+    //     audio.play();
+    //     alert('Admin notification received!');
+    // }
+
+    // window.Echo = new Echo({
+    //     broadcaster: 'pusher',
+    //     key: '7d59edc4d06010b69922',
+    //     cluster: 'ap3',
+    //     forceTLS: true
+    // });
+    // Echo.channel('notify-channel')
+    //     .listen('NewPostAdded', (e) => {
+    //         console.log(e);
+    //         audio.play();
+    //     });
 
     // // Listen for the notification event
     // echo.private(`user.${auth()->id()}`)

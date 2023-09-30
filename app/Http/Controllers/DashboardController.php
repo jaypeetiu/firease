@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Location;
-use App\Models\Station;
-use App\Models\User;
+use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
-class LocationController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,17 +15,13 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Auth::user()->stations;
-        foreach ($locations as $value) {
-            $users = Station::where('stations.id', $value->id)->join('station_user', 'station_user.station_id', '=', 'stations.id')
-                ->join('users', 'users.id', '=', 'station_user.user_id')
-                ->where('users.id', '!=', 1)
-                ->where('users.id', '!=', 2)
-                ->get();
-        }
-        $stations = Station::get();
+        // abort_unless(Gate::allows('admin_access'), 403);
+        $latests = Post::with('user')->get();
 
-        return view('locations.index', compact('locations', 'users', 'stations'));
+        $latestsender = Post::with('user')->latest()->first();
+        $image = "https://unsplash.it/640/425?image=30";
+
+        return view('dashboard', compact('latests', 'latestsender', 'image'));
     }
 
     /**

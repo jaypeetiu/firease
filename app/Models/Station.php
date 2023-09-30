@@ -10,6 +10,14 @@ class Station extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = "stations";
+
+    protected $hidden = [
+        'created_at',
+        'deleted_at',
+        'updated_at'
+    ];
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -24,5 +32,10 @@ class Station extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(StationUser::class);
+    }
 
 }

@@ -21,8 +21,10 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->string('status')->nullable();
             $table->datetime('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->default('password');
             $table->string('remember_token')->nullable();
+            $table->string('avatar')->default('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80');
+            $table->string('device_key')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
