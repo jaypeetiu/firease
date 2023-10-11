@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use App\Models\Vehicle;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 
-class DashboardController extends Controller
+class VehicleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +13,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // abort_unless(Gate::allows('admin_access'), 403);
-        $latests = Post::with('user')->get();
-
-        $latestsender = Post::where('id', 1)->with('user')->latest()->first();
-        $image = "https://unsplash.it/640/425?image=30";
-        $vehicles = Vehicle::all();
-
-        return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles'));
+        //
     }
 
     /**
@@ -55,13 +45,7 @@ class DashboardController extends Controller
      */
     public function show($id)
     {
-        $latests = Post::with('user')->get();
-
-        $latestsender = Post::where('id', $id)->with('user')->latest()->first();
-        $image = "https://unsplash.it/640/425?image=30";
-        $vehicles = Vehicle::all();
-
-        return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles'));
+        //
     }
 
     /**

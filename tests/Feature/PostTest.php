@@ -35,7 +35,7 @@ class PostTest extends TestCase
             'message' => 'test',
             'user_id' => '1',
             'fire_type' => 'Residential',
-            'image' => 'test',
+            'image' => 'https://unsplash.it/640/425?image=30',
         ]);
         $response->assertOk();
     }

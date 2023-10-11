@@ -28,8 +28,10 @@ require __DIR__ . '/auth.php';
 
 Route::middleware('auth')->group(function () {
     Route::view('about', 'about')->name('about');
+    Route::post('/token/{token}', [\App\Http\Controllers\UserController::class, 'updateToken'])->name('user.update');
 
     Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard/{id}', [\App\Http\Controllers\DashboardController::class, 'show'])->name('dashboard.show');
 
     Route::get('users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
 

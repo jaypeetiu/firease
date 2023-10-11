@@ -35,7 +35,7 @@
                     <span x-text="currentIndex"></span>/<span x-text="images.length"></span>
                 </div>
 
-                <button @click="previous()" class="absolute left-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 shadow-md">
+                <!-- <button @click="previous()" class="absolute left-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 shadow-md">
                     <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" />
                         <line x1="5" y1="12" x2="19" y2="12" />
@@ -51,7 +51,7 @@
                         <line x1="13" y1="18" x2="19" y2="12" />
                         <line x1="13" y1="6" x2="19" y2="12" />
                     </svg>
-                </button>
+                </button> -->
 
                 <div class="relative h-80" style="width: auto">
                     <template x-for="(image, index) in images">
@@ -150,7 +150,19 @@
         @endcan
         @can('admin_access')
         <div>
-            <h2 class="font-bold">CURRENTLY IN TERRAIN</h2>
+            <h2 class="font-bold">
+                <label for="vehicle_type">Vehicle On Response </label>
+                <select name="vehicle_type" id="vehicle_type" class="rounded max-w-full">
+                    <option>
+                        Select
+                    </option>
+                    @foreach($vehicles as $vehicle)
+                    <option>
+                        {{$vehicle->name}}
+                    </option>
+                    @endforeach
+                </select>
+            </h2>
             <div class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
                 <ul role="list" class="divide-y divide-gray-100">
                     <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
@@ -238,14 +250,16 @@
                 <ul role="list" class="divide-y divide-gray-100 overflow-scroll max-h-screen">
                     @foreach($latests as $latest)
                     <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <img class="h-12 w-12 flex-none rounded-full bg-gray-50 ring-4 ring-yellow-600 m-2" src="{{$latest->user->avatar?$latest->user->avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'}}" alt="">
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Name: {{$latest->user->name}}</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: {{ $latest->user->age? $latest->user->age: 0 }}</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: {{$latest->user->location ? $latest->user->location : 'Rm. 310 Natividad Building, Escolta Street'}}</p>
+                        <a href="{{route('dashboard.show', $latest->id)}}">
+                            <div class="flex min-w-0 gap-x-4">
+                                <img class="h-12 w-12 flex-none rounded-full bg-gray-50 ring-4 ring-yellow-600 m-2" src="{{$latest->user->avatar?$latest->user->avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'}}" alt="">
+                                <div class="min-w-0 flex-auto">
+                                    <p class="text-sm font-semibold leading-6 text-gray-900">Name: {{$latest->user->name}}</p>
+                                    <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: {{ $latest->user->age? $latest->user->age: 0 }}</p>
+                                    <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: {{$latest->user->location ? $latest->user->location : 'Rm. 310 Natividad Building, Escolta Street'}}</p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </li>
                     @endforeach
                 </ul>
@@ -317,18 +331,18 @@
         Alpine.data("imageSlider", () => ({
             currentIndex: 1,
             images: [
-                "{{$image}}",
+                "{{$latestsender->image}}",
             ],
-            previous() {
-                if (this.currentIndex > 1) {
-                    this.currentIndex = this.currentIndex - 1;
-                }
-            },
-            forward() {
-                if (this.currentIndex < this.images.length) {
-                    this.currentIndex = this.currentIndex + 1;
-                }
-            },
+            // previous() {
+            //     if (this.currentIndex > 1) {
+            //         this.currentIndex = this.currentIndex - 1;
+            //     }
+            // },
+            // forward() {
+            //     if (this.currentIndex < this.images.length) {
+            //         this.currentIndex = this.currentIndex + 1;
+            //     }
+            // },
         }));
     });
 </script>

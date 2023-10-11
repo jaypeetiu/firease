@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
             RoleUserTableSeeder::class,
             StationTableSeeder::class,
             StationUserTableSeeder::class,
+            VehicleTableSeeder::class,
         ]);
     }
 }

@@ -35,6 +35,6 @@ class PlaySoundOnNewPost
         // echo "<script>const audio = new Audio('assets/alarm.mp3'); audio.play();</script>";
 
         // You can also log a message or perform any other action here
-        Log::info('Play Sound Activated!');
+        Log::info('Play Sound Activated! | By: '.auth()->user()->name);
     }
 }

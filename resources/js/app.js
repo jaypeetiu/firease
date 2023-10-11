@@ -1,6 +1,7 @@
 // import './bootstrap';
 
 import Alpine from 'alpinejs';
+import axios from 'axios';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
@@ -50,7 +51,10 @@ getToken(messaging, { vapidKey: 'BE5g0DI1w4XPvn-Iwx8M860KZshjO3FN5j4JmJXzIXUv8Sw
     if (currentToken) {
         // Send the token to your server and update the UI if necessary
         // ...
-        console.log(currentToken);
+        // console.log(currentToken);
+        axios.post('/token/'+currentToken).then((e)=>{
+            console.info(e.data.message);
+        });
     } else {
         // Show permission request UI
         console.log('No registration token available. Request permission to generate one.');
