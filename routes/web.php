@@ -47,6 +47,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('station', [\App\Http\Controllers\StationController::class, 'addUser'])->name('station.user.store');
 
+    Route::post('post/{id}', [\App\Http\Controllers\PostController::class, 'updateVehicle'])->name('post.vehicle');
+    Route::post('user-status/{id}', [\App\Http\Controllers\UserController::class, 'updateStatus'])->name('user.status');
+    Route::delete('user-remove/{id}', [\App\Http\Controllers\UserController::class, 'removeUser'])->name('user.remove');
+
     Route::post('/devicetoken', function (Request $request) {
         try {
             $request->validate([

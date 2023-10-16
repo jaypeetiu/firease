@@ -13,4 +13,9 @@ class Vehicle extends Model
         'name',
         'platenumber',
     ];
+
+    public function history()
+    {
+        return $this->belongsToMany(VehicleHistory::class);
+    }
 }

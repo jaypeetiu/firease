@@ -45,7 +45,7 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request)
     {
         $user = User::where('id', Auth::user()->id)->first();
-        $user->device_key = '';
+        $user->device_key = null;
         $user->save();
         
         Auth::guard('web')->logout();

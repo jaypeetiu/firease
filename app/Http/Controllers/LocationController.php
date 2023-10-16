@@ -23,6 +23,7 @@ class LocationController extends Controller
                 ->join('users', 'users.id', '=', 'station_user.user_id')
                 ->where('users.id', '!=', 1)
                 ->where('users.id', '!=', 2)
+                ->whereNull('users.deleted_at')
                 ->get();
         }
         $stations = Station::get();

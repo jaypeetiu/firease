@@ -7,6 +7,8 @@ use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Vehicle;
+use App\Models\VehicleHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -161,5 +163,25 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function updateVehicle(Request $request, $id)
+    {
+        $post = Post::where('id', $id)->first();
+        $post->vehicle = $request->vehicle_type;
+        $post->save();
+        $exist = VehicleHistory::where('post_id', $id)->first();
+        if (isset($exist)) {
+            $exist->vehicle = $post->vehicle;
+            $exist->post_id = $post->id;
+            $exist->save();
+        } else {
+            $history = new VehicleHistory();
+            $history->vehicle = $post->vehicle;
+            $history->post_id = $post->id;
+            $history->save();
+        }
+
+        return redirect()->back()->with('success', 'Updated Successfully');
     }
 }

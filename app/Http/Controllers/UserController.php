@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function updateToken($token)
     {
-        if(Auth::user()){
+        if (Auth::user()) {
             $user = User::where('id', Auth::user()->id)->first();
             $user->device_key = $token;
             $user->save();
@@ -34,11 +34,30 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'Device Key Updated'
             ], 200);
-        }else{
+        } else {
             return response()->json([
                 'message' => 402
             ], 200);
         }
+    }
 
+    public function updateStatus($id)
+    {
+        $user = User::where('id', $id)->first();
+        if ($user->status == null || $user->status == "inactive") {
+            $user->status = 'active';
+            $user->save();
+        } else {
+            $user->status = "inactive";
+            $user->save();
+        }
+        return redirect()->back()->with('success', 'Status Updated!');
+    }
+
+    public function removeUser($id)
+    {
+        $user = User::where('id', $id)->first();
+        $user->delete();
+        return redirect()->back()->with('success', 'User Deleted!');
     }
 }

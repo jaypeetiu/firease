@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('fire_type')->nullable();
             $table->string('image')->nullable();
+            $table->string('vehicle')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

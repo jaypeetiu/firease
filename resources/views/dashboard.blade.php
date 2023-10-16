@@ -151,21 +151,59 @@
         @can('admin_access')
         <div>
             <h2 class="font-bold">
-                <label for="vehicle_type">Vehicle On Response </label>
-                <select name="vehicle_type" id="vehicle_type" class="rounded max-w-full">
-                    <option>
-                        Select
-                    </option>
-                    @foreach($vehicles as $vehicle)
-                    <option>
-                        {{$vehicle->name}}
-                    </option>
-                    @endforeach
-                </select>
+                Vehicle On Response
             </h2>
             <div class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
+                <form method="post" action="{{ route('post.vehicle', $latestsender->id) }}" autocomplete="off">
+                    @csrf
+                    <label for="vehicle_type">Choose Vehicle</label>
+                    <select name="vehicle_type" id="vehicle_type" class="rounded max-w-full">
+                        <option>
+                            Select
+                        </option>
+                        @foreach($vehicles as $vehicle)
+                        <option>
+                            {{$vehicle->name}}
+                        </option>
+                        @endforeach
+                    </select>
+                    <button type="submit" class="p-2 pl-6 pr-6 bg-red-500 rounded text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700" style="float:right;">UPDATE</button>
+                </form>
                 <ul role="list" class="divide-y divide-gray-100">
+                    @foreach($histories as $history)
+                    <?php
+                    $dataTimestamp = strtotime($history->created_at);
+                    $currentTime = time();
+                    $secondsAgo = $currentTime - $dataTimestamp;
+                    ?>
                     <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
+                        <div class="flex min-w-0 gap-x-4">
+                            <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" />
+                                <circle cx="5" cy="17" r="2" />
+                                <circle cx="17" cy="17" r="2" />
+                                <path d="M7 18h8m4 0h2v-6a5 5 0 0 0 -5 -5h-1l1.5 5h4.5" />
+                                <path d="M12 18v-11h3" />
+                                <polyline points="3 17 3 12 12 12" />
+                                <line x1="3" y1="9" x2="21" y2="3" />
+                                <line x1="6" y1="12" x2="6" y2="8" />
+                            </svg>
+                            {{$history->vehicle}}
+                            <div class="min-w-0 flex-auto">
+                                <p class="text-sm font-semibold leading-6 text-gray-900">{{$secondsAgo}} Seconds Ago</p>
+                            </div>
+                        </div>
+                        <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                            <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" />
+                                <circle cx="12" cy="12" r="1" />
+                                <circle cx="12" cy="19" r="1" />
+                                <circle cx="12" cy="5" r="1" />
+                            </svg>
+                        </div>
+                    </li>
+                    @endforeach
+                    <!-- <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
                         <div class="flex min-w-0 gap-x-4">
                             <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" />
@@ -214,32 +252,7 @@
                                 <circle cx="12" cy="5" r="1" />
                             </svg>
                         </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" />
-                                <circle cx="5" cy="17" r="2" />
-                                <circle cx="17" cy="17" r="2" />
-                                <path d="M7 18h8m4 0h2v-6a5 5 0 0 0 -5 -5h-1l1.5 5h4.5" />
-                                <path d="M12 18v-11h3" />
-                                <polyline points="3 17 3 12 12 12" />
-                                <line x1="3" y1="9" x2="21" y2="3" />
-                                <line x1="6" y1="12" x2="6" y2="8" />
-                            </svg>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">24 Seconds Ago</p>
-                            </div>
-                        </div>
-                        <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                            <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" />
-                                <circle cx="12" cy="12" r="1" />
-                                <circle cx="12" cy="19" r="1" />
-                                <circle cx="12" cy="5" r="1" />
-                            </svg>
-                        </div>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -318,7 +331,6 @@
         @endcan
     </div>
 </x-app-layout>
-
 <script>
     // const audio = new Audio('assets/alarm.mp3');
 

@@ -104,92 +104,25 @@
                 <ul role="list" class="divide-y divide-gray-100 overflow-y-scroll max-h-screen h-96">
                     @foreach($users as $user)
                     <li class="flex justify-between gap-x-6 py-5 shadow-md hover:shadow-2xl hover:duration-700 bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <img class="h-12 w-12 flex-none rounded-full ring-4 ring-red-500 bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                        <div onclick="updateUser({{ $user->id }})" class="flex min-w-0 gap-x-4">
+                            <img class="h-12 w-12 flex-none rounded-full ring-4 {{$user->status=='inactive'?'ring-red-500':'ring-blue-500'}} bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                             <div class="min-w-0 flex-auto">
                                 <p class="text-sm font-semibold leading-6 text-gray-900">Name: {{$user->name}}</p>
                                 <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: {{$user->age}}</p>
                             </div>
                         </div>
+                        <div onclick="deleteUser({{ $user->id }})" class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                            <svg class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6" />
+                            </svg>
+                        </div>
                     </li>
                     @endforeach
-                    <!-- <li class="flex justify-between gap-x-6 py-5 shadow-md hover:shadow-2xl hover:duration-700 bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <img class="h-12 w-12 flex-none rounded-full ring-4 ring-red-500 bg-gray-50" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Name: Michael Foster</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: 30</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-md hover:shadow-2xl hover:duration-700 bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <img class="h-12 w-12 flex-none rounded-full ring-4 ring-red-500 bg-gray-50" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Name: Michael Foster</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: 30</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-md hover:shadow-2xl hover:duration-700 bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <img class="h-12 w-12 flex-none rounded-full ring-4 ring-red-500 bg-gray-50" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Name: Michael Foster</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: 30</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-md hover:shadow-2xl hover:duration-700 bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <img class="h-12 w-12 flex-none rounded-full ring-4 ring-red-500 bg-gray-50" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Name: Michael Foster</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: 30</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-md hover:shadow-2xl hover:duration-700 bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <img class="h-12 w-12 flex-none rounded-full ring-4 ring-red-500 bg-gray-50" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Name: Michael Foster</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: 30</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-md hover:shadow-2xl hover:duration-700 bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <img class="h-12 w-12 flex-none rounded-full ring-4 ring-red-500 bg-gray-50" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Name: Michael Foster</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: 30</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-md hover:shadow-2xl hover:duration-700 bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <img class="h-12 w-12 flex-none rounded-full ring-4 ring-red-500 bg-gray-50" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Name: Michael Foster</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: 30</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-md hover:shadow-2xl hover:duration-700 bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <img class="h-12 w-12 flex-none rounded-full ring-4 ring-red-500 bg-gray-50" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Name: Michael Foster</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: 30</p>
-                            </div>
-                        </div>
-                    </li> -->
                 </ul>
             </div>
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
         let map, infoWindow;
         <?php
@@ -239,16 +172,6 @@
 
         window.initMap = initMap;
 
-        // const audio = new Audio('assets/alarm.mp3');
-
-        // // Pag-alarm sa speaker
-        // function alarm() {
-        //     audio.play();
-        //     alert('Admin notification received!');
-        // }
-
-        // window.alarm = alarm;
-
         function showModal() {
             document.getElementById('defaultModal').style.display = 'block';
             document.getElementById('defaultModal').style.margin = 'auto';
@@ -257,6 +180,47 @@
 
         function closeModal() {
             document.getElementById('defaultModal').style.display = 'none';
+        }
+
+        function updateUser(userId) {
+            $.ajax({
+                type: 'POST',
+                url: 'user-status/' + userId,
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    // Any additional data you want to send
+                },
+                success: function(data) {
+                    // Handle the success response, if needed
+                    window.location.reload();
+                },
+                error: function(xhr) {
+                    // Handle the error response, if needed
+                    console.log(xhr);
+                }
+            });
+        }
+
+        function deleteUser(userId) {
+            let text = "Please Confirm to delete user!\nPress Ok or Cancel.";
+            if (confirm(text) == true) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: 'user-remove/' + userId,
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        // Any additional data you want to send
+                    },
+                    success: function(data) {
+                        // Handle the success response, if needed
+                        window.location.reload();
+                    },
+                    error: function(xhr) {
+                        // Handle the error response, if needed
+                        console.log(xhr);
+                    }
+                });
+            }
         }
     </script>
 

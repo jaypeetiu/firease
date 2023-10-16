@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Vehicle;
+use App\Models\VehicleHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -19,11 +20,12 @@ class DashboardController extends Controller
         // abort_unless(Gate::allows('admin_access'), 403);
         $latests = Post::with('user')->get();
 
-        $latestsender = Post::where('id', 1)->with('user')->latest()->first();
+        $latestsender = Post::with('user')->latest()->first();
         $image = "https://unsplash.it/640/425?image=30";
         $vehicles = Vehicle::all();
+        $histories = VehicleHistory::all();
 
-        return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles'));
+        return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'histories'));
     }
 
     /**
@@ -60,8 +62,9 @@ class DashboardController extends Controller
         $latestsender = Post::where('id', $id)->with('user')->latest()->first();
         $image = "https://unsplash.it/640/425?image=30";
         $vehicles = Vehicle::all();
+        $histories = VehicleHistory::all();
 
-        return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles'));
+        return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'histories'));
     }
 
     /**
