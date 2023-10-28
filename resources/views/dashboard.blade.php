@@ -85,27 +85,11 @@
                                     <option>
                                         Select
                                     </option>
-                                    <option value="Residential">
-                                        Residential
+                                    @foreach($firetypes as $id => $firetype)
+                                    <option value="{{ $firetype }}" {{ $latestsender->fire_type == $firetype ? 'selected' : '' }}>
+                                        {{ $firetype }}
                                     </option>
-                                    <option value="Warehouse">
-                                        Warehouse
-                                    </option>
-                                    <option value="Rubbish Fire">
-                                        Rubbish Fire
-                                    </option>
-                                    <option value="Electric Post Fire">
-                                        Electric Post Fire
-                                    </option>
-                                    <option value="Structural">
-                                        Structural
-                                    </option>
-                                    <option value="Grass Fire">
-                                        Grass Fire
-                                    </option>
-                                    <option value="Forest Fire">
-                                        Forest Fire
-                                    </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -118,24 +102,18 @@
             <div class="shadow-md mt-4 relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4">
                 <h4 class="font-bold">OTHER STATIONS NEARBY: </h4>
                 <ul role="list" class="divide-y divide-gray-100">
-                    <li class="flex justify-between gap-x-6 py-5 items-center">
-                        <p>Cagayan de oro city fire department</p>
-                        <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                            <button class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND</button>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 items-center">
-                        <p>Cagayan de oro city fire department</p>
-                        <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                            <button class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND</button>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 items-center">
-                        <p>Cagayan de oro city fire department</p>
-                        <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                            <button class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND</button>
-                        </div>
-                    </li>
+
+                    @foreach($stations as $station)
+                    <form method="post" action="{{ route('notify.stations', $station->id) }}" autocomplete="off">
+                        @csrf
+                        <li class="flex justify-between gap-x-6 py-5 items-center">
+                            <p>{{$station->name}}</p>
+                            <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                                <button class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND</button>
+                            </div>
+                        </li>
+                    </form>
+                    @endforeach
                 </ul>
             </div>
         </div>
@@ -162,7 +140,7 @@
                             Select
                         </option>
                         @foreach($vehicles as $vehicle)
-                        <option>
+                        <option value="{{ $vehicle->name }}" {{ $latestsender->vehicle == $vehicle->name ? 'selected' : '' }}>
                             {{$vehicle->name}}
                         </option>
                         @endforeach

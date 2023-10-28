@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\NewPostAdded;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Fire;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -46,7 +47,14 @@ class PostController extends Controller
             $post = Post::create($request->all());
             $post->save();
             event(new NewPostAdded($post));
-            // return redirect()->back()->with('success', 'Added Successfully');
+            if(isset($post)){
+                $fire = new Fire();
+                $fire->user_id = $request->user_id;
+                $fire->time = now();
+                $fire->type = $request->fire_type;
+                $fire->address = 'test';
+                $fire->save();
+            }
 
             //Send Push Notification
 

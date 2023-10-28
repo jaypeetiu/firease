@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewPostAdded;
 use App\Models\Post;
+use App\Models\Station;
+use App\Models\StationUser;
+use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\VehicleHistory;
 use Illuminate\Http\Request;
@@ -24,8 +28,18 @@ class DashboardController extends Controller
         $image = "https://unsplash.it/640/425?image=30";
         $vehicles = Vehicle::all();
         $histories = VehicleHistory::all();
+        $stations = Station::all();
+        $firetypes = [
+            'Residential',
+            'Warehouse',
+            'Rubbish Fire',
+            'Electric Post Fire',
+            'Structural',
+            'Grass Fire',
+            'Forest Fire'
+        ];
 
-        return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'histories'));
+        return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'histories', 'stations', 'firetypes'));
     }
 
     /**
@@ -63,8 +77,18 @@ class DashboardController extends Controller
         $image = "https://unsplash.it/640/425?image=30";
         $vehicles = Vehicle::all();
         $histories = VehicleHistory::all();
+        $stations = Station::all();
+        $firetypes = [
+            'Residential',
+            'Warehouse',
+            'Rubbish Fire',
+            'Electric Post Fire',
+            'Structural',
+            'Grass Fire',
+            'Forest Fire'
+        ];
 
-        return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'histories'));
+        return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'histories', 'stations', 'firetypes'));
     }
 
     /**
@@ -99,5 +123,47 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function notifyStations($id)
+    {
+        //Send Push Notification
+
+        $SERVER_API_KEY = env('SERVER_API_KEY');
+        $userkeys = StationUser::where('station_id', $id)
+            ->join('users', 'users.id', '=', 'station_user.user_id')
+            ->where('device_key', '!=', '')
+            ->first();
+        if (isset($userkeys->device_key)) {
+            $data = [
+                "registration_ids" => [$userkeys->device_key],
+                "notification" => [
+                    "title" => "New Alerts",
+                    "body" => "New Alerts",
+                ]
+            ];
+            $dataString = json_encode($data);
+
+            $headers = [
+                'Authorization: key=' . $SERVER_API_KEY,
+                'Content-Type: application/json',
+            ];
+
+            $ch = curl_init();
+
+            curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+            curl_exec($ch);
+
+
+            return redirect()->back()->with('success', 'Station Alarmed!');
+        } else {
+            return redirect()->back()->with('success', 'Station is not active');
+        }
     }
 }

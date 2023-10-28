@@ -35,7 +35,7 @@ class Station extends Model
 
     public function users()
     {
-        return $this->belongsToMany(StationUser::class);
+        return $this->belongsToMany(User::class, 'station_user', 'user_id');
     }
 
 }

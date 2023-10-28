@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateFireRequest;
 use App\Models\Fire;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class FireController extends Controller
      */
     public function index()
     {
-        $fires = Fire::paginate();
+        $fires = Fire::with('users')->get();
 
         return view('fires.index', compact('fires'));
     }
@@ -69,9 +70,17 @@ class FireController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateFireRequest $request, $id)
     {
-        //
+        $fire = Fire::where('id', $id)->first();
+
+        if(isset($fire)){
+            $fire->arrival = $request->arrival;
+            $fire->fire_end = $request->fire_end;
+            $fire->update();
+
+            return redirect()->back()->with('success', 'Updated Successfully');
+        }
     }
 
     /**

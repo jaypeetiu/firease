@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('locations', [\App\Http\Controllers\LocationController::class, 'index'])->name('locations.index');
     Route::get('messages', [\App\Http\Controllers\MessageController::class, 'index'])->name('messages.index');
     Route::get('fires', [\App\Http\Controllers\FireController::class, 'index'])->name('fires.index');
+    Route::post('fires/{id}', [\App\Http\Controllers\FireController::class, 'update'])->name('fires.update');
 
     Route::post('post/add', [\App\Http\Controllers\PostController::class, 'store'])->name('post.store');
     Route::post('post/update', [\App\Http\Controllers\PostController::class, 'update'])->name('post.update');
@@ -50,6 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::post('post/{id}', [\App\Http\Controllers\PostController::class, 'updateVehicle'])->name('post.vehicle');
     Route::post('user-status/{id}', [\App\Http\Controllers\UserController::class, 'updateStatus'])->name('user.status');
     Route::delete('user-remove/{id}', [\App\Http\Controllers\UserController::class, 'removeUser'])->name('user.remove');
+
+    Route::post('notify/{id}', [\App\Http\Controllers\DashboardController::class, 'notifyStations'])->name('notify.stations');
 
     Route::post('/devicetoken', function (Request $request) {
         try {

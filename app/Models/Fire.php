@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Fire extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'time',
+        'type',
+        'address',
+        'arrival',
+        'fire_end',
+    ];
+
+    public function users()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }
