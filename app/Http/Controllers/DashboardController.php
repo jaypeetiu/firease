@@ -166,4 +166,8 @@ class DashboardController extends Controller
             return redirect()->back()->with('success', 'Station is not active');
         }
     }
+
+    public function test(){
+        return response()->json('test', 200);
+    }
 }
