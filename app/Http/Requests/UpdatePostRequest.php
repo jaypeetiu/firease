@@ -24,11 +24,12 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'id'=> 'string',
-            'message' => 'string',
+            'message' => ['string'],
             'user_id' => ['required','string'],
             'fire_type' => ['required', 'string'],
-            'image' => 'string',
+            'image' => ['string'],
+            'vehicle' => ['string'],
+            'station_id' => ['required'],
         ];
     }
 }

@@ -22,6 +22,7 @@ class Post extends Model
         'fire_type',
         'image',
         'vehicle',
+        'station_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -30,5 +31,10 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function station()
+    {
+        return $this->belongsTo(Station::class);
     }
 }

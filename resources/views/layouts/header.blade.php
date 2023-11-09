@@ -1,6 +1,10 @@
 <header class="flex justify-between items-center py-4 px-6 bg-white border-b-4 border-red-700">
     <div class="flex item-center">
-        <h1>Station 1</h1>
+        <h1>
+        @foreach(Auth::user()->stations as $loc)
+            {{ $loc->name }}
+        @endforeach
+        </h1>
     </div>
     <div class="flex items-center">
         <button @click="sidebarOpen = true" class="text-gray-500 focus:outline-none lg:hidden">

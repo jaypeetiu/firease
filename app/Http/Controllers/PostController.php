@@ -47,7 +47,7 @@ class PostController extends Controller
             $post = Post::create($request->all());
             $post->save();
             event(new NewPostAdded($post));
-            if(isset($post)){
+            if (isset($post)) {
                 $fire = new Fire();
                 $fire->user_id = $request->user_id;
                 $fire->time = now();
@@ -120,9 +120,13 @@ class PostController extends Controller
      */
     public function update(Request $request)
     {
-        $post = Post::where('id', $request->id)->first();
-        $post->fire_type = $request->fire_type;
-        $post->save();
+        $stations = Auth::user()->stations;
+        foreach ($stations as $station) {
+            $post = Post::where('id', $request->id)->first();
+            $post->fire_type = $request->fire_type;
+            $post->station_id = $station->id;
+            $post->save();
+        }
         event(new NewPostAdded($post));
         //Send Push Notification
 

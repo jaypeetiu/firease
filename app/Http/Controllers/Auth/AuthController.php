@@ -55,7 +55,7 @@ class AuthController extends Controller
 
         if($validate){
             $user = User::where('email', $request->email)->first();
-            if(isset($user->is_active) && $user->is_active){
+            if(isset($user->is_active) && $user->is_active){//change it here kay walay is_active
                 $credentials = request(['email', 'password']);
 
                 if (!Auth::guard('web')->attempt($credentials)) {

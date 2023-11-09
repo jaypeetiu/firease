@@ -22,9 +22,9 @@ class DashboardController extends Controller
     public function index()
     {
         // abort_unless(Gate::allows('admin_access'), 403);
-        $latests = Post::with('user')->get();
+        $latests = Post::with('user')->paginate(5);
 
-        $latestsender = Post::with('user')->latest()->first();
+        $latestsender = Post::with('user', 'station')->latest()->first();
         $image = "https://unsplash.it/640/425?image=30";
         $vehicles = Vehicle::all();
         $histories = VehicleHistory::all();

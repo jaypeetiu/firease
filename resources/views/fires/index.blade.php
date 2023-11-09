@@ -69,9 +69,14 @@
                     <td class="px-6 py-4">
                         {{$fire->fire_end}}
                     </td>
+                    @can('admin_access')
                     <td class="px-6 py-4">
                         <a href="#edit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="showModal()">Edit</a>
                     </td>
+                    @endcan
+                    @can('super_access')
+                    <td></td>
+                    @endcan
                 </tr>
                 <!-- Main modal -->
                 <div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">

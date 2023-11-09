@@ -24,10 +24,11 @@ class CreatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'message' => 'string',
+            'message' => ['string'],
             'user_id' => ['required','string'],
             'fire_type' => ['required', 'string'],
-            'image' => 'string',
+            'image' => ['string'],
+            'station_id' => ['required'],
         ];
     }
 }

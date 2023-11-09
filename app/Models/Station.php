@@ -33,9 +33,14 @@ class Station extends Model
         'deleted_at',
     ];
 
+    // public function users()
+    // {
+    //     return $this->belongsToMany(User::class, 'station_user', 'user_id');
+    // }
+
     public function users()
     {
-        return $this->belongsToMany(User::class, 'station_user', 'user_id');
+        return $this->hasMany(User::class);
     }
 
 }
