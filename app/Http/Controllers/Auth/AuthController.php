@@ -99,17 +99,16 @@ class AuthController extends Controller
                     'name' => $request->name,
                     'email' => $validatedData['email'],
                     'password' => bcrypt($validatedData['password']),
-                    'is_active' => false
+                    // 'is_active' => false
                 ]);
-        
-                $user->assignRole('Admin');
                 $user->save();
+                $user->roles()->sync(3);
                 $token = $user->createToken('MyApp')->accessToken;
                 $link = env("APP_URL") . "/verify?email=$user->email&token=$token";
-                Mail::to($user->email)->send(new VerifyEmail($user, $link));
+                // Mail::to($user->email)->send(new VerifyEmail($user, $link));
                 DB::commit();
                 return response()->json([
-                    'message' => "Email verification sent to you email."
+                    'message' => "Email verification sent to your email."
                 ], 200);
             }else{
                 return response()->json([
