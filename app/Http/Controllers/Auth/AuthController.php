@@ -53,21 +53,21 @@ class AuthController extends Controller
         ]);
 
 
-        if($validate){
+        if ($validate) {
             $user = User::where('email', $request->email)->first();
-            if(isset($user->email_verified_at) && $user->email_verified_at){//change it here kay walay is_active
+            if (isset($user->email_verified_at) && $user->email_verified_at) { //change it here kay walay is_active
                 $credentials = request(['email', 'password']);
 
                 if (!Auth::guard('web')->attempt($credentials)) {
                     return response()->json(['message' => 'Wrong username or password'], 401);
                 }
-            }else{
+            } else {
                 return response()->json(['message' => 'Email not verified'], 401);
             }
-        
+
         }
         $user = User::where('email', $request->email)->first();
-        if(!$request->remember_me){
+        if (!$request->remember_me) {
             Passport::personalAccessTokensExpireIn(Carbon::now()->addDays(1));
         }
         $token = $user->createToken('MyApp')->accessToken;
@@ -91,31 +91,52 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|max:255|confirmed',
+            'selfie' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        try{
+        try {
             DB::beginTransaction();
-            if(!User::where('email', $request->email)->first()){
+            if (!User::where('email', $request->email)->first()) {
                 $user = new User([
                     'name' => $request->name,
                     'email' => $validatedData['email'],
                     'password' => bcrypt($validatedData['password']),
-                    // 'is_active' => false
                 ]);
                 $user->save();
                 $user->roles()->sync(3);
                 $token = $user->createToken('MyApp')->accessToken;
                 $link = env("APP_URL") . "/verify?email=$user->email&token=$token";
                 // Mail::to($user->email)->send(new VerifyEmail($user, $link));
+                // DB::commit();
+                // return response()->json([
+                //     'message' => "Email verification sent to your email."
+                // ], 200);
+
+                /* This code block checks if the request contains a file with the key 'id_image'. If it
+                does, it retrieves the file using `->file('id_image')` and generates a
+                unique image name using the current timestamp and the original file extension. It
+                then moves the file to the 'uploads' directory using the `move()` method. */
+                if ($request->hasFile('id_image')) {
+                    $image = $request->file('id_image');
+                    $imageName = time() . '.' . $image->getClientOriginalExtension();
+                    $image->move(public_path('uploads'), $imageName);
+
+                    $imageNameSelfie = time() . '.' . $request->selfie->getClientOriginalExtension();
+                    $request->selfie->move(public_path('uploads/selfies'), $imageNameSelfie);
+
+                    // return response()->json(['success' => true, 'image' => $imageName, 'selfieImage' => $imageNameSelfie]);
+                } else {
+                    return response()->json(['success' => false, 'message' => 'Image not found.']);
+                }
                 DB::commit();
                 return response()->json([
                     'message' => "Email verification sent to your email."
                 ], 200);
-            }else{
+            } else {
                 return response()->json([
                     'message' => "Email already registered."
                 ], 200);
             }
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
                 'message' => $e->getMessage()
@@ -132,15 +153,15 @@ class AuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout ()
+    public function logout()
     {
-        if(isset(Auth::user()->id)){
+        if (isset(Auth::user()->id)) {
             Token::where('user_id', Auth::user()->id)
-            ->update(['revoked' => true]);
+                ->update(['revoked' => true]);
             return response()->json([
                 'status' => true
             ], 200);
-        }else{
+        } else {
             return response()->json([
                 'status' => false
             ], 401);
@@ -156,11 +177,11 @@ class AuthController extends Controller
      */
     public function verifyToken(Request $request)
     {
-        if(isset(Auth::user()->id)){
+        if (isset(Auth::user()->id)) {
             return response()->json([
                 'status' => true
             ], 200);
-        }else{
+        } else {
             return response()->json([
                 'status' => false
             ], 401);
@@ -180,11 +201,11 @@ class AuthController extends Controller
         $validate = $request->validate([
             'email' => 'required|string|email|max:255',
         ]);
-        try{
+        try {
             DB::beginTransaction();
-            if($validate){
+            if ($validate) {
                 $user = User::where('email', $request->email)->first();
-                if($user){
+                if ($user) {
                     // Passport::personalAccessTokensExpireIn(now()->addMinutes(30));
                     $token = $user->createToken("MyApp")->accessToken;
                     $link = env("APP_URL") . "/reset-password?token=$token";
@@ -193,26 +214,26 @@ class AuthController extends Controller
                     return response()->json([
                         'status' => true
                     ], 200);
-                }else{
+                } else {
                     return response()->json([
                         'status' => false
                     ], 401);
                 }
             }
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
                 'status' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
-        
+
     }
 
     public function resetPasswordTest($email)
     {
         $user = User::where('email', $email)->first();
-        if($user){
+        if ($user) {
             // Passport::personalAccessTokensExpireIn(now()->addMinutes(30));
             $token = $user->createToken("MyApp")->accessToken;
             $link = env("APP_URL") . "/reset-password?token=$token";
@@ -221,7 +242,7 @@ class AuthController extends Controller
                 'status' => true,
                 'mail' => $mail
             ], 200);
-        }else{
+        } else {
             return response()->json([
                 'status' => false
             ], 401);
@@ -241,17 +262,17 @@ class AuthController extends Controller
         $validate = $request->validate([
             'password' => 'required|string|min:8|confirmed',
         ]);
-        if($validate){
+        if ($validate) {
             $user = User::find(Auth::user()->id);
-            if($user){
+            if ($user) {
                 $user->password = bcrypt($request->password);
                 $user->save();
                 Token::where('user_id', Auth::user()->id)
-                ->update(['revoked' => true]);
+                    ->update(['revoked' => true]);
                 return response()->json([
                     'status' => true
                 ], 200);
-            }else{
+            } else {
                 return response()->json([
                     'status' => false
                 ], 401);
@@ -271,22 +292,22 @@ class AuthController extends Controller
         $validate = $request->validate([
             'email' => 'required|email',
         ]);
-        if($validate && Auth::user()->email === $request->email){
+        if ($validate && Auth::user()->email === $request->email) {
             $user = User::where('email', Auth::user()->email)->first();
             Token::where('user_id', Auth::user()->id)
                 ->update(['revoked' => true]);
-            if($user){
+            if ($user) {
                 $user->is_active = true;
                 $user->save();
                 return response()->json([
                     'message' => "Email verified"
                 ], 200);
-            }else{
+            } else {
                 return response()->json([
                     'message' => "Email not found"
                 ], 404);
             }
-        }else{
+        } else {
             return response()->json([
                 'message' => "Email dont match"
             ], 404);
