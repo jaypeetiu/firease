@@ -34,3 +34,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Auth'], function () {
         Route::post('verify-email', 'AuthController@verifyEmail');
     });
 });
+
+// Route::group(['middleware' => 'auth:api'], function () {
+//     Route::group(['namespace' => 'App\Http\Controllers'], function () {
+//         //Get All Stations
+//         Route::get('locations', 'StationController@listStation')->name('station.list');
+//     });
+// });
