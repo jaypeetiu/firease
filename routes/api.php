@@ -3,6 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,14 +23,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/test', function () {
-    dd(true);
-});
 
 
 Route::group(['namespace' => 'App\Http\Controllers\Auth'], function () {
     Route::group(['prefix' => 'auth'], function () {
         Route::post('login', 'AuthController@login');
+        Route::post('logout', 'AuthController@logout');
         Route::post('register', 'AuthController@register');
         Route::post('reset-password', 'AuthController@resetPassword')->name("reset-password");
         Route::get('reset-password-test/{email}', 'AuthController@resetPasswordTest')->name("reset-password-test");
@@ -35,9 +38,17 @@ Route::group(['namespace' => 'App\Http\Controllers\Auth'], function () {
     });
 });
 
-// Route::group(['middleware' => 'auth:api'], function () {
-//     Route::group(['namespace' => 'App\Http\Controllers'], function () {
-//         //Get All Stations
-//         Route::get('locations', 'StationController@listStation')->name('station.list');
-//     });
-// });
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::group(['namespace' => 'App\Http\Controllers\Auth'], function () {
+        Route::group(['prefix' => 'auth'], function () {
+            Route::post('logout', 'AuthController@logout');
+            Route::post('verify-token', 'AuthController@verifyToken');
+        });
+    });
+    Route::get('test', function () {
+        return response()->json(['message' => auth()->user()], 200);
+    });
+    Route::group(['namespace' => 'App\Http\Controllers'], function () {
+        Route::get('stations', 'StationController@listStation');
+    });
+});

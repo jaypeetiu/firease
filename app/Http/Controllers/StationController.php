@@ -7,6 +7,7 @@ use App\Models\StationUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class StationController extends Controller
 {
@@ -101,6 +102,7 @@ class StationController extends Controller
 
     public function listStation()
     {
+        // abort_unless(Gate::allows('user_access'), 403);
         $stations = Station::all();
 
         return response()->json([

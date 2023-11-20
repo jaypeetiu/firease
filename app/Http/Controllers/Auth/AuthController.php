@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Mail\ResetPassword;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -70,10 +71,11 @@ class AuthController extends Controller
         if (!$request->remember_me) {
             Passport::personalAccessTokensExpireIn(Carbon::now()->addDays(1));
         }
-        $token = $user->createToken('MyApp')->accessToken;
+        $token = $user->createToken(config('app.name'))->accessToken;
         return response()->json([
-            "user" => $user,
-            "token" => $token
+            "user" => Auth::user(),
+            "token" => $token,
+            'remember' => $request->remember_me
         ], 200);
     }
 
