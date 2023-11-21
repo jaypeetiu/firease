@@ -28,6 +28,7 @@ class CreatePostRequest extends FormRequest
             'user_id' => ['required','string'],
             'fire_type' => ['required', 'string'],
             'image' => ['string'],
+            'vehicle_id' => ['required'],
             'station_id' => ['required'],
         ];
     }

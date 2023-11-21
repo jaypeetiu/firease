@@ -21,7 +21,7 @@ class Post extends Model
         'user_id',
         'fire_type',
         'image',
-        'vehicle',
+        'vehicle_id',
         'station_id',
         'created_at',
         'updated_at',

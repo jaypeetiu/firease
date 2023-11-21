@@ -140,7 +140,7 @@
                             Select
                         </option>
                         @foreach($vehicles as $vehicle)
-                        <option value="{{ $vehicle->name }}" {{ $latestsender->vehicle == $vehicle->name ? 'selected' : '' }}>
+                        <option value="{{ $vehicle->id }}" {{ $latestsender->vehicle == $vehicle->name ? 'selected' : '' }}>
                             {{$vehicle->name}}
                         </option>
                         @endforeach

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateStationRequest;
+use App\Http\Requests\UpdateStationRequest;
 use App\Models\Station;
 use App\Models\StationUser;
 use App\Models\User;
@@ -39,9 +41,12 @@ class StationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateStationRequest $request)
     {
-        //
+        $station = Station::create($request->all());
+        $station->save();
+
+        return redirect()->back()->with('success', 'Created Successfully');
     }
 
     /**
@@ -75,9 +80,12 @@ class StationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateStationRequest $request, $id)
     {
-        //
+        $station = Station::findOrFail($id);
+        $station->update($request->all());
+
+        return redirect()->back()->with('success', 'Updated Successfully');
     }
 
     /**

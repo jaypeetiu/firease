@@ -180,16 +180,16 @@ class PostController extends Controller
     public function updateVehicle(Request $request, $id)
     {
         $post = Post::where('id', $id)->first();
-        $post->vehicle = $request->vehicle_type;
+        $post->vehicle_id = $request->vehicle_type;
         $post->save();
         $exist = VehicleHistory::where('post_id', $id)->first();
         if (isset($exist)) {
-            $exist->vehicle = $post->vehicle;
+            $exist->vehicle = $post->vehicle_id;
             $exist->post_id = $post->id;
             $exist->save();
         } else {
             $history = new VehicleHistory();
-            $history->vehicle = $post->vehicle;
+            $history->vehicle = $post->vehicle_id;
             $history->post_id = $post->id;
             $history->save();
         }
