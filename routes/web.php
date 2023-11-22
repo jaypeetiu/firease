@@ -50,7 +50,19 @@ Route::middleware('auth')->group(function () {
     
     //News
     Route::get('news', [\App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
+    Route::get('/news/create', [\App\Http\Controllers\NewsController::class, 'create'])->name('news.create');
+    Route::post('/news/store', [\App\Http\Controllers\NewsController::class, 'store'])->name('news.store');
+    Route::get('/news/{id}', [\App\Http\Controllers\NewsController::class, 'update'])->name('news.update');
+
+    //Safety
+    Route::get('safety', [\App\Http\Controllers\SafetyController::class, 'index'])->name('safety.index');
+    Route::get('/safety/create', [\App\Http\Controllers\SafetyController::class, 'create'])->name('safety.create');
+    Route::get('/safety/store', [\App\Http\Controllers\SafetyController::class, 'store'])->name('safety.store');
+    Route::get('/safety/{id}', [\App\Http\Controllers\SafetyController::class, 'update'])->name('safety.update');
     
+    //Aid
+    Route::get('aid', [\App\Http\Controllers\AidController::class, 'index'])->name('aid.index');
+
     //Station
     Route::get('stations', [\App\Http\Controllers\StationController::class, 'index'])->name('stations.index');
     Route::post('stations/{id}', [\App\Http\Controllers\StationController::class, 'update'])->name('stations.update');

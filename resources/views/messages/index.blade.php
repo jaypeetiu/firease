@@ -204,7 +204,6 @@
                     </li>
                 </div>
             </ul>
-            @can('super_access')
             <div class="flex item-center inline-grid inline-block grid-cols-3 mt-4 w-full">
                 <div class="p-6">
                     <a href="{{ route('news.index') }}">
@@ -220,7 +219,7 @@
                     </a>
                 </div>
                 <div class="p-6">
-                    <a href="{{ route('locations.index') }}">
+                    <a href="{{ route('safety.index') }}">
                         <div class="flex-col min-w-0 gap-x-4 shadow-lg rounded bg-red-700 m-4 p-4 text-center">
                             <h2 class="text-white flex-auto text-2xl">Fire Safety Tips</h2>
                             <div class="flex flex-wrap justify-center pt-8">
@@ -235,7 +234,7 @@
                     </a>
                 </div>
                 <div class="p-6">
-                    <a href="{{ route('locations.index') }}">
+                    <a href="{{ route('aid.index') }}">
                         <div class="flex-col min-w-0 gap-x-4 shadow-lg rounded bg-red-700 m-4 p-4 text-center">
                             <h2 class="text-white flex-auto text-2xl">First Aid Tips</h2>
                             <div class="flex flex-wrap justify-center pt-8">
@@ -256,19 +255,8 @@
                     <a href="{{ route('locations.index') }}">
                         <div class="flex-col min-w-0 gap-x-4 shadow-lg rounded bg-red-700 m-4 p-4 text-center">
                             <h2 class="text-white flex-auto text-2xl">About BFP</h2>
-                            <div class="flex flex-wrap justify-center pt-8">
-                                <svg class="h-16 w-16 text-white" width="24" height="24" viewBox="0 0 24 24"
-                                    stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" />
-                                    <circle cx="5" cy="17" r="2" />
-                                    <circle cx="17" cy="17" r="2" />
-                                    <path d="M7 18h8m4 0h2v-6a5 5 0 0 0 -5 -5h-1l1.5 5h4.5" />
-                                    <path d="M12 18v-11h3" />
-                                    <polyline points="3 17 3 12 12 12" />
-                                    <line x1="3" y1="9" x2="21" y2="3" />
-                                    <line x1="6" y1="12" x2="6" y2="8" />
-                                </svg>
+                            <div class="flex flex-wrap justify-center pt-2">
+                                <img src="{{asset('assets/bfp.png')}}" alt="Image" class="w-16 h-16 mb-2 mt-4 rounded">
                             </div>
                         </div>
                     </a>
@@ -307,7 +295,6 @@
                 </div>
             </div>
         </div>
-        @endcan
     </div>
     </div>
 </x-app-layout>

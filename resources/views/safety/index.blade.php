@@ -22,41 +22,79 @@
         <div class="col-span-6">
             <!-- Breaking News Section -->
             <div class="bg-white p-4 rounded shadow">
-                <h2 class="text-2xl font-bold mb-4">BREAKING NEWS</h2>
+                <h2 class="text-2xl font-bold mb-4">FIRE SAFETY TIPS</h2>
                 <div class="mb-4">
-                    <img src="{{$breakingNews->image}}" alt="{{$breakingNews->title}}" class="w-full h-auto rounded-md">
+                    <div class="flex items-center">
+                        <!-- Image -->
+                        <img src="{{ asset('assets/fire1.png') }}" alt="Image" class="w-16 h-16 mr-4 bg-black">
+                        <div class="flex-row">
+                            <!-- H2 Header -->
+                            <h3 class="text-xl font-bold">BEFORE</h3>
+                            <p>What to do before the fire?</p>
+                        </div>
+                    </div>
+                    <!-- Button to edit news -->
+                    <!-- <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Edit News</button> -->
                 </div>
-
                 <div class="mb-4">
-                    <h3>{{$breakingNews->title}}</h3>
-                    <p class="text-gray-700">{{$breakingNews->description}}</p>
+                    <div class="flex items-center">
+                        <!-- Image -->
+                        <img src="{{ asset('assets/fire2.png') }}" alt="Image" class="w-16 h-16 mr-4 bg-black">
+                        <div class="flex-row">
+                            <!-- H2 Header -->
+                            <h3 class="text-xl font-bold">DURING</h3>
+                            <p>What to do during the fire?</p>
+                        </div>
+                    </div>
+                    <!-- Button to edit news -->
+                    <!-- <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Edit News</button> -->
                 </div>
-                <!-- Button to create new news -->
-                <!-- <a href="{{route('news.create')}}" class="bg-red-500 text-white px-4 py-2 rounded">Create News</a> -->
+                <div class="mb-4">
+                    <div class="flex items-center">
+                        <!-- Image -->
+                        <img src="{{ asset('assets/fire3.png') }}" alt="Image" class="w-16 h-16 mr-4 bg-black">
+                        <div class="flex-row">
+                            <!-- H2 Header -->
+                            <h3 class="text-xl font-bold">AFTER</h3>
+                            <p>What to do after the fire?</p>
+                        </div>
+                    </div>
+                    <!-- Button to edit news -->
+                    <!-- <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Edit News</button> -->
+                </div>
+                <div class="mb-4">
+                    <div class="flex items-center">
+                        <!-- Image -->
+                        <img src="{{ asset('assets/fire3.png') }}" alt="Image" class="w-16 h-16 mr-4 bg-black">
+                        <div class="flex-row">
+                            <!-- H2 Header -->
+                            <h3 class="text-xl font-bold">FIRE EXTINGUISHER</h3>
+                            <p>How to use a fre extinguisher?</p>
+                        </div>
+                    </div>
+                    <!-- Button to edit news -->
+                    <!-- <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Edit News</button> -->
+                </div>
             </div>
         </div>
 
         <div class="col-span-2">
             <!-- Latest News Section -->
             <div class="bg-white p-4 rounded shadow">
-                <h2 class="text-2xl font-bold mb-4">LATEST NEWS</h2>
-                <ul class="overflow-y-scroll max-h-screen h-3/4">
+                <h2 class="text-2xl font-bold mb-4">Latest News</h2>
+                <ul class="overflow-y-scroll max-h-screen h-96">
                     @foreach($news as $new)
                     <li class="mb-2">
                         <img src="{{$new->image}}" alt="Image" class="w-48 h-36 mb-2 mt-4 rounded">
                         <h4 class="text-lg font-semibold">{{ $new->title }}</h4>
                         <p>{{ $new->description }}</p>
-                        @can('super_access')
                         <!-- Button to edit news -->
+                        @can('super_access')
                         <button class="bg-red-500 text-white px-4 py-2 rounded mt-2">Edit News</button>
                         @endcan
                     </li>
                     @endforeach
                 </ul>
-                @can('super_access')
-                <!-- Button to create new news -->
-                <a href="{{route('news.create')}}" class="bg-red-500 text-white px-4 py-2 rounded">Create News</a>
-                @endcan
             </div>
         </div>
     </div>

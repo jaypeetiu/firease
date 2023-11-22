@@ -20,6 +20,7 @@ class StationController extends Controller
      */
     public function index()
     {
+        abort_unless(Gate::allows('super_access'), 404);
         $stations = Station::all();
         foreach ($stations as $value) {
             $users = Station::where('stations.id', $value->id)->join('station_user', 'station_user.station_id', '=', 'stations.id')

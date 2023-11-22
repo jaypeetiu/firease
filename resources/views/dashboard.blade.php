@@ -107,7 +107,7 @@
                     <form method="post" action="{{ route('notify.stations', $station->id) }}" autocomplete="off">
                         @csrf
                         <li class="flex justify-between gap-x-6 py-5 items-center">
-                            <p>{{$station->name}}</p>
+                            <p>{{$station->address}}</p>
                             <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
                                 <button class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND</button>
                             </div>
