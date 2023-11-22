@@ -25,7 +25,7 @@ class Station extends Model
     ];
 
     protected $fillable = [
-        'name',
+        'address',
         'lat',
         'lang',
         'created_at',

@@ -21,8 +21,15 @@ class StationController extends Controller
     public function index()
     {
         $stations = Station::all();
-
-        return view('locations.index', compact('stations')); 
+        foreach ($stations as $value) {
+            $users = Station::where('stations.id', $value->id)->join('station_user', 'station_user.station_id', '=', 'stations.id')
+                ->join('users', 'users.id', '=', 'station_user.user_id')
+                // ->where('users.id', '!=', 1)
+                // ->where('users.id', '!=', 2)
+                ->whereNull('users.deleted_at')
+                ->get();
+            return view('stations.index', compact('stations', 'users'));
+        }
     }
 
     /**
@@ -59,7 +66,7 @@ class StationController extends Controller
     {
         $station = 1;
 
-        return view('locations.index', compact('station')); 
+        return view('locations.index', compact('station'));
     }
 
     /**
@@ -114,7 +121,7 @@ class StationController extends Controller
         $stations = Station::all();
 
         return response()->json([
-            'stations'=>$stations,
+            'stations' => $stations,
         ], 200);
     }
 }

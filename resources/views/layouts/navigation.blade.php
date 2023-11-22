@@ -1,9 +1,12 @@
-<div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
+<div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false"
+    class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
 
-<div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0">
+<div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'"
+    class="fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0">
     <div class="flex items-center justify-center mt-8">
         <div class="flex items-center">
-            <img class="h-16 w-16 flex-none rounded-full ring-yellow-600 m-2" src="{{asset('assets/70b0310fbd4fb5c438f53fb71ec9ce6f.png')}}" alt="">
+            <img class="h-16 w-16 flex-none rounded-full ring-yellow-600 m-2"
+                src="{{asset('assets/70b0310fbd4fb5c438f53fb71ec9ce6f.png')}}" alt="">
 
             <!-- <span class="text-white text-2xl mx-2 font-semibold">{{ __('Dashboard') }}</span> -->
         </div>
@@ -12,9 +15,12 @@
     <nav class="mt-10" x-data="{ isMultiLevelMenuOpen: false }">
         <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
             <x-slot name="icon">
-                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
                 </svg>
             </x-slot>
             {{ __('Dashboard') }}
@@ -22,7 +28,8 @@
 
         <x-nav-link href="{{ route('locations.index') }}" :active="request()->routeIs('locations.index')">
             <x-slot name="icon">
-                <svg class="h-5 w-5" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" />
                     <line x1="18" y1="6" x2="18" y2="6.01" />
                     <path d="M18 13l-3.5 -5a4 4 0 1 1 7 0l-3.5 5" />
@@ -37,7 +44,8 @@
         <x-nav-link href="{{ route('messages.index') }}" :active="request()->routeIs('messages.index')">
             <x-slot name="icon">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
                 </svg>
 
             </x-slot>
@@ -46,7 +54,8 @@
 
         <x-nav-link href="{{ route('fires.index') }}" :active="request()->routeIs('fires.index')">
             <x-slot name="icon">
-                <svg class="h-5 w-5" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" />
                     <path d="M3.5 5.5l1.5 1.5l2.5 -2.5" />
                     <path d="M3.5 11.5l1.5 1.5l2.5 -2.5" />
@@ -59,6 +68,20 @@
             </x-slot>
             {{ __('Records') }}
         </x-nav-link>
+        @can('super_access')
+        <x-nav-link href="{{ route('stations.index') }}" :active="request()->routeIs('stations.index')">
+            <x-slot name="icon">
+                <svg class="h-5 w-5 text-white" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" />
+                    <path
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <circle cx="12" cy="12" r="3" />
+                </svg>
+            </x-slot>
+            {{ __('Stations') }}
+        </x-nav-link>
+        @endcan
 
         <!-- <x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
             <x-slot name="icon">

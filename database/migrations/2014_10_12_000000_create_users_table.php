@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('age')->nullable();
             $table->string('location')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->default('active');
             $table->datetime('email_verified_at')->nullable();
             $table->string('password')->default('password');
             $table->string('remember_token')->nullable();

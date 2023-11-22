@@ -68,6 +68,8 @@ class AuthController extends Controller
 
         }
         $user = User::where('email', $request->email)->first();
+        $user->last_login_at =  now();
+        $user->save();
         if (!$request->remember_me) {
             Passport::personalAccessTokensExpireIn(Carbon::now()->addDays(1));
         }

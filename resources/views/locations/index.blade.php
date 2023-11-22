@@ -43,7 +43,7 @@
         <div class="col-span-3">
             <h1 class="font-semibold">
                 @foreach($locations as $loc)
-                {{ $loc->name }}
+                {{ $loc->address }}
                 @endforeach
             </h1>
         </div>
@@ -162,7 +162,7 @@
 
                     google.maps.event.addListener(marker, 'click', (function(marker, i) {
                         return function() {
-                            infowindow.setContent(value.name);
+                            infowindow.setContent(value.address);
                             infowindow.open(map, marker);
                         }
                     })(marker, i));
