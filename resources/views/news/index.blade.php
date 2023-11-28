@@ -23,6 +23,7 @@
             <!-- Breaking News Section -->
             <div class="bg-white p-4 rounded shadow">
                 <h2 class="text-2xl font-bold mb-4">BREAKING NEWS</h2>
+                @if($breakingNews!=null)
                 <div class="mb-4">
                     <img src="{{$breakingNews->image}}" alt="{{$breakingNews->title}}" class="w-full h-auto rounded-md">
                 </div>
@@ -31,6 +32,7 @@
                     <h3>{{$breakingNews->title}}</h3>
                     <p class="text-gray-700">{{$breakingNews->description}}</p>
                 </div>
+                @endif
                 <!-- Button to create new news -->
                 <!-- <a href="{{route('news.create')}}" class="bg-red-500 text-white px-4 py-2 rounded">Create News</a> -->
             </div>

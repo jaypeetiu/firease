@@ -44,6 +44,15 @@ class PostController extends Controller
     public function store(CreatePostRequest $request)
     {
         if ($request->validated()) {
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('uploads/fire'), $imageName);
+
+                // return response()->json(['success' => true, 'image' => $imageName, 'selfieImage' => $imageNameSelfie]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Image not found.']);
+            }
             $post = Post::create($request->all());
             $post->save();
             event(new NewPostAdded($post));
@@ -52,7 +61,7 @@ class PostController extends Controller
                 $fire->user_id = $request->user_id;
                 $fire->time = now();
                 $fire->type = $request->fire_type;
-                $fire->address = 'test';
+                $fire->address = $request->address;
                 $fire->save();
             }
 

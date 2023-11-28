@@ -26,7 +26,7 @@ class CreatePostRequest extends FormRequest
         return [
             'message' => ['string'],
             'user_id' => ['required','string'],
-            'fire_type' => ['required', 'string'],
+            'fire_type' => ['string'],
             'image' => ['string'],
             'vehicle_id' => ['required'],
             'station_id' => ['required'],

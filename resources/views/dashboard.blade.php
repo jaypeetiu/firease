@@ -132,18 +132,20 @@
                 Vehicle On Response
             </h2>
             <div class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
-                <form method="post" action="{{ route('post.vehicle', $latestsender->id) }}" autocomplete="off">
+                <form method="post" action="{{ route('post.vehicle', $latestsender !==null?$latestsender->id:'') }}" autocomplete="off">
                     @csrf
                     <label for="vehicle_type">Choose Vehicle</label>
                     <select name="vehicle_type" id="vehicle_type" class="rounded max-w-full">
                         <option>
                             Select
                         </option>
+                        @if($latestsender != null)
                         @foreach($vehicles as $vehicle)
                         <option value="{{ $vehicle->id }}" {{ $latestsender->vehicle == $vehicle->name ? 'selected' : '' }}>
                             {{$vehicle->name}}
                         </option>
                         @endforeach
+                        @endif
                     </select>
                     <button type="submit" class="p-2 pl-6 pr-6 bg-red-500 rounded text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700" style="float:right;">UPDATE</button>
                 </form>
@@ -321,7 +323,7 @@
         Alpine.data("imageSlider", () => ({
             currentIndex: 1,
             images: [
-                "{{$latestsender->image}}",
+                "{{$latestsender!=null?$latestsender->image: ''}}",
             ],
             // previous() {
             //     if (this.currentIndex > 1) {
