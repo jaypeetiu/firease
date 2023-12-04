@@ -53,7 +53,12 @@ class PostController extends Controller
             } else {
                 return response()->json(['success' => false, 'message' => 'Image not found.']);
             }
-            $post = Post::create($request->all());
+            // $post = Post::create($request->all());
+            $post = new Post();
+            $post->user_id = $request->user_id;
+            $post->image = env('APP_URL') . '/uploads/fire/' . $imageName;
+            $post->vehicle_id = 1;
+            $post->station_id = 1;
             $post->save();
             event(new NewPostAdded($post));
             if (isset($post)) {
@@ -64,6 +69,7 @@ class PostController extends Controller
                 $fire->address = $request->address;
                 $fire->save();
             }
+
 
             //Send Push Notification
 

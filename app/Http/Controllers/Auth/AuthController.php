@@ -104,6 +104,7 @@ class AuthController extends Controller
                     'name' => $request->name,
                     'email' => $validatedData['email'],
                     'password' => bcrypt($validatedData['password']),
+                    'phone_number' => $request->phone_number,
                 ]);
                 $user->save();
                 $user->roles()->sync(3);
@@ -126,6 +127,9 @@ class AuthController extends Controller
 
                     $imageNameSelfie = time() . '.' . $request->selfie->getClientOriginalExtension();
                     $request->selfie->move(public_path('uploads/selfies'), $imageNameSelfie);
+
+                    $user->avatar = env('APP_URL').'/uploads/selfies/'.$imageNameSelfie;
+                    $user->save();
 
                     // return response()->json(['success' => true, 'image' => $imageName, 'selfieImage' => $imageNameSelfie]);
                 } else {

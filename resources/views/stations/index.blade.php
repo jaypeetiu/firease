@@ -19,6 +19,7 @@
     </div>
     @endif
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <button type="submit" onclick="showModal()" class="p-2 pl-6 mb-4 pr-6 bg-red-500 rounded text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700" style="float:right;">ADD NEW</button>
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>

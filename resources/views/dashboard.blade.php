@@ -101,7 +101,7 @@
             </div>
             <div class="shadow-md mt-4 relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4">
                 <h4 class="font-bold">OTHER STATIONS NEARBY: </h4>
-                <ul role="list" class="divide-y divide-gray-100">
+                <ul role="list" class="divide-y divide-gray-100 overflow-scroll max-h-screen">
 
                     @foreach($stations as $station)
                     <form method="post" action="{{ route('notify.stations', $station->id) }}" autocomplete="off">

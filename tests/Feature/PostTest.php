@@ -32,9 +32,9 @@ class PostTest extends TestCase
         $log->assertRedirect(RouteServiceProvider::HOME);
 
         $response = $this->post('/post/add', [
-            // 'message' => 'test',
+            'message' => 'test',
             'user_id' => '1',
-            // 'fire_type' => 'Residential',
+            'fire_type' => 'Residential',
             'image' => 'https://unsplash.it/640/425?image=30',
             'vehicle_id' => 1,
             'station_id' => 1,
