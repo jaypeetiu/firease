@@ -50,8 +50,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     });
     Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('stations', 'StationController@listStation');
-        
+
         //POST
         Route::post('post/store', 'PostController@store');
+        //
+        Route::get('news', 'NewsController@indexJson');
     });
 });

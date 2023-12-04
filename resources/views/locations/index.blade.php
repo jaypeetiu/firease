@@ -99,7 +99,7 @@
         <div>
             <div class="shadow-md mt-4 relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4">
                 <h5 class="font-bold">
-                    FIREFIGHTER ON DUTY: 5
+                    FIREFIGHTER ON DUTY: {{$users->count()}}
                 </h5>
                 <ul role="list" class="divide-y divide-gray-100 overflow-y-scroll max-h-screen h-96">
                     @foreach($users as $user)

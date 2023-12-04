@@ -293,15 +293,15 @@
                     </div>
                 </div>
                 <div class="flex min-w-0 gap-x-4">
-                    <img class="h-64 w-64 flex-none rounded bg-gray-50 m-2" src="{{$latest->user->avatar?$latest->user->avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'}}" alt="">
+                    <img class="h-64 w-64 flex-none rounded bg-gray-50 m-2" src="{{$latest->image}}" alt="">
                     <div class="min-w-0 flex-auto">
                         <p class="text-sm font-semibold leading-6 text-gray-900">Details</p>
-                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">Type of fire: {{ $latest->user->age? $latest->user->age: 0 }}</p>
+                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">Type of fire: {{ $latest->fire_type }}</p>
                         <p class="text-sm font-semibold leading-6 text-gray-900">Response Needed: </p>
                         <p class="text-sm font-semibold leading-6 text-gray-900 inline-flex">
-                            <img class="h-12 w-12 rounded m-2" src="{{$latest->user->avatar?$latest->user->avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'}}" alt="">
-                            <img class="h-12 w-12 rounded m-2" src="{{$latest->user->avatar?$latest->user->avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'}}" alt="">
-                            <img class="h-12 w-12 rounded m-2" src="{{$latest->user->avatar?$latest->user->avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'}}" alt="">
+                            <img class="h-12 w-12 rounded m-2" src="{{asset('assets/Truck.png')}}" alt="">
+                            <img class="h-12 w-12 rounded m-2" src="{{asset('assets/FireTruck.png')}}" alt="">
+                            <img class="h-12 w-12 rounded m-2" src="{{asset('assets/Ambulance.png')}}" alt="">
                         </p>
                         <!-- <p class="text-sm font-semibold leading-6 text-gray-900">RESPONDERS: </p> -->
                     </div>

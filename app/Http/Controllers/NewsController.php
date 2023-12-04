@@ -17,10 +17,21 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::orderBy("created_at","desc")->paginate(10);
+        $news = News::orderBy("created_at", "desc")->paginate(10);
         $breakingNews = News::latest()->first();
 
         return view("news.index", compact("news", "breakingNews"));
+    }
+
+    public function indexJson()
+    {
+        $news = News::orderBy("created_at", "desc")->paginate(10);
+        $breakingNews = News::latest()->first();
+
+        return response()->json([
+            'news' => $breakingNews,
+            'lists' => $news,
+        ], 200);
     }
 
     /**
@@ -44,7 +55,8 @@ class NewsController extends Controller
     {
         News::create($request->all());
 
-        return redirect(route("news.index"))->with('success', 'Created Successfully');;
+        return redirect(route("news.index"))->with('success', 'Created Successfully');
+        ;
     }
 
     /**
@@ -82,7 +94,7 @@ class NewsController extends Controller
 
         $news->update($request->all());
 
-        return redirect()->back()->with('success','Updated Successfully');
+        return redirect()->back()->with('success', 'Updated Successfully');
     }
 
     /**
