@@ -19,8 +19,8 @@ class StationTableSeeder extends Seeder
             [
                 'id' => 1,
                 'address' => 'Cogon Station 1',
-                'lat' => '8.4806°',
-                'lang' => '124.6512°',
+                'lat' => '8.4806',
+                'lang' => '124.6512',
                 'description' => '09267520623',
                 'created_at' => '2019-04-16 08:40:08',
                 'updated_at' => '2019-04-16 08:40:08',

@@ -27,6 +27,7 @@ class UpdateStationRequest extends FormRequest
             'address' => ['string', 'required'],
             'lat' => ['string', 'required'],
             'lang' => ['string', 'required'],
+            'description' => ['string', 'required'],
         ];
     }
 }

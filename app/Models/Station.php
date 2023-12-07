@@ -28,6 +28,7 @@ class Station extends Model
         'address',
         'lat',
         'lang',
+        'description',
         'created_at',
         'updated_at',
         'deleted_at',
