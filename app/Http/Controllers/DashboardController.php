@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\VehicleHistory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class DashboardController extends Controller
@@ -138,8 +139,8 @@ class DashboardController extends Controller
             $data = [
                 "registration_ids" => [$userkeys->device_key],
                 "notification" => [
-                    "title" => "New Alerts",
-                    "body" => "New Alerts",
+                    "title" => "New alerts",
+                    "body" => "New alerts from ". Auth::user()->name,
                 ]
             ];
             $dataString = json_encode($data);

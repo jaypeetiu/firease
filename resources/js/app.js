@@ -27,6 +27,10 @@ window.Echo.channel('notify-channel')
         // const audio = document.getElementById('alertAudio');
         audio.play();
     });
+window.Echo.channel('silent-notification')
+    .listen('NewPost', (e) => {
+        console.log('test');
+    });
 
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -52,7 +56,7 @@ getToken(messaging, { vapidKey: 'BE5g0DI1w4XPvn-Iwx8M860KZshjO3FN5j4JmJXzIXUv8Sw
         // Send the token to your server and update the UI if necessary
         // ...
         // console.log(currentToken);
-        axios.post('/token/'+currentToken).then((e)=>{
+        axios.post('/token/' + currentToken).then((e) => {
             console.info(e.data.message);
         });
     } else {
@@ -66,7 +70,7 @@ getToken(messaging, { vapidKey: 'BE5g0DI1w4XPvn-Iwx8M860KZshjO3FN5j4JmJXzIXUv8Sw
 });
 
 onMessage(messaging, (payload) => {
-    console.log('Message received. ', payload);
+    console.log('Message received. ', payload.notification);
     // ...
     audio.play();
     alert('Message Received.');

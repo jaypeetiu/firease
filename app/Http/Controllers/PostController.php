@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewPost;
 use App\Events\NewPostAdded;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
@@ -44,19 +45,19 @@ class PostController extends Controller
     public function store(CreatePostRequest $request)
     {
         if ($request->validated()) {
-            // if ($request->hasFile('image')) {
-            //     $image = $request->file('image');
-            //     $imageName = time() . '.' . $image->getClientOriginalExtension();
-            //     $image->move(public_path('uploads/fire'), $imageName);
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('uploads/fire'), $imageName);
 
-            //     // return response()->json(['success' => true, 'image' => $imageName, 'selfieImage' => $imageNameSelfie]);
-            // } else {
-            //     return response()->json(['success' => false, 'message' => 'Image not found.']);
-            // }
+                // return response()->json(['success' => true, 'image' => $imageName, 'selfieImage' => $imageNameSelfie]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Image not found.']);
+            }
             // $post = Post::create($request->all());
             $post = new Post();
             $post->user_id = $request->user_id;
-            // $post->image = env('APP_URL') . '/uploads/fire/' . $imageName;
+            $post->image = env('APP_URL') . '/uploads/fire/' . $imageName;
             $post->vehicle_id = 1;
             $post->station_id = 1;
             $post->save();
@@ -79,8 +80,8 @@ class PostController extends Controller
                 $data = [
                     "registration_ids" => [$value->device_key],
                     "notification" => [
-                        "title" => "New Alerts",
-                        "body" => "",
+                        "title" => "New alerts",
+                        "body" => "New alerts from ". Auth::user()->name,
                     ]
                 ];
                 $dataString = json_encode($data);
@@ -151,7 +152,7 @@ class PostController extends Controller
             $data = [
                 "registration_ids" => [$value->device_key],
                 "notification" => [
-                    "title" => "New Alerts",
+                    "title" => "Alert Update",
                     "body" => "",
                 ]
             ];
