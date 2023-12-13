@@ -204,6 +204,7 @@
                     </li>
                 </div>
             </ul>
+            @can('super_access')
             <div class="flex item-center inline-grid inline-block grid-cols-3 mt-4 w-full">
                 <div class="p-6">
                     <a href="{{ route('news.index') }}">
@@ -295,6 +296,7 @@
                 </div>
             </div>
         </div>
+        @endcan
     </div>
     </div>
 </x-app-layout>
