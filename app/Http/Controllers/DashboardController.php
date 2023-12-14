@@ -28,7 +28,7 @@ class DashboardController extends Controller
         $latestsender = Post::with('user', 'station')->latest()->first();
         $image = "https://unsplash.it/640/425?image=30";
         $vehicles = Vehicle::all();
-        $histories = VehicleHistory::all();
+        $histories = VehicleHistory::join('vehicles', 'vehicles.id', '=', 'vehicle_history.id')->get();
         $stations = Station::all();
         $firetypes = [
             'Residential',

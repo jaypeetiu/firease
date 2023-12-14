@@ -168,9 +168,9 @@
                                 <line x1="3" y1="9" x2="21" y2="3" />
                                 <line x1="6" y1="12" x2="6" y2="8" />
                             </svg>
-                            {{$history->vehicle}}
+                            <!-- {{$history->vehicle}} -->
                             <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">{{$secondsAgo}} Seconds Ago</p>
+                                <p class="text-sm font-semibold leading-6 text-gray-900">{{$history->platenumber}}</p>
                             </div>
                         </div>
                         <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
