@@ -23,9 +23,9 @@ class DashboardController extends Controller
     public function index()
     {
         // abort_unless(Gate::allows('admin_access'), 403);
-        $latests = Post::with('user')->latest()->get();
+        $latests = Post::with('user', 'fire')->latest()->get();
 
-        $latestsender = Post::with('user', 'station')->latest()->first();
+        $latestsender = Post::with('user', 'station', 'fire')->latest()->first();
         $image = "https://unsplash.it/640/425?image=30";
         $vehicles = Vehicle::all();
         $histories = VehicleHistory::join('vehicles', 'vehicles.id', '=', 'vehicle_history.id')->get();
@@ -77,7 +77,7 @@ class DashboardController extends Controller
         $latestsender = Post::where('id', $id)->with('user')->latest()->first();
         $image = "https://unsplash.it/640/425?image=30";
         $vehicles = Vehicle::all();
-        $histories = VehicleHistory::all();
+        $histories = VehicleHistory::join('vehicles', 'vehicles.id', '=', 'vehicle_history.id')->get();
         $stations = Station::all();
         $firetypes = [
             'Residential',

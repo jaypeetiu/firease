@@ -35,24 +35,6 @@
                     <span x-text="currentIndex"></span>/<span x-text="images.length"></span>
                 </div>
 
-                <!-- <button @click="previous()" class="absolute left-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 shadow-md">
-                    <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" />
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                        <line x1="5" y1="12" x2="11" y2="18" />
-                        <line x1="5" y1="12" x2="11" y2="6" />
-                    </svg>
-                </button>
-
-                <button @click="forward()" class="absolute right-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 shadow-md">
-                    <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" />
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                        <line x1="13" y1="18" x2="19" y2="12" />
-                        <line x1="13" y1="6" x2="19" y2="12" />
-                    </svg>
-                </button> -->
-
                 <div class="relative h-80" style="width: auto">
                     <template x-for="(image, index) in images">
                         <div x-show="currentIndex == index + 1" x-transition:enter="transition transform duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition transform duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute top-0">
@@ -71,7 +53,7 @@
                     <div>
                         <h4>Name: {{$latestsender->user->name}}</h4>
                         <h4>Age: {{$latestsender->user->age?$latestsender->user->age:0}}</h4>
-                        <h4>Location: {{$latestsender->user->location?$latestsender->user->location : 'Rm. 310 Natividad Building, Escolta Street'}}</h4>
+                        <h4>Location: {{$latestsender->fire->address?$latestsender->fire->address : 'No address available'}}</h4>
                     </div>
                 </div>
                 <form method="post" action="{{ route('post.update') }}" autocomplete="off">
@@ -183,56 +165,6 @@
                         </div>
                     </li>
                     @endforeach
-                    <!-- <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" />
-                                <circle cx="5" cy="17" r="2" />
-                                <circle cx="17" cy="17" r="2" />
-                                <path d="M7 18h8m4 0h2v-6a5 5 0 0 0 -5 -5h-1l1.5 5h4.5" />
-                                <path d="M12 18v-11h3" />
-                                <polyline points="3 17 3 12 12 12" />
-                                <line x1="3" y1="9" x2="21" y2="3" />
-                                <line x1="6" y1="12" x2="6" y2="8" />
-                            </svg>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">24 Seconds Ago</p>
-                            </div>
-                        </div>
-                        <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                            <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" />
-                                <circle cx="12" cy="12" r="1" />
-                                <circle cx="12" cy="19" r="1" />
-                                <circle cx="12" cy="5" r="1" />
-                            </svg>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" />
-                                <circle cx="5" cy="17" r="2" />
-                                <circle cx="17" cy="17" r="2" />
-                                <path d="M7 18h8m4 0h2v-6a5 5 0 0 0 -5 -5h-1l1.5 5h4.5" />
-                                <path d="M12 18v-11h3" />
-                                <polyline points="3 17 3 12 12 12" />
-                                <line x1="3" y1="9" x2="21" y2="3" />
-                                <line x1="6" y1="12" x2="6" y2="8" />
-                            </svg>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">24 Seconds Ago</p>
-                            </div>
-                        </div>
-                        <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                            <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" />
-                                <circle cx="12" cy="12" r="1" />
-                                <circle cx="12" cy="19" r="1" />
-                                <circle cx="12" cy="5" r="1" />
-                            </svg>
-                        </div>
-                    </li> -->
                 </ul>
             </div>
         </div>
@@ -249,7 +181,7 @@
                                 <div class="min-w-0 flex-auto">
                                     <p class="text-sm font-semibold leading-6 text-gray-900">Name: {{$latest->user->name}}</p>
                                     <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: {{ $latest->user->age? $latest->user->age: 0 }}</p>
-                                    <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: {{$latest->user->location ? $latest->user->location : 'Rm. 310 Natividad Building, Escolta Street'}}</p>
+                                    <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: {{$latest->fire->address ? $latest->fire->address : 'No address available'}}</p>
                                 </div>
                             </div>
                         </a>
@@ -289,7 +221,7 @@
                     <div class="min-w-0 flex-auto">
                         <p class="text-sm font-semibold leading-6 text-gray-900">Name: {{$latest->user->name}}</p>
                         <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: {{ $latest->user->age? $latest->user->age: 0 }}</p>
-                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: {{$latest->user->location ? $latest->user->location : 'Rm. 310 Natividad Building, Escolta Street'}}</p>
+                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: {{$latest->fire->address ? $latest->fire->address : 'No address available'}}</p>
                     </div>
                 </div>
                 <div class="flex min-w-0 gap-x-4">

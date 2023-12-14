@@ -37,4 +37,9 @@ class Post extends Model
     {
         return $this->belongsTo(Station::class);
     }
+
+    public function fire()
+    {
+        return $this->belongsTo(Fire::class, 'user_id', 'user_id');
+    }
 }
