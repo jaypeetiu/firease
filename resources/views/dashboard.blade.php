@@ -137,10 +137,10 @@
                 <form method="post" action="{{ route('post.vehicle', $latestsender !==null?$latestsender->id:'') }}"
                     autocomplete="off">
                     @csrf
-                    <label for="vehicle_type">Choose Vehicle</label>
+                    <label for="vehicle_type">Choose</label>
                     <select name="vehicle_type" id="vehicle_type" class="rounded max-w-full">
                         <option>
-                            Select
+                            Vehicle
                         </option>
                         @if($latestsender != null)
                         @foreach($vehicles as $vehicle)
