@@ -218,7 +218,7 @@ class PostController extends Controller
     {
         $exist = VehicleHistory::where('id', $id)->first();
         $exist->delete();
-        
+
         if (isset($exist)) {
             $post = Post::where('id', $exist->post_id)->first();
             $post->vehicle_id = null;
@@ -235,5 +235,38 @@ class PostController extends Controller
         return response()->json([
             'badge' => $post > 2 ? 'Good Samaritan' : 'Beginner',
         ], 200);
+    }
+    public function alarmStations()
+    {
+        //Send Push Notification
+
+        $SERVER_API_KEY = env('SERVER_API_KEY');
+        $userkeys = User::where('Device_key', '!=', '')->get();
+        foreach ($userkeys as $value) {
+            $data = [
+                "registration_ids" => [$value->device_key],
+                "notification" => [
+                    "title" => "New alerts",
+                    "body" => "New alerts from ",
+                ]
+            ];
+            $dataString = json_encode($data);
+
+            $headers = [
+                'Authorization: key=' . $SERVER_API_KEY,
+                'Content-Type: application/json',
+            ];
+
+            $ch = curl_init();
+
+            curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+            curl_exec($ch);
+        }
     }
 }
