@@ -40,6 +40,6 @@ class Post extends Model
 
     public function fire()
     {
-        return $this->belongsTo(Fire::class, 'user_id', 'user_id');
+        return $this->belongsTo(Fire::class, 'id', 'post_id');
     }
 }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('arrival')->nullable();
             $table->string('fire_end')->nullable();
+            $table->foreignId('post_id')->constrained('posts');
             $table->timestamps();
         });
     }

@@ -72,9 +72,9 @@ class DashboardController extends Controller
      */
     public function show($id)
     {
-        $latests = Post::with('user')->get();
+        $latests = Post::with('user', 'fire')->latest()->get();
 
-        $latestsender = Post::where('id', $id)->with('user')->latest()->first();
+        $latestsender = Post::where('id', $id)->with('user', 'station', 'fire')->latest()->first();
         $image = "https://unsplash.it/640/425?image=30";
         $vehicles = Vehicle::all();
         $histories = VehicleHistory::join('vehicles', 'vehicles.id', '=', 'vehicle_history.id')->get();

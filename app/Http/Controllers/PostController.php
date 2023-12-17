@@ -68,6 +68,7 @@ class PostController extends Controller
                 $fire->time = now();
                 $fire->type = $request->fire_type;
                 $fire->address = $request->address;
+                $fire->post_id = $post->id;
                 $fire->save();
             }
 
