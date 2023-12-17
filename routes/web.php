@@ -84,7 +84,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('user-remove/{id}', [\App\Http\Controllers\UserController::class, 'removeUser'])->name('user.remove');
     //Notification Station Alerts
     Route::post('notify/{id}', [\App\Http\Controllers\DashboardController::class, 'notifyStations'])->name('notify.stations');
-    Route::post('notify/all', [\App\Http\Controllers\PostController::class, 'alarmStations'])->name('notify.all');
+    Route::post('notification/all', [\App\Http\Controllers\PostController::class, 'alarmStations'])->name('notification.all');
+    
     Route::post('/devicetoken', function (Request $request) {
         try {
             $request->validate([

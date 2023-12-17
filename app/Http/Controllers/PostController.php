@@ -247,7 +247,7 @@ class PostController extends Controller
                 "registration_ids" => [$value->device_key],
                 "notification" => [
                     "title" => "New alerts",
-                    "body" => "New alerts from ",
+                    "body" => "New alerts",
                 ]
             ];
             $dataString = json_encode($data);
@@ -268,5 +268,7 @@ class PostController extends Controller
 
             curl_exec($ch);
         }
+
+        return redirect()->back()->with('success', 'Successfully Alarmed');
     }
 }

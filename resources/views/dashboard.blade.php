@@ -96,9 +96,9 @@
                 </form>
             </div>
             <div class="shadow-md mt-4 relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4">
-                <form method="post" action="{{ route('notify.all') }}" autocomplete="off">
+                <form method="post" action="{{ route('notification.all') }}" autocomplete="off">
                     @csrf
-                    <h4 class="font-bold">OTHER STATIONS NEARBY: <button
+                    <h4 class="font-bold">OTHER STATIONS NEARBY: <button type="submit"
                             class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND
                             ALL</button></h4>
                 </form>
