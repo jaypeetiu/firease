@@ -76,6 +76,7 @@ Route::middleware('auth')->group(function () {
     
     //Post Update Vehicle
     Route::post('post/{id}', [\App\Http\Controllers\PostController::class, 'updateVehicle'])->name('post.vehicle');
+    Route::post('post/delete/{id}', [\App\Http\Controllers\PostController::class, 'deleteVehicle'])->name('post.deleteVehicle');
     
     //User Status
     Route::post('user-status/{id}', [\App\Http\Controllers\UserController::class, 'updateStatus'])->name('user.status');

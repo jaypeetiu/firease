@@ -81,7 +81,7 @@ class PostController extends Controller
                     "registration_ids" => [$value->device_key],
                     "notification" => [
                         "title" => "New alerts",
-                        "body" => "New alerts from ". Auth::user()->name,
+                        "body" => "New alerts from " . Auth::user()->name,
                     ]
                 ];
                 $dataString = json_encode($data);
@@ -213,12 +213,26 @@ class PostController extends Controller
         return redirect()->back()->with('success', 'Updated Successfully');
     }
 
+    public function deleteVehicle(Request $request, $id)
+    {
+        $exist = VehicleHistory::where('id', $id)->first();
+        $exist->delete();
+        
+        if (isset($exist)) {
+            $post = Post::where('id', $exist->post_id)->first();
+            $post->vehicle_id = null;
+            $post->save();
+        }
+
+        return redirect()->back()->with('success', 'Deleted Successfully');
+    }
+
     public function userBadge()
     {
         $post = Post::where('user_id', Auth::user()->id)->count();
 
         return response()->json([
-            'badge' => $post > 2? 'Good Samaritan': 'Beginner',
+            'badge' => $post > 2 ? 'Good Samaritan' : 'Beginner',
         ], 200);
     }
 }
