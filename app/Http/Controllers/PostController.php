@@ -212,4 +212,13 @@ class PostController extends Controller
 
         return redirect()->back()->with('success', 'Updated Successfully');
     }
+
+    public function userBadge()
+    {
+        $post = Post::where('user_id', Auth::user()->id)->count();
+
+        return response()->json([
+            'badge' => $post > 2? 'Good Samaritan': 'Beginner',
+        ], 200);
+    }
 }

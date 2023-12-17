@@ -53,7 +53,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
         //POST
         Route::post('post/store', 'PostController@store');
-        //
+        Route::get('post/user/badge', 'PostController@userBadge')->name('post.badge');
+        // News
         Route::get('news', 'NewsController@indexJson');
     });
 });
