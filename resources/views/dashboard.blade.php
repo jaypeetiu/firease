@@ -217,7 +217,7 @@
                                         {{$latest->user->name}}</p>
                                     <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: {{ $latest->user->age?
                                         $latest->user->age: 0 }}</p>
-                                    <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location:
+                                    <p class="mt-1 text-xs leading-5 text-gray-500">Location:
                                         {{$latest->fire->address ? $latest->fire->address : 'No address available'}}</p>
                                 </div>
                             </div>
