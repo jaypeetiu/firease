@@ -23,7 +23,7 @@ class StationController extends Controller
         abort_unless(Gate::allows('super_access'), 404);
         $stations = Station::all();
         foreach ($stations as $value) {
-            $users = Station::where('stations.id', $value->id)->join('station_user', 'station_user.station_id', '=', 'stations.id')
+            $users = Station::with('posts')->where('stations.id', $value->id)->join('station_user', 'station_user.station_id', '=', 'stations.id')
                 ->join('users', 'users.id', '=', 'station_user.user_id')
                 // ->where('users.id', '!=', 1)
                 // ->where('users.id', '!=', 2)
