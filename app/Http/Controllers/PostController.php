@@ -114,7 +114,24 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $latests = Post::with('user', 'fire', 'station')->where('id', $id)->get();
+
+        $latestsender = Post::where('id', $id)->with('user', 'station', 'fire')->latest()->first();
+        $image = "https://unsplash.it/640/425?image=30";
+        $vehicles = Vehicle::all();
+        $histories = VehicleHistory::join('vehicles', 'vehicles.id', '=', 'vehicle_history.id')->get();
+        $stations = Station::all();
+        $firetypes = [
+            'Residential',
+            'Warehouse',
+            'Rubbish Fire',
+            'Electric Post Fire',
+            'Structural',
+            'Grass Fire',
+            'Forest Fire'
+        ];
+
+        return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'histories', 'stations', 'firetypes'));
     }
 
     /**

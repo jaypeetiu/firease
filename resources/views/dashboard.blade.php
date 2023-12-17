@@ -98,7 +98,7 @@
             <div class="shadow-md mt-4 relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4">
                 <form method="post" action="{{ route('notification.all') }}" autocomplete="off">
                     @csrf
-                    <h4 class="font-bold">OTHER STATIONS NEARBY: <button type="submit"
+                    <h4 class="font-bold mb-4">STATIONS NEARBY: <button type="submit"
                             class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND
                             ALL</button></h4>
                 </form>
@@ -134,19 +134,19 @@
                 Vehicle On Response
             </h2>
             <div class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
-                <form method="post" action="{{ route('post.vehicle', $latestsender !==null?$latestsender->id:'') }}"
+                <h2 class="font-bold flex flex-row">ON RESCUE</h2>
+                <form method="post" action="{{ route('post.station', $latest !==null?$latest->id:'') }}"
                     autocomplete="off">
                     @csrf
-                    <label for="vehicle_type">Choose</label>
-                    <select name="vehicle_type" id="vehicle_type" class="rounded max-w-full">
+                    <select name="fire_type" id="fire_type" class="rounded max-w-full">
                         <option>
-                            Vehicle
+                            Select
                         </option>
-                        @if($latestsender != null)
-                        @foreach($vehicles as $vehicle)
-                        <option value="{{ $vehicle->id }}" {{ $latestsender->vehicle == $vehicle->name ? 'selected' : ''
+                        @if($latest != null)
+                        @foreach($stations as $station)
+                        <option value="{{ $station->id }}" {{ $latest->station->id == $station->id ? 'selected' : ''
                             }}>
-                            {{$vehicle->name}}
+                            {{$station->address}}
                         </option>
                         @endforeach
                         @endif

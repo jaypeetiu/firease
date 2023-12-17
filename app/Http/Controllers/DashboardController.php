@@ -23,7 +23,7 @@ class DashboardController extends Controller
     public function index()
     {
         // abort_unless(Gate::allows('admin_access'), 403);
-        $latests = Post::with('user', 'fire')->latest()->get();
+        $latests = Post::with('user', 'fire', 'station')->latest()->get();
 
         $latestsender = Post::with('user', 'station', 'fire')->latest()->first();
         $image = "https://unsplash.it/640/425?image=30";
@@ -72,7 +72,7 @@ class DashboardController extends Controller
      */
     public function show($id)
     {
-        $latests = Post::with('user', 'fire')->latest()->get();
+        $latests = Post::with('user', 'fire', 'station')->where('id', $id)->get();
 
         $latestsender = Post::where('id', $id)->with('user', 'station', 'fire')->latest()->first();
         $image = "https://unsplash.it/640/425?image=30";

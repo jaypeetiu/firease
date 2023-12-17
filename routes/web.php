@@ -70,7 +70,8 @@ Route::middleware('auth')->group(function () {
     //POST
     Route::post('post/add', [\App\Http\Controllers\PostController::class, 'store'])->name('post.store');
     Route::post('post/update', [\App\Http\Controllers\PostController::class, 'update'])->name('post.update');
-    
+    Route::post('post/station/{id}', [\App\Http\Controllers\PostController::class, 'show'])->name('post.station');
+
     //Station Add User
     Route::post('station', [\App\Http\Controllers\StationController::class, 'addUser'])->name('station.user.store');
     
