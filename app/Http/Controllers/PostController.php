@@ -288,4 +288,13 @@ class PostController extends Controller
 
         return redirect()->back()->with('success', 'Successfully Alarmed');
     }
+
+    public function userHistory()
+    {
+        $posts = Post::with('fire')->where('user_id', Auth::user()->id)->get();
+
+        return response()->json([
+            'histories' => $posts,
+        ], 200);
+    }
 }

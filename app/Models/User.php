@@ -44,6 +44,7 @@ class User extends Authenticatable
         'remember_token',
         'email_verified_at',
         'last_login_at',
+        'phone_number',
     ];
 
     /**

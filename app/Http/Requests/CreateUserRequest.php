@@ -30,6 +30,7 @@ class CreateUserRequest extends FormRequest
             'location' => 'string',
             'password' => 'string',
             'device_key' => 'string',
+            'phone_number' => ['required'],
         ];
     }
 }

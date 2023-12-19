@@ -56,5 +56,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('post/user/badge', 'PostController@userBadge')->name('post.badge');
         // News
         Route::get('news', 'NewsController@indexJson');
+
+        Route::get('reports', 'PostController@userHistory');
     });
 });
