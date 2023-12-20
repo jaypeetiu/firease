@@ -58,8 +58,8 @@ class PostController extends Controller
             $post = new Post();
             $post->user_id = $request->user_id;
             $post->image = env('APP_URL') . '/uploads/fire/' . $imageName;
-            $post->vehicle_id = 1;
-            $post->station_id = 1;
+            $post->vehicle_id = null;
+            $post->station_id = null;
             $post->save();
             event(new NewPostAdded($post));
             if (isset($post)) {
@@ -82,7 +82,7 @@ class PostController extends Controller
                     "registration_ids" => [$value->device_key],
                     "notification" => [
                         "title" => "New alerts",
-                        "body" => "New alerts from " . Auth::user()->name,
+                        "body" => "New alerts from ". Auth::user()->name,
                     ]
                 ];
                 $dataString = json_encode($data);
@@ -114,24 +114,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $latests = Post::with('user', 'fire', 'station')->where('id', $id)->get();
-
-        $latestsender = Post::where('id', $id)->with('user', 'station', 'fire')->latest()->first();
-        $image = "https://unsplash.it/640/425?image=30";
-        $vehicles = Vehicle::all();
-        $histories = VehicleHistory::join('vehicles', 'vehicles.id', '=', 'vehicle_history.id')->get();
-        $stations = Station::all();
-        $firetypes = [
-            'Residential',
-            'Warehouse',
-            'Rubbish Fire',
-            'Electric Post Fire',
-            'Structural',
-            'Grass Fire',
-            'Forest Fire'
-        ];
-
-        return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'histories', 'stations', 'firetypes'));
+        //
     }
 
     /**
@@ -160,6 +143,11 @@ class PostController extends Controller
             $post->fire_type = $request->fire_type;
             $post->station_id = $station->id;
             $post->save();
+        }
+        if (isset($post)) {
+            $fire = Fire::where('post_id', $post->id)->first();
+            $fire->type = $request->fire_type;
+            $fire->save();
         }
         event(new NewPostAdded($post));
         //Send Push Notification
@@ -230,12 +218,12 @@ class PostController extends Controller
 
         return redirect()->back()->with('success', 'Updated Successfully');
     }
-
+    
     public function deleteVehicle(Request $request, $id)
     {
-        $exist = VehicleHistory::where('id', $id)->first();
+        $exist = VehicleHistory::where('post_id', $id)->first();
         $exist->delete();
-
+        
         if (isset($exist)) {
             $post = Post::where('id', $exist->post_id)->first();
             $post->vehicle_id = null;
@@ -244,13 +232,13 @@ class PostController extends Controller
 
         return redirect()->back()->with('success', 'Deleted Successfully');
     }
-
+    
     public function userBadge()
     {
         $post = Post::where('user_id', Auth::user()->id)->count();
 
         return response()->json([
-            'badge' => $post > 2 ? 'Good Samaritan' : 'Beginner',
+            'badge' => $post > 2? 'Good Samaritan': 'Beginner',
         ], 200);
     }
     public function alarmStations()

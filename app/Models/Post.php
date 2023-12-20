@@ -42,4 +42,9 @@ class Post extends Model
     {
         return $this->belongsTo(Fire::class, 'id', 'post_id');
     }
+
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class, 'vehicle_id', 'id');
+    }
 }

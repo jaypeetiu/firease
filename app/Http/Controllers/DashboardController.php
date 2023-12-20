@@ -20,15 +20,67 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // abort_unless(Gate::allows('admin_access'), 403);
-        $latests = Post::with('user', 'fire', 'station')->latest()->get();
+        if($request->fire_type){
+            $blocks = StationUser::with('posts', 'user')->where('user_id', $request->fire_type)->get();
+            $latests = Post::with('user', 'fire', 'station', 'vehicle')->where('station_id', $request->fire_type)->get();
+            $check = Post::where('station_id', $request->fire_type)->first();
+    
+            $latestsender = Post::with('user', 'station', 'fire', 'vehicle')->latest()->first();
+            $image = "https://unsplash.it/640/425?image=30";
+            $vehicles = Vehicle::all();
+            // $histories = VehicleHistory::join('vehicles', 'vehicles.id', '=', 'vehicle_history.id')->get();
+            $stations = Station::all();
+            $firetypes = [
+                'Residential',
+                'Warehouse',
+                'Rubbish Fire',
+                'Electric Post Fire',
+                'Structural',
+                'Grass Fire',
+                'Forest Fire'
+            ];
+            if($check!==null)
+            {
+                return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'stations', 'firetypes', 'blocks'));
+            }else{
+                return redirect()->back()->with('success', 'Station has no reports available');
+            }
+        }else{
+            $blocks = StationUser::with('posts', 'user')->get();
+            $latests = Post::with('user', 'fire', 'station', 'vehicle')->latest()->get();
+    
+            $latestsender = Post::with('user', 'station', 'fire', 'vehicle')->latest()->first();
+            $image = "https://unsplash.it/640/425?image=30";
+            $vehicles = Vehicle::all();
+            // $histories = VehicleHistory::join('vehicles', 'vehicles.id', '=', 'vehicle_history.id')->get();
+            $stations = Station::all();
+            $firetypes = [
+                'Residential',
+                'Warehouse',
+                'Rubbish Fire',
+                'Electric Post Fire',
+                'Structural',
+                'Grass Fire',
+                'Forest Fire'
+            ];
+    
+            return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'stations', 'firetypes', 'blocks'));   
+        }
+    }
+    
+    public function indexStation(Request $request)
+    {
+        $blocks = StationUser::with('posts', 'user')->where('user_id', $request->fire_type)->get();
+        $latests = Post::with('user', 'fire', 'station', 'vehicle')->where('station_id', $request->fire_type)->get();
+        $check = Post::where('station_id', $request->fire_type)->first();
 
-        $latestsender = Post::with('user', 'station', 'fire')->latest()->first();
+        $latestsender = Post::with('user', 'station', 'fire', 'vehicle')->latest()->first();
         $image = "https://unsplash.it/640/425?image=30";
         $vehicles = Vehicle::all();
-        $histories = VehicleHistory::join('vehicles', 'vehicles.id', '=', 'vehicle_history.id')->get();
+        // $histories = VehicleHistory::join('vehicles', 'vehicles.id', '=', 'vehicle_history.id')->get();
         $stations = Station::all();
         $firetypes = [
             'Residential',
@@ -39,8 +91,12 @@ class DashboardController extends Controller
             'Grass Fire',
             'Forest Fire'
         ];
-
-        return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'histories', 'stations', 'firetypes'));
+        if($check!==null)
+        {
+            return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'stations', 'firetypes', 'blocks'));
+        }else{
+            return redirect()->back()->with('success', 'Station has no reports available');
+        }
     }
 
     /**
@@ -130,7 +186,7 @@ class DashboardController extends Controller
     {
         //Send Push Notification
 
-        $SERVER_API_KEY = env('SERVER_API_KEY');
+        $SERVER_API_KEY = "AAAARQtY8YQ:APA91bHtaTTvc4HeRWKrC_nD_9SQSd5uwXLSFEczWGowG2OpApGYDmC7otLMlG6dnDoNtl8DOJTzT2VIrYjzTxbFe59XmJtQmz6qcxs7Of1SAsdr24n2vkEe8VPquLyMPnN5uGkArb6G";
         $userkeys = StationUser::where('station_id', $id)
             ->join('users', 'users.id', '=', 'station_user.user_id')
             ->where('device_key', '!=', '')

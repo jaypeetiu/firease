@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('fire_type')->nullable();
             $table->string('image')->nullable();
             $table->foreignId('vehicle_id')->nullable()->constrained('vehicles');
-            $table->foreignId('station_id')->constrained('stations');
+            $table->foreignId('station_id')->nullable()->constrained('stations');
             $table->timestamps();
             $table->softDeletes();
         });

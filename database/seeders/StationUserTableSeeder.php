@@ -17,5 +17,6 @@ class StationUserTableSeeder extends Seeder
     {
         User::findOrFail(1)->stations()->sync(1);
         User::findOrFail(2)->stations()->sync(1);
+        User::findOrFail(3)->stations()->sync(2);
     }
 }

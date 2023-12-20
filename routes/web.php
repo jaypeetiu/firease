@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
     
     //Station Add User
     Route::post('station', [\App\Http\Controllers\StationController::class, 'addUser'])->name('station.user.store');
+    Route::get('station/status', [\App\Http\Controllers\StationController::class,'stationStatus'])->name('station.status');
     
     //Post Update Vehicle
     Route::post('post/{id}', [\App\Http\Controllers\PostController::class, 'updateVehicle'])->name('post.vehicle');

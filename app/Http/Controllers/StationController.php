@@ -125,4 +125,11 @@ class StationController extends Controller
             'stations' => $stations,
         ], 200);
     }
+
+    public function stationStatus()
+    {
+        $stations = Station::wtih('user')->where('user.device_key', '!=', '')->get();
+        
+        return view('messages.index', compact('stations'));
+    }
 }

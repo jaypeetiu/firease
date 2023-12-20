@@ -84,7 +84,7 @@
             <div class="shadow-md mt-4 relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4">
                 <form method="post" action="{{ route('notification.all') }}" autocomplete="off">
                     @csrf
-                    <h4 class="font-bold mb-4">STATIONS NEARBY: <button type="submit"
+                    <h4 class="font-bold mb-4">FIRE STATIONS: <button type="submit"
                             class="pl-6 pr-6 bg-red-600 rounded-full text-white text-sm p-1 shadow-lg hover:shadow-red-500/50 hover:duration-700">SEND
                             ALL</button></h4>
                 </form>
@@ -136,14 +136,9 @@
                     </select>
                     <button type="submit" class="p-2 pl-6 pr-6 bg-red-500 rounded text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700" style="float:right;">UPDATE</button>
                 </form>
+                @if($latestsender !== null && $latestsender->vehicle_id !== null)
                 <ul role="list" class="divide-y divide-gray-100">
-                    @foreach($histories as $history)
-                    <?php
-                    $dataTimestamp = strtotime($history->created_at);
-                    $currentTime = time();
-                    $secondsAgo = $currentTime - $dataTimestamp;
-                    ?>
-                    <form method="post" action="{{ route('post.deleteVehicle', $history !==null?$history->id:'') }}"
+                    <form method="post" action="{{ route('post.deleteVehicle', $latestsender->id !==null?$latestsender->id:'') }}"
                         autocomplete="off">
                         @csrf
                         <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
@@ -158,9 +153,8 @@
                                     <line x1="3" y1="9" x2="21" y2="3" />
                                     <line x1="6" y1="12" x2="6" y2="8" />
                                 </svg>
-                                 <!--{{$history->id}} -->
                                 <div class="min-w-0 flex-auto">
-                                    <p class="text-sm font-semibold leading-6 text-gray-900">{{$history->platenumber}}</p>
+                                    <p class="text-sm font-semibold leading-6 text-gray-900">{{$latestsender->vehicle_id !== null ? $latestsender->vehicle->platenumber:''}}</p>
                                 </div>
                             </div>
                             <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
@@ -173,14 +167,15 @@
                             </div>
                         </li>
                     </form>
-                    @endforeach
                 </ul>
+                @endif
             </div>
         </div>
         @endcan
         <div>
             <h2 class="font-bold">LATEST SENDER</h2>
             <div class="relative mx-auto max-w-2xl overflow-hidden min-h-screen rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
+                @if($latests)
                 <ul role="list" class="divide-y divide-gray-100 overflow-scroll max-h-screen">
                     @foreach($latests as $latest)
                     <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
@@ -191,32 +186,41 @@
                                     <p class="text-sm font-semibold leading-6 text-gray-900">Name: {{$latest->user->name}}</p>
                                     <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: {{ $latest->user->age? $latest->user->age: 0 }}</p>
                                     <p class="mt-1 text-xs leading-5 text-gray-500">Location: {{$latest->fire->address ? $latest->fire->address : 'No address available'}}</p>
+                                    <p class="mt-1 text-xs leading-5 text-gray-500">Station: {{$latest->station->address ? $latest->station->address : 'No station assigned'}}</p>
                                 </div>
                             </div>
                         </a>
                     </li>
                     @endforeach
                 </ul>
+                @endif
             </div>
         </div>
         @can('super_access')
         <div class="col-span-2">
             <div class="flex item-center grid grid-cols-2 gap-3 ">
                 <h2 class="font-bold flex flex-row">ON RESCUE</h2>
-                <form method="post" action="{{ route('post.station', $latest !==null?$latest->station->id:'') }}"
-                    autocomplete="off">
+                <form method="get" action="{{ route('dashboard') }}" enctype="multipart/form-data">
                     @csrf
                     <select name="fire_type" id="fire_type" class="rounded max-w-full">
                         <option>
                             Select
                         </option>
-                        @if($latest != null)
-                        @foreach($stations as $station)
-                        <option value="{{ $station->id }}" {{ $latest->station->id == $station->id ? 'selected' : ''
-                            }}>
-                            {{$station->address}}
-                        </option>
-                        @endforeach
+                        @if($latests)
+                            @if($latest != null)
+                                @foreach($stations as $station)
+                                <option value="{{ $station->id }}" {{ $latest->station->id == $station->id ? 'selected' : ''
+                                    }}>
+                                    {{$station->address}}
+                                </option>
+                                @endforeach
+                            @endif
+                        @else
+                            @foreach($stations as $station)
+                            <option value="{{ $station->id }}">
+                                {{$station->address}}
+                            </option>
+                            @endforeach
                         @endif
                     </select>
                     <button type="submit"

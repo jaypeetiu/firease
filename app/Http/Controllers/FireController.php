@@ -15,7 +15,7 @@ class FireController extends Controller
      */
     public function index()
     {
-        $fires = Fire::with('users')->get();
+        $fires = Fire::with('users')->orderBy("created_at", "desc")->get();
 
         return view('fires.index', compact('fires'));
     }
