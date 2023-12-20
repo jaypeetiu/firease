@@ -58,5 +58,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('news', 'NewsController@indexJson');
 
         Route::get('reports', 'PostController@userHistory');
+
+        Route::post('profile/upload', 'UserController@uploadProfile');
     });
 });

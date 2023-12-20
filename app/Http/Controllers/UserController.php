@@ -60,4 +60,21 @@ class UserController extends Controller
         $user->delete();
         return redirect()->back()->with('success', 'User Deleted!');
     }
+
+    public function uploadProfile(Request $request)
+    {
+        $user = User::where('id', Auth::user()->id)->first();
+        if ($request->hasFile('selfie')) {
+            $imageNameSelfie = time() . '.' . $request->selfie->getClientOriginalExtension();
+            $request->selfie->move(public_path('uploads/selfies'), $imageNameSelfie);
+            $path = env('APP_URL').'/uploads/selfies/'.$imageNameSelfie;
+
+            $user->avatar = $path;
+            $user->save();
+
+            return response()->json(['success' => true, 'selfieImage' => $path]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Image not found.']);
+        }
+    }
 }
