@@ -186,7 +186,6 @@
                                     <p class="text-sm font-semibold leading-6 text-gray-900">Name: {{$latest->user->name}}</p>
                                     <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: {{ $latest->user->age? $latest->user->age: 0 }}</p>
                                     <p class="mt-1 text-xs leading-5 text-gray-500">Location: {{$latest->fire->address ? $latest->fire->address : 'No address available'}}</p>
-                                    <p class="mt-1 text-xs leading-5 text-gray-500">Station: {{$latest->station->address ? $latest->station->address : 'No station assigned'}}</p>
                                 </div>
                             </div>
                         </a>
