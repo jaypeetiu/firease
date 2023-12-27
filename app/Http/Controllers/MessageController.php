@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\Station;
-use App\Models\StationUser;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -17,9 +16,9 @@ class MessageController extends Controller
     public function index()
     {
         $messages = Message::paginate();
-        $stations = StationUser::with('user')->join('users', 'users.id', '=', 'user_id')->get();
+        $stations = Station::all();
         
-        return view('messages.index', compact('stations', 'messages'));
+        return view('messages.index', compact('messages', 'stations'));
     }
 
     /**

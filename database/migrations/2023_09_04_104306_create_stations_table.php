@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('lat')->nullable();
             $table->string('lang')->nullable();
             $table->string('description')->nullable();
+            $table->integer('active')->default(0)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

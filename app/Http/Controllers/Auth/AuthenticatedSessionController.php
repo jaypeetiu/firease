@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Station;
+use App\Models\StationUser;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Carbon\Carbon;
@@ -37,6 +39,12 @@ class AuthenticatedSessionController extends Controller
         $user->last_login_at = Carbon::now();
         $user->save();
 
+        $stationUser = StationUser::where('user_id', $user->id)->first();
+
+        $station = Station::where('id', $stationUser->station_id)->first();
+        $station->active = 1;
+        $station->save();
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -51,6 +59,12 @@ class AuthenticatedSessionController extends Controller
         $user = User::where('id', Auth::user()->id)->first();
         $user->device_key = null;
         $user->save();
+
+        $stationUser = StationUser::where('user_id', Auth::user()->id)->first();
+
+        $station = Station::where('id', $stationUser->station_id)->first();
+        $station->active = 0;
+        $station->save();
         
         Auth::guard('web')->logout();
 

@@ -82,6 +82,41 @@
             </div>
             <ul role="list" class="divide-y divide-gray-100 overflow-y-scroll h-96">
                 <div class="flex item-center inline-grid grid-cols-3 gap-5 mt-4 m-2 p-2">
+                    @foreach($stations as $station)
+                    <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
+                        <div class="flex min-w-0 gap-x-4">
+                            <div
+                                class="h-12 w-12 flex-none rounded-full {{ $station->active == 1 ? 'bg-green-700' : 'bg-red-700' }}">
+                            </div>
+                            <div class="min-w-0 flex-auto">
+                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: {{$station->address}}
+                                </p>
+                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Description:
+                                    {{$station->description}}</p>
+                            </div>
+                        </div>
+                    </li>
+                    @endforeach
+                    <!-- <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
+                        <div class="flex min-w-0 gap-x-4">
+                            <div class="h-12 w-12 flex-none rounded-full bg-green-700"></div>
+                            <div class="min-w-0 flex-auto">
+                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
+                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: nazareth cagayan de
+                                    oro</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
+                        <div class="flex min-w-0 gap-x-4">
+                            <div class="h-12 w-12 flex-none rounded-full bg-green-700"></div>
+                            <div class="min-w-0 flex-auto">
+                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
+                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: nazareth cagayan de
+                                    oro</p>
+                            </div>
+                        </div>
+                    </li>
                     <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
                         <div class="flex min-w-0 gap-x-4">
                             <div class="h-12 w-12 flex-none rounded-full bg-red-700"></div>
@@ -114,16 +149,6 @@
                     </li>
                     <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
                         <div class="flex min-w-0 gap-x-4">
-                            <div class="h-12 w-12 flex-none rounded-full bg-red-700"></div>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: nazareth cagayan de
-                                    oro</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
                             <div class="h-12 w-12 flex-none rounded-full bg-green-700"></div>
                             <div class="min-w-0 flex-auto">
                                 <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
@@ -181,27 +206,7 @@
                                     oro</p>
                             </div>
                         </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <div class="h-12 w-12 flex-none rounded-full bg-green-700"></div>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: nazareth cagayan de
-                                    oro</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <div class="h-12 w-12 flex-none rounded-full bg-green-700"></div>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: nazareth cagayan de
-                                    oro</p>
-                            </div>
-                        </div>
-                    </li>
+                    </li> -->
                 </div>
             </ul>
             @can('super_access')
