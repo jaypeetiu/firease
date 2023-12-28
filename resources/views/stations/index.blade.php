@@ -19,7 +19,7 @@
     </div>
     @endif
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <!-- <button type="submit" onclick="showModal()" class="p-2 pl-6 mb-4 pr-6 bg-red-500 rounded text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700" style="float:right;">ADD NEW</button> -->
+        <!-- <button type="submit" onclick="showModal()" class="p-2 pl-6 mb-4 pr-6 bg-red-500 rounded text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700" style="float:right;">ADD NEW</button> -->
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -62,21 +62,21 @@
                         {{$user->name}}
                     </td>
                     <td class="px-6 py-4">
-                        {{$user->status}}
+                        {{$user->active == 1? 'Active': 'Inactive'}}
                     </td>
                     <td class="px-6 py-4">
                         {{$user->last_login_at}}
                     </td>
                     <td class="px-6 py-4">
                         <a href="#edit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                            onclick="showModal()">Edit</a>
+                            onclick="showModal('{{$user->id}}', '{{$user->name}}', '{{$user->password}}')">Edit</a>
                     </td>
                 </tr>
                 <!-- Main modal -->
                 <div id="defaultModal" tabindex="-1" aria-hidden="true"
                     class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                     <div class="relative w-full max-w-2xl max-h-full">
-                        <form method="post" action="{{ route('stations.update', $user->id) }}" autocomplete="off">
+                        <form method="post" action="{{ route('stations.update', ['id' => '__STATION_ID__']) }}" id="editForm" autocomplete="off">
                             @csrf
                             <!-- Modal content -->
                             <div class="relative bg-white rounded-lg shadow bg-gray-700 shadow-2xl">
@@ -103,14 +103,9 @@
                                         value="{{ old('name', isset($user) ? $user->name : '') }}" required
                                         autofocus />
 
-                                    <x-label for="lat" :value="__('Latitude')" class="text-white" />
-                                    <x-input type="text" name="lat" id="lat"
-                                        value="{{ old('lat', isset($user) ? $user->lat : '') }}" required
-                                        autofocus />
-
-                                    <x-label for="lang" :value="__('Longitude')" class="text-white" />
-                                    <x-input type="text" name="lang" id="lang"
-                                        value="{{ old('lang', isset($user) ? $user->lang : '') }}" required
+                                    <x-label for="password" :value="__('Password')" class="text-white" />
+                                    <x-input type="password" name="password" id="password"
+                                        value="{{ old('user', isset($user) ? $user->password : '') }}" required
                                         autofocus />
                                 </div>
                                 <!-- Modal footer -->
@@ -130,56 +125,23 @@
         </table>
     </div>
     <script type="text/javascript">
-        function showModal() {
+        function showModal(id, name, password) {
+            console.log(id);
             document.getElementById('defaultModal').style.display = 'block';
             document.getElementById('defaultModal').style.margin = 'auto';
             document.getElementById('defaultModal').style.width = '50%';
+
+            var formAction = "{{ route('stations.update', ['id' => '__STATION_ID__']) }}";
+            formAction = formAction.replace('__STATION_ID__', id);
+            document.getElementById('editForm').setAttribute('action', formAction);
+            document.getElementById('name').setAttribute('value', name);
+            document.getElementById('password').setAttribute('value', password);
         }
 
         function closeModal() {
             document.getElementById('defaultModal').style.display = 'none';
         }
 
-        function updateStation(stationID) {
-            $.ajax({
-                type: 'POST',
-                url: 'stations/' + stationID,
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    // Any additional data you want to send
-                },
-                success: function (data) {
-                    // Handle the success response, if needed
-                    window.location.reload();
-                },
-                error: function (xhr) {
-                    // Handle the error response, if needed
-                    console.log(xhr);
-                }
-            });
-        }
-
-        function deleteUser(userId) {
-            let text = "Please Confirm to delete user!\nPress Ok or Cancel.";
-            if (confirm(text) == true) {
-                $.ajax({
-                    type: 'DELETE',
-                    url: 'user-remove/' + userId,
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        // Any additional data you want to send
-                    },
-                    success: function (data) {
-                        // Handle the success response, if needed
-                        window.location.reload();
-                    },
-                    error: function (xhr) {
-                        // Handle the error response, if needed
-                        console.log(xhr);
-                    }
-                });
-            }
-        }
     </script>
 
 </x-app-layout>

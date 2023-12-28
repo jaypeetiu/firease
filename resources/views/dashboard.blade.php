@@ -205,22 +205,11 @@
                         <option>
                             Select
                         </option>
-                        @if($latests)
-                            @if($latest != null)
-                                @foreach($stations as $station)
-                                <option value="{{ $station->id }}" {{ $latest->station->id == $station->id ? 'selected' : ''
-                                    }}>
-                                    {{$station->address}}
-                                </option>
-                                @endforeach
-                            @endif
-                        @else
-                            @foreach($stations as $station)
+                        @foreach($stations as $station)
                             <option value="{{ $station->id }}">
                                 {{$station->address}}
                             </option>
                             @endforeach
-                        @endif
                     </select>
                     <button type="submit"
                         class="p-2 pl-6 pr-6 bg-red-500 rounded text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700"
