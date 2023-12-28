@@ -137,4 +137,16 @@ class StationController extends Controller
         
         return view('messages.index', compact('stations'));
     }
+
+    public function addUserStation(Request $request)
+    {
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        User::findOrFail($user->id)->stations()->sync($request->station);
+        return redirect()->back()->with('success', 'Added user to station!');
+    }
 }

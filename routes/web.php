@@ -66,7 +66,7 @@ Route::middleware('auth')->group(function () {
     //Station
     Route::get('stations', [\App\Http\Controllers\StationController::class, 'index'])->name('stations.index');
     Route::post('stations/{id}', [\App\Http\Controllers\StationController::class, 'update'])->name('stations.update');
-    
+    Route::post('station/add/user', [\App\Http\Controllers\StationController::class, 'addUserStation'])->name('station.user');
     //POST
     Route::post('post/add', [\App\Http\Controllers\PostController::class, 'store'])->name('post.store');
     Route::post('post/update', [\App\Http\Controllers\PostController::class, 'update'])->name('post.update');
