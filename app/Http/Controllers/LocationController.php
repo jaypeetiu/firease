@@ -21,6 +21,7 @@ class LocationController extends Controller
         foreach ($locations as $value) {
             $users = Station::where('stations.id', $value->id)->join('station_user', 'station_user.station_id', '=', 'stations.id')
                 ->join('users', 'users.id', '=', 'station_user.user_id')
+                ->where('users.fighter', '!=', null)
                 ->where('users.id', '!=', 1)
                 ->where('users.id', '!=', 2)
                 ->whereNull('users.deleted_at')
@@ -55,12 +56,23 @@ class LocationController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $locations = Auth::user()->stations;
+        $users = Station::where('stations.id', $request->station)->join('station_user', 'station_user.station_id', '=', 'stations.id')
+            ->join('users', 'users.id', '=', 'station_user.user_id')
+            ->where('users.fighter', '!=', null)
+            ->where('users.id', '!=', 1)
+            ->where('users.id', '!=', 2)
+            ->whereNull('users.deleted_at')
+            ->get();
+        $stations = Station::get();
+
+        return view('locations.index', compact('locations', 'users', 'stations'));
     }
 
     /**

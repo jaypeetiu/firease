@@ -23,16 +23,22 @@
         <div>
             @can('super_access')
             <div class="justify-self-center w-full">
-                <select name="fire_type" id="fire_type" class="rounded w-full">
-                    <option>
-                        Select Station
-                    </option>
-                    @foreach($stations as $station)
-                    <option value="{{ $station->id }}">
-                        {{$station->address}}
-                    </option>
-                    @endforeach
-                </select>
+                <form method="get" action="{{ route('locations.show') }}" enctype="multipart/form-data">
+                    @csrf
+                    <select name="station" id="station" class="rounded max-w-full">
+                        <option>
+                            Select
+                        </option>
+                        @foreach($stations as $station)
+                        <option value="{{ $station->id }}">
+                            {{$station->address}}
+                        </option>
+                        @endforeach
+                    </select>
+                    <button type="submit"
+                        class="p-2 pl-6 pr-6 bg-red-500 rounded text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700"
+                        style="float:right;">UPDATE</button>
+                </form>
             </div>
             @endcan
         </div>

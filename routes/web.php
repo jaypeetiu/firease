@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 
     //Locations
     Route::get('locations', [\App\Http\Controllers\LocationController::class, 'index'])->name('locations.index');
+    Route::get('locations/station', [\App\Http\Controllers\LocationController::class, 'show'])->name('locations.show');
     
     //Messages
     Route::get('messages', [\App\Http\Controllers\MessageController::class, 'index'])->name('messages.index');

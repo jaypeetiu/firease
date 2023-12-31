@@ -216,6 +216,7 @@
                         style="float:right;">UPDATE</button>
                 </form>
             </div>
+            @if($latestsender != null)
             <div class="relative w-full overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
                 <div class="flex min-w-0 gap-x-4">
                     <div class="min-w-0 flex-none">
@@ -243,6 +244,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
         @endcan
     </div>

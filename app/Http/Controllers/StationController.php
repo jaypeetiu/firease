@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateStationRequest;
+use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateStationRequest;
 use App\Models\Station;
 use App\Models\StationUser;
@@ -26,6 +27,7 @@ class StationController extends Controller
         foreach ($stations as $value) {
             $users = Station::join('station_user', 'station_user.station_id', '=', 'stations.id')
                 ->join('users', 'users.id', '=', 'station_user.user_id')
+                ->where('users.fighter', '=', null)
                 // ->where('users.id', '!=', 1)
                 // ->where('users.id', '!=', 2)
                 ->whereNull('users.deleted_at')
@@ -117,6 +119,7 @@ class StationController extends Controller
         $station = User::where('id', Auth::user()->id)
         ->join('station_user', 'station_user.user_id', '=', 'users.id')->first();
         $add = User::create($request->all());
+        $add->fighter = 1;
         $add->save();
         User::findOrFail($add->id)->stations()->sync($station->station_id);
 
