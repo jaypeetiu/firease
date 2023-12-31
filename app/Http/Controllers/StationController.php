@@ -114,9 +114,11 @@ class StationController extends Controller
 
     public function addUser(Request $request)
     {
+        $station = User::where('id', Auth::user()->id)
+        ->join('station_user', 'station_user.user_id', '=', 'users.id')->first();
         $add = User::create($request->all());
         $add->save();
-        User::findOrFail($add->id)->stations()->sync(1);
+        User::findOrFail($add->id)->stations()->sync($station->station_id);
 
         return redirect()->back()->with('success', 'User Added Successfully');
     }
@@ -145,7 +147,7 @@ class StationController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-
+        User::findOrFail($user->id)->roles()->sync(2);
         User::findOrFail($user->id)->stations()->sync($request->station);
         return redirect()->back()->with('success', 'Added user to station!');
     }

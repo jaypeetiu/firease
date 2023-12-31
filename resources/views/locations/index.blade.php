@@ -43,11 +43,13 @@
                 @endforeach
             </h1>
         </div>
+        @can('admin_access')
         <div class="justify-self-center">
             <button onclick="showModal()"
                 class="p-2 pl-6 pr-6 bg-red-500 rounded text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700">ADD
                 FIREFIGHTER</button>
         </div>
+        @endcan
         <!-- Main modal -->
         <div id="defaultModal" tabindex="-1" aria-hidden="true"
             class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">

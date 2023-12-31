@@ -213,8 +213,10 @@
             <div class="flex item-center inline-grid inline-block grid-cols-3 mt-4 w-full">
                 <div class="p-6">
                     <a href="{{ route('news.index') }}">
-                        <div class="flex-col min-w-0 gap-x-4 shadow-lg rounded bg-red-700 m-4 p-4 text-center">
-                            <h2 class="text-white flex-auto text-2xl">Breaking News</h2>
+                        <div class="flex-col min-w-0 gap-x-4 shadow-lg rounded bg-red-700 p-4 text-center">
+                            <div class="h-16">
+                                <h2 class="text-white flex-auto text-2xl">Breaking News</h2>
+                            </div>
                             <div class="flex flex-wrap justify-center pt-8">
                                 <svg class="h-16 w-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -226,8 +228,10 @@
                 </div>
                 <div class="p-6">
                     <a href="{{ route('safety.index') }}">
-                        <div class="flex-col min-w-0 gap-x-4 shadow-lg rounded bg-red-700 m-4 p-4 text-center">
-                            <h2 class="text-white flex-auto text-2xl">Fire Safety Tips</h2>
+                        <div class="flex-col min-w-0 gap-x-4 shadow-lg rounded bg-red-700 p-4 text-center">
+                            <div class="h-16">
+                                <h2 class="text-white flex-auto text-2xl">Fire Safety Tips</h2>
+                            </div>
                             <div class="flex flex-wrap justify-center pt-8">
                                 <svg class="h-16 w-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -241,8 +245,10 @@
                 </div>
                 <div class="p-6">
                     <a href="{{ route('aid.index') }}">
-                        <div class="flex-col min-w-0 gap-x-4 shadow-lg rounded bg-red-700 m-4 p-4 text-center">
-                            <h2 class="text-white flex-auto text-2xl">First Aid Tips</h2>
+                        <div class="flex-col min-w-0 gap-x-4 shadow-lg rounded bg-red-700 p-4 text-center">
+                            <div class="h-16">
+                                <h2 class="text-white flex-auto text-2xl">First Aid Tips</h2>
+                            </div>
                             <div class="flex flex-wrap justify-center pt-8">
                                 <svg class="h-16 w-16 text-white" width="24" height="24" viewBox="0 0 24 24"
                                     stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -259,8 +265,10 @@
                 </div>
                 <div class="p-6">
                     <a href="{{ route('locations.index') }}">
-                        <div class="flex-col min-w-0 gap-x-4 shadow-lg rounded bg-red-700 m-4 p-4 text-center">
-                            <h2 class="text-white flex-auto text-2xl">About BFP</h2>
+                        <div class="flex-col min-w-0 gap-x-4 shadow-lg rounded bg-red-700 p-4 text-center">
+                            <div class="h-16">
+                                <h2 class="text-white flex-auto text-2xl">About BFP</h2>
+                            </div>
                             <div class="flex flex-wrap justify-center pt-2">
                                 <img src="{{asset('assets/bfp.png')}}" alt="Image" class="w-16 h-16 mb-2 mt-4 rounded">
                             </div>
@@ -269,8 +277,10 @@
                 </div>
                 <div class="p-6">
                     <a href="{{ route('locations.index') }}">
-                        <div class="flex-col min-w-0 gap-x-4 shadow-lg rounded bg-red-700 m-4 p-4 text-center">
-                            <h2 class="text-white flex-auto text-2xl">Citizen's Charter</h2>
+                        <div class="flex-col min-w-0 gap-x-4 shadow-lg rounded bg-red-700 p-4 text-center">
+                            <div class="h-16">
+                                <h2 class="text-white flex-auto text-2xl">Citizen's Charter</h2>
+                            </div>
                             <div class="flex flex-wrap justify-center pt-8">
                                 <svg class="h-16 w-16 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -284,8 +294,10 @@
                 </div>
                 <div class="p-6">
                     <a href="{{ route('locations.index') }}">
-                        <div class="flex-col min-w-0 gap-x-4 shadow-lg rounded bg-red-700 m-4 p-4 text-center">
-                            <h2 class="text-white flex-auto text-2xl">Used Vehicle</h2>
+                        <div class="flex-col min-w-0 gap-x-4 shadow-lg rounded bg-red-700 p-4 text-center">
+                            <div class="h-16">
+                                <h2 class="text-white flex-auto text-2xl">Used Vehicle</h2>
+                            </div>
                             <div class="flex flex-wrap justify-center pt-8">
                                 <svg class="h-16 w-16 text-white" width="24" height="24" viewBox="0 0 24 24"
                                     stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
