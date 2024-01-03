@@ -26,7 +26,7 @@ class VehicleTableSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'name' => 'Fire Truck',
+                'name' => 'Electric Truck',
                 'platenumber' => 'XYZ 1002',
                 'created_at' => now(),
                 'updated_at' => now(),
