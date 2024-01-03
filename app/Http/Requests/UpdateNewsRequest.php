@@ -26,7 +26,7 @@ class UpdateNewsRequest extends FormRequest
         return [
             "title"=> ["required","string"],
             "description"=> ["required","string"],
-            "image"=> ["required","string"],
+            "image"=> ["string"],
         ];
     }
 }

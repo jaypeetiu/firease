@@ -67,7 +67,10 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        //
+        $news = News::orderBy("created_at", "desc")->paginate(10);
+        $breakingNews = News::where('id', $id)->first();
+
+        return view("news.index", compact("news", "breakingNews"));
     }
 
     /**
