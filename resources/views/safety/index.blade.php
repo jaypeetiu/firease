@@ -89,9 +89,9 @@
                         <h4 class="text-lg font-semibold">{{ $new->title }}</h4>
                         <p>{{ $new->description }}</p>
                         <!-- Button to edit news -->
-                        @can('super_access')
+                        <!-- @can('super_access')
                         <button class="bg-red-500 text-white px-4 py-2 rounded mt-2">Edit News</button>
-                        @endcan
+                        @endcan -->
                     </li>
                     @endforeach
                 </ul>
