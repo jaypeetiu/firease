@@ -105,6 +105,7 @@ class AuthController extends Controller
                     'email' => $validatedData['email'],
                     'password' => bcrypt($validatedData['password']),
                     'phone_number' => $request->phone_number,
+                    'age' => $request->age,
                 ]);
                 $user->save();
                 $user->roles()->sync(3);
@@ -137,7 +138,7 @@ class AuthController extends Controller
                 }
                 DB::commit();
                 return response()->json([
-                    'message' => "Email verification sent to your email."
+                    'message' => "Registered Successfully"
                 ], 200);
             } else {
                 return response()->json([

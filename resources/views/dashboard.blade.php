@@ -54,6 +54,7 @@
                         <h4>Name: {{$latestsender->user->name}}</h4>
                         <h4>Age: {{$latestsender->user->age?$latestsender->user->age:0}}</h4>
                         <h4>Location: {{$latestsender->fire->address?$latestsender->fire->address : 'No address available'}}</h4>
+                        <h4>Phone number: {{$latestsender->user->phone_number?$latestsender->user->phone_number: 'Not available'}}</h4>
                     </div>
                 </div>
                 <form method="post" action="{{ route('post.update') }}" autocomplete="off">

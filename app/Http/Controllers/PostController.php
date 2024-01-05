@@ -153,10 +153,10 @@ class PostController extends Controller
         //Send Push Notification
 
         $SERVER_API_KEY = env('SERVER_API_KEY');
-        $userkeys = User::where('Device_key', '!=', '')->get();
-        foreach ($userkeys as $value) {
+        // $userkeys = User::where('Device_key', '!=', '')->get();
+        // foreach ($userkeys as $value) {
             $data = [
-                "registration_ids" => [$value->device_key],
+                "registration_ids" => [Auth::user()->device_key],
                 "notification" => [
                     "title" => "Alert Update",
                     "body" => "",
@@ -179,7 +179,7 @@ class PostController extends Controller
             curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
             curl_exec($ch);
-        }
+        // }
 
 
         return redirect()->back()->with('success', 'Updated Successfully');
