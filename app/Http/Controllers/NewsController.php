@@ -56,7 +56,6 @@ class NewsController extends Controller
         News::create($request->all());
 
         return redirect(route("news.index"))->with('success', 'Created Successfully');
-        ;
     }
 
     /**

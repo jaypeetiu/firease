@@ -264,7 +264,7 @@
                     </a>
                 </div>
                 <div class="p-6">
-                    <a href="{{ route('locations.index') }}">
+                    <a href="{{ route('about.index') }}">
                         <div class="flex-col min-w-0 gap-x-4 shadow-lg rounded bg-red-700 p-4 text-center">
                             <div class="h-16">
                                 <h2 class="text-white flex-auto text-2xl">About BFP</h2>

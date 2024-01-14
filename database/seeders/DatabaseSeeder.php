@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'super@admin.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
+            'verification_status' => 'Verified',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -30,6 +31,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
+            'verification_status' => 'Verified',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -44,6 +46,7 @@ class DatabaseSeeder extends Seeder
             StationTableSeeder::class,
             StationUserTableSeeder::class,
             VehicleTableSeeder::class,
+            IDListTableSeeder::class,
         ]);
     }
 }

@@ -23,84 +23,75 @@
             <!-- Breaking News Section -->
             <div class="bg-white p-4 rounded shadow">
                 <h2 class="text-2xl font-bold mb-4">FIRST AID TIPS</h2>
+                @foreach( $aids as $aid )
                 <div class="mb-4">
                     <div class="flex items-center">
                         <!-- Image -->
-                        <img src="{{ asset('assets/aid1.png') }}" alt="Image" class="w-16 h-16 mr-4 bg-black">
+                        <img src="{{ $aid->image }}" alt="Image" class="w-16 h-16 mr-4 bg-black">
                         <div class="flex-row">
                             <!-- H2 Header -->
+                            <h3 class="text-xl font-bold">{{$aid->title}}</h3>
+                            <p>{{$aid->shortdescription}}</p>
+                        </div>
+                    </div>
+                    <!-- Button to edit news -->
+                    <!-- <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Edit Tips</button> -->
+                </div>
+                @endforeach
+                <!-- <div class="mb-4">
+                    <div class="flex items-center">
+                        <img src="{{ asset('assets/aid1.png') }}" alt="Image" class="w-16 h-16 mr-4 bg-black">
+                        <div class="flex-row">
                             <h3 class="text-xl font-bold">BURNS</h3>
                             <p>First Aid for Minor Burns</p>
                         </div>
                     </div>
-                    <!-- Button to edit news -->
-                    <!-- <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Edit News</button> -->
                 </div>
                 <div class="mb-4">
                     <div class="flex items-center">
-                        <!-- Image -->
                         <img src="{{ asset('assets/aid2.png') }}" alt="Image" class="w-16 h-16 mr-4 bg-black">
                         <div class="flex-row">
-                            <!-- H2 Header -->
                             <h3 class="text-xl font-bold">CUTS AND SCRAPES</h3>
                             <p>First Aid for Cuts and Scrapes</p>
                         </div>
                     </div>
-                    <!-- Button to edit news -->
-                    <!-- <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Edit News</button> -->
                 </div>
                 <div class="mb-4">
                     <div class="flex items-center">
-                        <!-- Image -->
                         <img src="{{ asset('assets/aid3.png') }}" alt="Image" class="w-16 h-16 mr-4 bg-black">
                         <div class="flex-row">
-                            <!-- H2 Header -->
                             <h3 class="text-xl font-bold">NOSEBLEEDS</h3>
                             <p>First Aid for Nosebleeds</p>
                         </div>
                     </div>
-                    <!-- Button to edit news -->
-                    <!-- <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Edit News</button> -->
                 </div>
                 <div class="mb-4">
                     <div class="flex items-center">
-                        <!-- Image -->
                         <img src="{{ asset('assets/aid4.png') }}" alt="Image" class="w-16 h-16 mr-4 bg-black">
                         <div class="flex-row">
-                            <!-- H2 Header -->
                             <h3 class="text-xl font-bold">BITES</h3>
                             <p>First Aid for Animal Bites</p>
                         </div>
                     </div>
-                    <!-- Button to edit news -->
-                    <!-- <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Edit News</button> -->
                 </div>
                 <div class="mb-4">
                     <div class="flex items-center">
-                        <!-- Image -->
                         <img src="{{ asset('assets/aid5.png') }}" alt="Image" class="w-16 h-16 mr-4 bg-black">
                         <div class="flex-row">
-                            <!-- H2 Header -->
                             <h3 class="text-xl font-bold">STINGS</h3>
                             <p>First Aid for Insects Stings</p>
                         </div>
                     </div>
-                    <!-- Button to edit news -->
-                    <!-- <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Edit News</button> -->
                 </div>
                 <div class="mb-4">
                     <div class="flex items-center">
-                        <!-- Image -->
                         <img src="{{ asset('assets/flame.png') }}" alt="Image" class="w-16 h-16 mr-4 bg-black">
                         <div class="flex-row">
-                            <!-- H2 Header -->
                             <h3 class="text-xl font-bold">SPRAINS AND STRAINS</h3>
                             <p>First Aid for Sprains ans Strains</p>
                         </div>
                     </div>
-                    <!-- Button to edit news -->
-                    <!-- <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Edit News</button> -->
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -121,6 +112,10 @@
                     </li>
                     @endforeach
                 </ul>
+                @can('super_access')
+                <!-- Button to create new news -->
+                <a href="{{route('aid.create')}}" class="bg-red-500 text-white px-4 py-2 rounded">Create Tips</a>
+                @endcan
             </div>
         </div>
     </div>

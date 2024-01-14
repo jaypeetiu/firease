@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateSafetyRequest;
-use App\Models\News;
-use App\Models\Safety;
 use Illuminate\Http\Request;
 
-class SafetyController extends Controller
+class AboutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,18 +13,7 @@ class SafetyController extends Controller
      */
     public function index()
     {
-        $news = News::orderBy("created_at","desc")->paginate(10);
-        $tips = Safety::all();
-        return view("safety.index", compact("news", "tips"));
-    }
-
-    public function indexJson()
-    {
-        $safety = Safety::orderBy("created_at", "desc")->paginate(10);
-
-        return response()->json([
-            'safety' => $safety,
-        ], 200);
+        return view("about");
     }
 
     /**
@@ -37,7 +23,7 @@ class SafetyController extends Controller
      */
     public function create()
     {
-        return view("safety.create");
+        //
     }
 
     /**
@@ -46,14 +32,9 @@ class SafetyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateSafetyRequest $request)
+    public function store(Request $request)
     {
-        if($request->validated()){
-            $safety = Safety::create($request->all());
-            $safety->save();
-
-            return redirect(route("safety.index"))->with('success', 'Created Successfully');
-        }
+        //
     }
 
     /**

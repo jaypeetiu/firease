@@ -32,10 +32,10 @@
                     <h3>{{$breakingNews->title}}</h3>
                     <p class="text-gray-700">{{$breakingNews->description}}</p>
                 </div>
-                @endif
                 <button
                     onclick="showModal('{{$breakingNews->id}}', `{{$breakingNews->title}}`, `{{$breakingNews->description}}`)"
                     class="bg-red-500 text-white px-4 py-2 rounded mt-2">Edit News</button>
+                @endif
                 <!-- Button to create new news -->
                 <!-- <a href="{{route('news.create')}}" class="bg-red-500 text-white px-4 py-2 rounded">Create News</a> -->
             </div>

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateSafetyRequest;
+use App\Http\Requests\CreateAidRequest;
+use App\Models\Aids;
 use App\Models\News;
-use App\Models\Safety;
 use Illuminate\Http\Request;
 
-class SafetyController extends Controller
+class AidsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,19 +17,17 @@ class SafetyController extends Controller
     public function index()
     {
         $news = News::orderBy("created_at","desc")->paginate(10);
-        $tips = Safety::all();
-        return view("safety.index", compact("news", "tips"));
+        $aids = Aids::all();
+        return view("aid.index", compact("news", "aids"));
     }
-
     public function indexJson()
     {
-        $safety = Safety::orderBy("created_at", "desc")->paginate(10);
+        $aids = Aids::orderBy("created_at", "desc")->paginate(10);
 
         return response()->json([
-            'safety' => $safety,
+            'aids' => $aids,
         ], 200);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -37,7 +35,7 @@ class SafetyController extends Controller
      */
     public function create()
     {
-        return view("safety.create");
+        return view("aid.create");
     }
 
     /**
@@ -46,13 +44,13 @@ class SafetyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateSafetyRequest $request)
+    public function store(CreateAidRequest $request)
     {
         if($request->validated()){
-            $safety = Safety::create($request->all());
-            $safety->save();
+            $aids = Aids::create($request->all());
+            $aids->save();
 
-            return redirect(route("safety.index"))->with('success', 'Created Successfully');
+            return redirect(route("aid.index"))->with('success', 'Created Successfully');
         }
     }
 

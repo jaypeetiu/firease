@@ -106,6 +106,7 @@ class AuthController extends Controller
                     'password' => bcrypt($validatedData['password']),
                     'phone_number' => $request->phone_number,
                     'age' => $request->age,
+                    'id_type' => $request->id_type,
                 ]);
                 $user->save();
                 $user->roles()->sync(3);
@@ -129,6 +130,7 @@ class AuthController extends Controller
                     $imageNameSelfie = time() . '.' . $request->selfie->getClientOriginalExtension();
                     $request->selfie->move(public_path('uploads/selfies'), $imageNameSelfie);
 
+                    $user->verification_id = env('APP_URL').'/uploads/'.$imageName;
                     $user->avatar = env('APP_URL').'/uploads/selfies/'.$imageNameSelfie;
                     $user->save();
 

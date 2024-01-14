@@ -37,6 +37,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Auth'], function () {
         Route::post('verify-email', 'AuthController@verifyEmail');
     });
 });
+Route::group(['namespace' => 'App\Http\Controllers'], function () {
+    Route::get('idlists', 'IDController@index');
+});
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::group(['namespace' => 'App\Http\Controllers\Auth'], function () {
@@ -60,5 +63,8 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('reports', 'PostController@userHistory');
 
         Route::post('profile/upload', 'UserController@uploadProfile');
+
+        Route::get('aids', 'AidsController@indexJson');
+        Route::get('safety', 'SafetyController@indexJson');
     });
 });

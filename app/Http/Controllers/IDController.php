@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
+use App\Models\IDList;
 use Illuminate\Http\Request;
 
-class AidController extends Controller
+class IDController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,11 @@ class AidController extends Controller
      */
     public function index()
     {
-        $news = News::orderBy("created_at", "desc")->paginate(10);
-        return view("aid.index", compact("news"));
+        $ids = IDList::orderBy("created_at", "desc")->paginate(30);
+
+        return response()->json([
+            'ids' => $ids,
+        ], 200);
     }
 
     /**
