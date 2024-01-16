@@ -39,6 +39,7 @@ class User extends Authenticatable
         'password',
         'device_key',
         'verification_id',
+        'id_type',
         'created_at',
         'updated_at',
         'deleted_at',
