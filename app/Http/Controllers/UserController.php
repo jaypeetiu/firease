@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::paginate();
+        $users = User::orderBy("id", "desc")->paginate();
 
         return view('users.index', compact('users'));
     }
@@ -76,5 +76,23 @@ class UserController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Image not found.']);
         }
+    }
+
+    public function approve($id)
+    {
+        $user = User::where('id', $id)->first();
+        $user->verification_status = 'Verified';
+        $user->save();
+
+        return redirect()->back()->with('success', 'User Approved!');
+    }
+
+    public function decline($id)
+    {
+        $user = User::where('id', $id)->first();
+        $user->verification_status = 'Rejected';
+        $user->save();
+
+        return redirect()->back()->with('success', 'User Declined!');
     }
 }
