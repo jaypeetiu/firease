@@ -70,9 +70,10 @@ getToken(messaging, { vapidKey: 'BE5g0DI1w4XPvn-Iwx8M860KZshjO3FN5j4JmJXzIXUv8Sw
 });
 
 onMessage(messaging, (payload) => {
-    console.log('Message received. ', payload.notification);
+    console.log('Message received. ', payload.notification.body);
     // ...
-    audio.play();
+    payload.notification.body == 'Update'?
+    audioFire.play():audio.play();
     alert('Message Received.');
 });
 

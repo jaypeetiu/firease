@@ -12,6 +12,10 @@
         <source src="{{ asset('assets/alarm.mp3') }}" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+    <audio id="alertFire">
+        <source src="{{ asset('assets/fire-alarm.mp3') }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
     @if(session()->has('success'))
     <div class="alert alert-success">
         <div class="flex items-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
@@ -25,7 +29,7 @@
         </div>
     </div>
     @endif
-    <div class="flex item-center grid grid-cols-3 gap-3 mt-4 m-2 p-2">
+    <div class="flex item-center grid grid-cols-2 gap-3 mt-4 m-2 p-2">
         @if ($latestsender !== null && $latestsender->user !== null)
         @can('admin_access')
         <div>
@@ -114,65 +118,65 @@
         </div>
         @endif
         @endcan
-        @can('admin_access')
-        <div>
-            <h2 class="font-bold">
-                Vehicle On Response
-            </h2>
-            <div class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
-                <form method="post" action="{{ route('post.vehicle', $latestsender !==null?$latestsender->id:'') }}" autocomplete="off">
-                    @csrf
-                    <label for="vehicle_type">Choose</label>
-                    <select name="vehicle_type" id="vehicle_type" class="rounded max-w-full">
-                        <option>
-                            Vehicle
-                        </option>
-                        @if($latestsender != null)
-                        @foreach($vehicles as $vehicle)
-                        <option value="{{ $vehicle->id }}" {{ $latestsender->vehicle == $vehicle->name ? 'selected' : '' }}>
-                            {{$vehicle->name}}
-                        </option>
-                        @endforeach
-                        @endif
-                    </select>
-                    <button type="submit" class="p-2 pl-6 pr-6 bg-red-500 rounded text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700" style="float:right;">UPDATE</button>
-                </form>
-                @if($latestsender !== null && $latestsender->vehicle_id !== null)
-                <ul role="list" class="divide-y divide-gray-100">
-                    <form method="post" action="{{ route('post.deleteVehicle', $latestsender->id !==null?$latestsender->id:'') }}"
-                        autocomplete="off">
-                        @csrf
-                        <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">
-                            <div class="flex min-w-0 gap-x-4">
-                                <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" />
-                                    <circle cx="5" cy="17" r="2" />
-                                    <circle cx="17" cy="17" r="2" />
-                                    <path d="M7 18h8m4 0h2v-6a5 5 0 0 0 -5 -5h-1l1.5 5h4.5" />
-                                    <path d="M12 18v-11h3" />
-                                    <polyline points="3 17 3 12 12 12" />
-                                    <line x1="3" y1="9" x2="21" y2="3" />
-                                    <line x1="6" y1="12" x2="6" y2="8" />
-                                </svg>
-                                <div class="min-w-0 flex-auto">
-                                    <p class="text-sm font-semibold leading-6 text-gray-900">{{$latestsender->vehicle_id !== null ? $latestsender->vehicle->platenumber:''}}</p>
-                                </div>
-                            </div>
-                            <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                                <button type="submit">
-                                    <svg class="h-6 w-6 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <line x1="5" y1="12" x2="19" y2="12" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </li>
-                    </form>
-                </ul>
-                @endif
-            </div>
-        </div>
-        @endcan
+        <!--@can('admin_access')-->
+        <!--<div>-->
+        <!--    <h2 class="font-bold">-->
+        <!--        Vehicle On Response-->
+        <!--    </h2>-->
+        <!--    <div class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4 mt-4">-->
+        <!--        <form method="post" action="{{ route('post.vehicle', $latestsender !==null?$latestsender->id:'') }}" autocomplete="off">-->
+        <!--            @csrf-->
+        <!--            <label for="vehicle_type">Choose</label>-->
+        <!--            <select name="vehicle_type" id="vehicle_type" class="rounded max-w-full">-->
+        <!--                <option>-->
+        <!--                    Vehicle-->
+        <!--                </option>-->
+        <!--                @if($latestsender != null)-->
+        <!--                @foreach($vehicles as $vehicle)-->
+        <!--                <option value="{{ $vehicle->id }}" {{ $latestsender->vehicle == $vehicle->name ? 'selected' : '' }}>-->
+        <!--                    {{$vehicle->name}}-->
+        <!--                </option>-->
+        <!--                @endforeach-->
+        <!--                @endif-->
+        <!--            </select>-->
+        <!--            <button type="submit" class="p-2 pl-6 pr-6 bg-red-500 rounded text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700" style="float:right;">UPDATE</button>-->
+        <!--        </form>-->
+        <!--        @if($latestsender !== null && $latestsender->vehicle_id !== null)-->
+        <!--        <ul role="list" class="divide-y divide-gray-100">-->
+        <!--            <form method="post" action="{{ route('post.deleteVehicle', $latestsender->id !==null?$latestsender->id:'') }}"-->
+        <!--                autocomplete="off">-->
+        <!--                @csrf-->
+        <!--                <li class="flex justify-between gap-x-6 py-5 p-4 shadow-md hover:shadow-2xl hover:duration-700 rounded mt-4">-->
+        <!--                    <div class="flex min-w-0 gap-x-4">-->
+        <!--                        <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">-->
+        <!--                            <path stroke="none" d="M0 0h24v24H0z" />-->
+        <!--                            <circle cx="5" cy="17" r="2" />-->
+        <!--                            <circle cx="17" cy="17" r="2" />-->
+        <!--                            <path d="M7 18h8m4 0h2v-6a5 5 0 0 0 -5 -5h-1l1.5 5h4.5" />-->
+        <!--                            <path d="M12 18v-11h3" />-->
+        <!--                            <polyline points="3 17 3 12 12 12" />-->
+        <!--                            <line x1="3" y1="9" x2="21" y2="3" />-->
+        <!--                            <line x1="6" y1="12" x2="6" y2="8" />-->
+        <!--                        </svg>-->
+        <!--                        <div class="min-w-0 flex-auto">-->
+        <!--                            <p class="text-sm font-semibold leading-6 text-gray-900">{{$latestsender->vehicle_id !== null ? $latestsender->vehicle->platenumber:''}}</p>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                    <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">-->
+        <!--                        <button type="submit">-->
+        <!--                            <svg class="h-6 w-6 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor"-->
+        <!--                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">-->
+        <!--                                <line x1="5" y1="12" x2="19" y2="12" />-->
+        <!--                            </svg>-->
+        <!--                        </button>-->
+        <!--                    </div>-->
+        <!--                </li>-->
+        <!--            </form>-->
+        <!--        </ul>-->
+        <!--        @endif-->
+        <!--    </div>-->
+        <!--</div>-->
+        <!--@endcan-->
         <div>
             <h2 class="font-bold">LATEST SENDER</h2>
             <div class="relative mx-auto max-w-2xl overflow-hidden min-h-screen rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
@@ -197,55 +201,57 @@
             </div>
         </div>
         @can('super_access')
-        <div class="col-span-2">
-            <div class="flex item-center grid grid-cols-2 gap-3 ">
-                <h2 class="font-bold flex flex-row">ON RESCUE</h2>
-                <form method="get" action="{{ route('dashboard') }}" enctype="multipart/form-data">
-                    @csrf
-                    <select name="fire_type" id="fire_type" class="rounded max-w-full">
-                        <option>
-                            Select
-                        </option>
-                        @foreach($stations as $station)
-                            <option value="{{ $station->id }}">
-                                {{$station->address}}
+        <div>
+            <div class="col-span-2">
+                <div class="flex item-center grid grid-cols-3 gap-3 ">
+                    <h2 class="font-bold flex flex-row">ON RESCUE</h2>
+                    <form method="get" action="{{ route('dashboard') }}" enctype="multipart/form-data" class="col-span-2" style="grid-column-start: none;">
+                        @csrf
+                        <select name="fire_type" id="fire_type" class="rounded max-w-full content-end" style="margin-right:10px">
+                            <option>
+                                Select
                             </option>
-                            @endforeach
-                    </select>
-                    <button type="submit"
-                        class="p-2 pl-6 pr-6 bg-red-500 rounded text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700"
-                        style="float:right;">UPDATE</button>
-                </form>
-            </div>
-            @if($latestsender != null)
-            <div class="relative w-full overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
-                <div class="flex min-w-0 gap-x-4">
-                    <div class="min-w-0 flex-none">
-                        <img class="h-12 w-12 flex-none rounded-full bg-gray-50 ring-4 ring-yellow-600 m-2" src="{{$latest->user->avatar?$latest->user->avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'}}" alt="">
-                        <p class="text-center mt-1 truncate text-xs leading-5 text-yellow-600">Responder</p>
+                            @foreach($stations as $station)
+                                <option value="{{ $station->id }}">
+                                    {{$station->address}}
+                                </option>
+                                @endforeach
+                        </select>
+                        <button type="submit"
+                            class="p-2 pl-6 pr-6 bg-red-500 rounded text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700"
+                            style="float:right;">UPDATE</button>
+                    </form>
+                </div>
+                @if($latestsender != null)
+                <div class="relative w-full overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4 mt-4">
+                    <div class="flex min-w-0 gap-x-4">
+                        <div class="min-w-0 flex-none">
+                            <img class="h-12 w-12 flex-none rounded-full bg-gray-50 ring-4 ring-yellow-600 m-2" src="{{$latest->user->avatar?$latest->user->avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'}}" alt="">
+                            <p class="text-center mt-1 truncate text-xs leading-5 text-yellow-600">Responder</p>
+                        </div>
+                        <div class="min-w-0 flex-auto">
+                            <p class="text-sm font-semibold leading-6 text-gray-900">Name: {{$latest->user->name}}</p>
+                            <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: {{ $latest->user->age? $latest->user->age: 0 }}</p>
+                            <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: {{$latest->fire->address ? $latest->fire->address : 'No address available'}}</p>
+                        </div>
                     </div>
-                    <div class="min-w-0 flex-auto">
-                        <p class="text-sm font-semibold leading-6 text-gray-900">Name: {{$latest->user->name}}</p>
-                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">Age: {{ $latest->user->age? $latest->user->age: 0 }}</p>
-                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: {{$latest->fire->address ? $latest->fire->address : 'No address available'}}</p>
+                    <div class="flex min-w-0 gap-x-4">
+                        <img class="h-64 w-64 flex-none rounded bg-gray-50 m-2" src="{{$latest->image}}" alt="">
+                        <div class="min-w-0 flex-auto">
+                            <p class="text-sm font-semibold leading-6 text-gray-900">Details</p>
+                            <p class="mt-1 truncate text-xs leading-5 text-gray-500">Type of fire: {{ $latest->fire_type }}</p>
+                            <p class="text-sm font-semibold leading-6 text-gray-900">Response Needed: </p>
+                            <p class="text-sm font-semibold leading-6 text-gray-900 inline-flex">
+                                <img class="h-12 w-12 rounded m-2" src="{{asset('assets/Truck.png')}}" alt="">
+                                <img class="h-12 w-12 rounded m-2" src="{{asset('assets/FireTruck.png')}}" alt="">
+                                <img class="h-12 w-12 rounded m-2" src="{{asset('assets/Ambulance.png')}}" alt="">
+                            </p>
+                            <!-- <p class="text-sm font-semibold leading-6 text-gray-900">RESPONDERS: </p> -->
+                        </div>
                     </div>
                 </div>
-                <div class="flex min-w-0 gap-x-4">
-                    <img class="h-64 w-64 flex-none rounded bg-gray-50 m-2" src="{{$latest->image}}" alt="">
-                    <div class="min-w-0 flex-auto">
-                        <p class="text-sm font-semibold leading-6 text-gray-900">Details</p>
-                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">Type of fire: {{ $latest->fire_type }}</p>
-                        <p class="text-sm font-semibold leading-6 text-gray-900">Response Needed: </p>
-                        <p class="text-sm font-semibold leading-6 text-gray-900 inline-flex">
-                            <img class="h-12 w-12 rounded m-2" src="{{asset('assets/Truck.png')}}" alt="">
-                            <img class="h-12 w-12 rounded m-2" src="{{asset('assets/FireTruck.png')}}" alt="">
-                            <img class="h-12 w-12 rounded m-2" src="{{asset('assets/Ambulance.png')}}" alt="">
-                        </p>
-                        <!-- <p class="text-sm font-semibold leading-6 text-gray-900">RESPONDERS: </p> -->
-                    </div>
-                </div>
+                @endif
             </div>
-            @endif
         </div>
         @endcan
     </div>

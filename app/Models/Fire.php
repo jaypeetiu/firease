@@ -22,4 +22,9 @@ class Fire extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+
+    public function post()
+    {
+        return $this->hasOne(Post::class, 'id', 'post_id');
+    }
 }

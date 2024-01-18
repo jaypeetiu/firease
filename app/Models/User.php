@@ -47,6 +47,7 @@ class User extends Authenticatable
         'email_verified_at',
         'last_login_at',
         'phone_number',
+        'block',
     ];
 
     /**

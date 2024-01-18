@@ -33,9 +33,10 @@
         </div>
     </div>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.11.2/echo.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/laravel-echo/1.15.3/echo.min.js"></script>
 <script>
     const audio = document.getElementById('alertAudio');
+    const audioFire = document.getElementById('alertFire');
     // Initialize Laravel Echo and configure it according to your needs
     // const echo = new Echo({
     //     broadcaster: 'pusher',

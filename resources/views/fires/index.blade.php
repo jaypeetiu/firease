@@ -18,6 +18,18 @@
         </div>
     </div>
     @endif
+    <div class="flex item-center grid grid-cols-2 gap-3 mt-4">
+        <h3 class="mb-4 font-bold text-gray-700"
+            style="border: solid 1px white;padding: 5px;width: 300px;background-color:white;padding-left:10px;">
+            Fire Record this day: {{$totals}}
+        </h3>
+        <div>
+            <a href="{{ route('export.users') }}"
+                class="p-2 pl-6 pr-6 bg-red-500 rounded-full text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700">
+                DOWNLOAD FILE
+            </a>
+        </div>
+    </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -44,6 +56,9 @@
                         Time Fire End
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        Vehicle Used
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Action
                     </th>
                 </tr>
@@ -66,16 +81,23 @@
                     <td class="px-6 py-4">
                         {{$fire->address}}
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4"
+                        onclick="showModal('{{$fire->id}}', '{{$fire->arrival}}', '{{$fire->fire_end}}')">
                         {{$fire->arrival}}
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4"
+                        onclick="showModal('{{$fire->id}}', '{{$fire->arrival}}', '{{$fire->fire_end}}')">
                         {{$fire->fire_end}}
                     </td>
-                    @can('admin_access')
                     <td class="px-6 py-4">
-                        <a href="#edit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                            onclick="showModal('{{$fire->id}}', '{{$fire->arrival}}', '{{$fire->fire_end}}')">Edit</a>
+                        {{$fire->post->vehicle?$fire->post->vehicle->name:''}}
+                    </td>
+                    @can('admin_access')
+                    <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                        <a href="" class="font-medium text-red-600 dark:text-blue-500 hover:underline"
+                            onclick="block({{$fire->user_id}})">Block</a><br />
+                        <a href="" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                            onclick="unblock({{$fire->user_id}})">Unblock</a>
                     </td>
                     @endcan
                     @can('super_access')
@@ -90,10 +112,11 @@
                             autocomplete="off">
                             @csrf
                             <!-- Modal content -->
-                            <div class="relative bg-white rounded-lg shadow bg-gray-700 shadow-2xl">
+                            <div class="relative bg-white rounded-lg shadow bg-white shadow-2xl"
+                                style="background-color:#101827;">
                                 <!-- Modal header -->
                                 <div class="flex items-start justify-between p-4 border-b rounded-t border-gray-600">
-                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                    <h3 class="text-xl font-semibold text-white dark:text-white">
                                         Edit
                                     </h3>
                                     <button type="button"
@@ -135,49 +158,14 @@
             </tbody>
         </table>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
-        function showModal(id, arrival, end) {
-            console.log(id);
-            document.getElementById('defaultModal').style.display = 'block';
-            document.getElementById('defaultModal').style.margin = 'auto';
-            document.getElementById('defaultModal').style.width = '50%';
-
-            var formAction = "{{ route('fires.update', ['id' => '__FIRE_ID__']) }}";
-            formAction = formAction.replace('__FIRE_ID__', id);
-            document.getElementById('editForm').setAttribute('action', formAction);
-            document.getElementById('arrival').setAttribute('value', arrival);
-            document.getElementById('fire_end').setAttribute('value', end);
-        }
-
-        function closeModal() {
-            document.getElementById('defaultModal').style.display = 'none';
-        }
-
-        function updateUser(userId) {
-            $.ajax({
-                type: 'POST',
-                url: 'user-status/' + userId,
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    // Any additional data you want to send
-                },
-                success: function (data) {
-                    // Handle the success response, if needed
-                    window.location.reload();
-                },
-                error: function (xhr) {
-                    // Handle the error response, if needed
-                    console.log(xhr);
-                }
-            });
-        }
-
-        function deleteUser(userId) {
-            let text = "Please Confirm to delete user!\nPress Ok or Cancel.";
+        function block(userId) {
+            let text = "Please Confirm to block user " + userId + "!\nPress Ok or Cancel.";
             if (confirm(text) == true) {
                 $.ajax({
-                    type: 'DELETE',
-                    url: 'user-remove/' + userId,
+                    type: 'POST',
+                    url: 'user-block/' + userId,
                     data: {
                         _token: '{{ csrf_token() }}',
                         // Any additional data you want to send
@@ -193,6 +181,46 @@
                 });
             }
         }
+
+        function unblock(userId) {
+            let text = "Please Confirm to unblock user " + userId + "!\nPress Ok or Cancel.";
+            if (confirm(text) == true) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'user-unblock/' + userId,
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        // Any additional data you want to send
+                    },
+                    success: function (data) {
+                        // Handle the success response, if needed
+                        window.location.reload();
+                    },
+                    error: function (xhr) {
+                        // Handle the error response, if needed
+                        console.log(xhr);
+                    }
+                });
+            }
+        }
+
+        function showModal(id, arrival, end) {
+            console.log(id);
+            document.getElementById('defaultModal').style.display = 'block';
+            document.getElementById('defaultModal').style.margin = 'auto';
+            document.getElementById('defaultModal').style.width = '50%';
+
+            var formAction = "{{ route('fires.update', ['id' => '__FIRE_ID__']) }}";
+            formAction = formAction.replace('__FIRE_ID__', id);
+            document.getElementById('editForm').setAttribute('action', formAction);
+            document.getElementById('arrival')At, arrival);
+            document.getElementById('fire_end').setAttribute('value', end);
+        }
+
+        function closeModal() {
+            document.getElementById('defaultModal').style.display = 'none';
+        }
+         
     </script>
 
 </x-app-layout>

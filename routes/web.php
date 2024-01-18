@@ -96,6 +96,11 @@ Route::middleware('auth')->group(function () {
 
     Route::post('user-approve/{id}', [\App\Http\Controllers\UserController::class, 'approve'])->name('user.approve');
     Route::post('user-cancel/{id}', [\App\Http\Controllers\UserController::class, 'decline'])->name('user.decline');
+
+    Route::post('user-block/{id}', [\App\Http\Controllers\UserController::class, 'block'])->name('user.block');
+    Route::post('user-unblock/{id}', [\App\Http\Controllers\UserController::class, 'unblock'])->name('user.unblock');
+    
+    Route::get('/export-users', [\App\Http\Controllers\FireController::class, 'exportUsers'])->name('export.users');
     //Notification Station Alerts
     Route::post('notify/{id}', [\App\Http\Controllers\DashboardController::class, 'notifyStations'])->name('notify.stations');
 

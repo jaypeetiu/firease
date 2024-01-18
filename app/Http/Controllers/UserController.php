@@ -95,4 +95,22 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'User Declined!');
     }
+
+    public function block($id)
+    {
+        $user = User::where('id', $id)->first();
+        $user->block = '1';
+        $user->save();
+
+        return redirect()->back()->with('success', 'User Block!');
+    }
+
+    public function unblock($id)
+    {
+        $user = User::where('id', $id)->first();
+        $user->block = '0';
+        $user->save();
+
+        return redirect()->back()->with('success', 'User Unblock!');
+    }
 }

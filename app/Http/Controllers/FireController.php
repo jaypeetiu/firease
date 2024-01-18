@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateFireRequest;
 use App\Models\Fire;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class FireController extends Controller
 {
@@ -15,9 +17,11 @@ class FireController extends Controller
      */
     public function index()
     {
-        $fires = Fire::with('users')->orderBy("created_at", "desc")->get();
+        $today = Carbon::today();
+        $fires = Fire::with('users','post.vehicle')->orderBy("created_at", "desc")->get();
+        $totals = Fire::whereDate('created_at', $today)->count();
 
-        return view('fires.index', compact('fires'));
+        return view('fires.index', compact('fires', 'totals'));
     }
 
     /**
@@ -92,5 +96,34 @@ class FireController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function exportUsers()
+    {
+        $fires = Fire::with('users','post.vehicle')->get();
+
+        $csvFileName = now().'users.csv';
+
+        $headers = array(
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=$csvFileName",
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        );
+
+        $handle = fopen('php://output', 'w');
+
+        // Add CSV headers
+        fputcsv($handle, ['ID', 'Name', 'Time Sent', 'Type', 'Address', 'Arrival', 'Time Fire End', 'Vehicle Used']);
+
+        // Add user data
+        foreach ($fires as $fire) {
+            fputcsv($handle, [$fire->id, $fire->users->name, $fire->time, $fire->type, $fire->address, $fire->arrival, $fire->fire_end, $fire->post->vehicle?$fire->post->vehicle->name:'']);
+        }
+
+        fclose($handle);
+
+        return Response::make(null, 200, $headers);
     }
 }
