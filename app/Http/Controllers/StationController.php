@@ -95,7 +95,7 @@ class StationController extends Controller
     {
         $user = User::find($id);
         $user->name = $request->name;
-        if($user->password != $request->password){
+        if ($user->password != $request->password) {
             $user->password = Hash::make($request->password);
         }
         $user->save();
@@ -117,7 +117,7 @@ class StationController extends Controller
     public function addUser(Request $request)
     {
         $station = User::where('id', Auth::user()->id)
-        ->join('station_user', 'station_user.user_id', '=', 'users.id')->first();
+            ->join('station_user', 'station_user.user_id', '=', 'users.id')->first();
         $add = User::create($request->all());
         $add->fighter = 1;
         $add->save();
@@ -153,5 +153,25 @@ class StationController extends Controller
         User::findOrFail($user->id)->roles()->sync(2);
         User::findOrFail($user->id)->stations()->sync($request->station);
         return redirect()->back()->with('success', 'Added user to station!');
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $locations = Auth::user()->stations;
+        foreach ($locations as $value) {
+            $users = Station::where('stations.id', $value->id)->join('station_user', 'station_user.station_id', '=', 'stations.id')
+                ->join('users', 'users.id', '=', 'station_user.user_id')
+                ->where('users.fighter', '!=', null)
+                ->where('users.id', '!=', 1)
+                ->where('users.id', '!=', 2)
+                ->whereNull('users.deleted_at')
+                ->get();
+            $station = Station::where('id', $value->id)->first();
+        }
+        $station->status = $request->status;
+        $station->save();
+
+
+        return redirect()->back()->with('success', 'Status Updated!');
     }
 }

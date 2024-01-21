@@ -73,7 +73,7 @@ onMessage(messaging, (payload) => {
     console.log('Message received. ', payload.notification.body);
     // ...
     payload.notification.body == 'Update'?
-    audioFire.play():audio.play();
+    audioFire.play():'';
     alert('Message Received.');
 });
 

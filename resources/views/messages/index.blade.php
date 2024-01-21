@@ -2,7 +2,33 @@
     <x-slot name="header">
         {{ __('Messages') }}
     </x-slot>
-
+    <div class="flex item-center grid grid-cols-2 gap-3 mt-4">
+        <h3 class="mb-4 font-bold text-2xl text-gray-700">
+            Stations Status
+        </h3>
+        <form method="post" action="{{ route('stations.updateStatus') }}" autocomplete="off"
+            style="justify-self: right;">
+            @csrf
+            <select name="status" id="status" class="rounded max-w-full mr-4">
+                <option>
+                    Choose Status
+                </option>
+                <option value="1">
+                    Online
+                </option>
+                <option value="0">
+                    Offline
+                </option>
+                <option value="maintenance">
+                    Maintenance
+                </option>
+            </select>
+            <button href="{{ route('export.users') }}"
+                class="p-2 pl-6 pr-6 mr-4 bg-red-500 rounded-full text-white text-sm shadow-lg hover:shadow-red-500/50 hover:duration-700">
+                UPDATE STATUS
+            </button>
+        </form>
+    </div>
     <div class="flex item-center grid grid-cols-3 gap-5 mt-4 m-2 p-2">
         <div>
             <!-- <div class="shadow-md mt-4 relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4">
@@ -86,7 +112,7 @@
                     <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
                         <div class="flex min-w-0 gap-x-4">
                             <div
-                                class="h-12 w-12 flex-none rounded-full {{ $station->active == 1 ? 'bg-green-700' : 'bg-red-700' }}">
+                                class="h-12 w-12 flex-none rounded-full {{ $station->status == 1 ? 'bg-green-700' : ($station->status == 0 ? 'bg-red-700': 'bg-white')}}">
                             </div>
                             <div class="min-w-0 flex-auto">
                                 <p class="text-sm font-semibold leading-6 text-gray-900">Station: {{$station->address}}
@@ -97,116 +123,6 @@
                         </div>
                     </li>
                     @endforeach
-                    <!-- <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <div class="h-12 w-12 flex-none rounded-full bg-green-700"></div>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: nazareth cagayan de
-                                    oro</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <div class="h-12 w-12 flex-none rounded-full bg-green-700"></div>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: nazareth cagayan de
-                                    oro</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <div class="h-12 w-12 flex-none rounded-full bg-red-700"></div>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: nazareth cagayan de
-                                    oro</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <div class="h-12 w-12 flex-none rounded-full bg-green-700"></div>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: nazareth cagayan de
-                                    oro</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <div class="h-12 w-12 flex-none rounded-full bg-green-700"></div>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: nazareth cagayan de
-                                    oro</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <div class="h-12 w-12 flex-none rounded-full bg-green-700"></div>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: nazareth cagayan de
-                                    oro</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <div class="h-12 w-12 flex-none rounded-full bg-green-700"></div>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: nazareth cagayan de
-                                    oro</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <div class="h-12 w-12 flex-none rounded-full bg-green-700"></div>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: nazareth cagayan de
-                                    oro</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <div class="h-12 w-12 flex-none rounded-full bg-green-700"></div>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: nazareth cagayan de
-                                    oro</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <div class="h-12 w-12 flex-none rounded-full bg-green-700"></div>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: nazareth cagayan de
-                                    oro</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex justify-between gap-x-6 py-5 shadow-lg bg-gray-100 p-4 mt-4">
-                        <div class="flex min-w-0 gap-x-4">
-                            <div class="h-12 w-12 flex-none rounded-full bg-green-700"></div>
-                            <div class="min-w-0 flex-auto">
-                                <p class="text-sm font-semibold leading-6 text-gray-900">Station: Cogon</p>
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Location: nazareth cagayan de
-                                    oro</p>
-                            </div>
-                        </div>
-                    </li> -->
                 </div>
             </ul>
             @can('super_access')

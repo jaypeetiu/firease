@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateFireRequest;
 use App\Models\Fire;
+use App\Models\Vehicle;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -15,13 +16,14 @@ class FireController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $today = Carbon::today();
-        $fires = Fire::with('users','post.vehicle')->orderBy("created_at", "desc")->get();
+        $fires = Fire::with('users','post.vehicle')->where('created_at', 'LIKE', "%" . $request->search . "%")->orderBy("created_at", "desc")->get();
         $totals = Fire::whereDate('created_at', $today)->count();
+        $vehicles = Vehicle::all();
 
-        return view('fires.index', compact('fires', 'totals'));
+        return view('fires.index', compact('fires', 'totals', 'vehicles'));
     }
 
     /**

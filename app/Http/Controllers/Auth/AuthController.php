@@ -53,15 +53,16 @@ class AuthController extends Controller
             'remember_me' => 'required',
         ]);
 
-
+        $user = User::where('email', $request->email)->first();
         if ($validate) {
-            $user = User::where('email', $request->email)->first();
             if (isset($user->email_verified_at) && $user->email_verified_at) { //change it here kay walay is_active
                 $credentials = request(['email', 'password']);
 
                 if (!Auth::guard('web')->attempt($credentials)) {
                     return response()->json(['message' => 'Wrong username or password'], 401);
                 }
+            }else if($user->block=='1'){
+                return response()->json(['message' => 'You have been blocked'], 401);
             } else {
                 return response()->json(['message' => 'Email not verified'], 401);
             }
