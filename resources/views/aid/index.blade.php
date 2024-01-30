@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <!-- Button to edit news -->
-                    <!-- <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Edit Tips</button> -->
+                    <button onclick="deleteTips({{$aid->id}})" class="bg-red-500 text-white px-4 py-2 rounded mt-2">Delete</button>
                 </div>
                 @endforeach
                 <!-- <div class="mb-4">
@@ -119,5 +119,31 @@
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+
+        function deleteTips(Id) {
+            let text = "Please Confirm to delete!\nPress Ok or Cancel.";
+            if (confirm(text) == true) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: 'aidtips-remove/' + Id,
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        // Any additional data you want to send
+                    },
+                    success: function (data) {
+                        // Handle the success response, if needed
+                        window.location.reload();
+                    },
+                    error: function (xhr) {
+                        // Handle the error response, if needed
+                        console.log(xhr);
+                    }
+                });
+            }
+        }
+    </script>
     
 </x-app-layout>

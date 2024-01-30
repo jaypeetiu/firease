@@ -98,6 +98,7 @@ class SafetyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $safety = Safety::where('id', $id)->first();
+        $safety->delete();
     }
 }

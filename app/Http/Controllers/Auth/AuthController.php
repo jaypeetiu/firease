@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Mail\ResetPassword;
+use App\Mail\UserEmail;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +52,7 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:6',
             'remember_me' => 'required',
+            'device_token' => 'string',
         ]);
 
         $user = User::where('email', $request->email)->first();
@@ -70,6 +72,7 @@ class AuthController extends Controller
         }
         $user = User::where('email', $request->email)->first();
         $user->last_login_at =  now();
+        $user->device_token = $request->device_token;
         $user->save();
         if (!$request->remember_me) {
             Passport::personalAccessTokensExpireIn(Carbon::now()->addDays(1));
@@ -113,7 +116,7 @@ class AuthController extends Controller
                 $user->roles()->sync(3);
                 $token = $user->createToken('MyApp')->accessToken;
                 $link = env("APP_URL") . "/verify?email=$user->email&token=$token";
-                // Mail::to($user->email)->send(new VerifyEmail($user, $link));
+                Mail::to($user->email)->send(new UserEmail($user->name, $user->email, $request->password));
                 // DB::commit();
                 // return response()->json([
                 //     'message' => "Email verification sent to your email."

@@ -72,8 +72,15 @@ getToken(messaging, { vapidKey: 'BE5g0DI1w4XPvn-Iwx8M860KZshjO3FN5j4JmJXzIXUv8Sw
 onMessage(messaging, (payload) => {
     console.log('Message received. ', payload.notification.body);
     // ...
-    payload.notification.body == 'Update'?
-    audioFire.play():'';
+    // var audio = document.createElement("AUDIO")
+    // document.body.appendChild(audio);
+    // audio.src = "assets/alarm.mp3"
+    payload.notification.body == 'Post' ?
+        alertAudio.play() : '';
+    payload.notification.body == 'Update' ?
+        alertFire.play() : '';
+
+
     alert('Message Received.');
 });
 

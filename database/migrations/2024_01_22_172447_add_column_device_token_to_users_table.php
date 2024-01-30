@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tips', function (Blueprint $table) {
-            $table->id();
-            $table->string('image');
-            $table->string('title');
-            $table->longText('description');
-            $table->string('shortdescription');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('device_token')->nullable();
         });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tips');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

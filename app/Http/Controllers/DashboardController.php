@@ -23,11 +23,11 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         // abort_unless(Gate::allows('admin_access'), 403);
-        if($request->fire_type){
+        if ($request->fire_type) {
             $blocks = StationUser::with('posts', 'user')->where('user_id', $request->fire_type)->get();
             $latests = Post::with('user', 'fire', 'station', 'vehicle')->where('station_id', $request->fire_type)->get();
             $check = Post::where('station_id', $request->fire_type)->first();
-    
+
             $latestsender = Post::with('user', 'station', 'fire', 'vehicle')->latest()->first();
             $image = "https://unsplash.it/640/425?image=30";
             $vehicles = Vehicle::all();
@@ -42,16 +42,15 @@ class DashboardController extends Controller
                 'Grass Fire',
                 'Forest Fire'
             ];
-            if($check!==null)
-            {
+            if ($check !== null) {
                 return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'stations', 'firetypes', 'blocks'));
-            }else{
+            } else {
                 return redirect()->back()->with('success', 'Station has no reports available');
             }
-        }else{
+        } else {
             $blocks = StationUser::with('posts', 'user')->get();
             $latests = Post::with('user', 'fire', 'station', 'vehicle')->latest()->get();
-    
+
             $latestsender = Post::with('user', 'station', 'fire', 'vehicle')->latest()->first();
             $image = "https://unsplash.it/640/425?image=30";
             $vehicles = Vehicle::all();
@@ -66,11 +65,11 @@ class DashboardController extends Controller
                 'Grass Fire',
                 'Forest Fire'
             ];
-    
-            return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'stations', 'firetypes', 'blocks'));   
+
+            return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'stations', 'firetypes', 'blocks'));
         }
     }
-    
+
     public function indexStation(Request $request)
     {
         $blocks = StationUser::with('posts', 'user')->where('user_id', $request->fire_type)->get();
@@ -91,10 +90,9 @@ class DashboardController extends Controller
             'Grass Fire',
             'Forest Fire'
         ];
-        if($check!==null)
-        {
+        if ($check !== null) {
             return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'stations', 'firetypes', 'blocks'));
-        }else{
+        } else {
             return redirect()->back()->with('success', 'Station has no reports available');
         }
     }
@@ -186,45 +184,53 @@ class DashboardController extends Controller
     {
         //Send Push Notification
 
-        $SERVER_API_KEY = "AAAARQtY8YQ:APA91bHtaTTvc4HeRWKrC_nD_9SQSd5uwXLSFEczWGowG2OpApGYDmC7otLMlG6dnDoNtl8DOJTzT2VIrYjzTxbFe59XmJtQmz6qcxs7Of1SAsdr24n2vkEe8VPquLyMPnN5uGkArb6G";
+        $SERVER_API_KEY = env('SERVER_API_KEY');
         $userkeys = StationUser::where('station_id', $id)
             ->join('users', 'users.id', '=', 'station_user.user_id')
             ->where('device_key', '!=', '')
-            ->first();
-        if (isset($userkeys->device_key)) {
-            $data = [
-                "registration_ids" => [$userkeys->device_key],
-                "notification" => [
-                    "title" => "New alerts",
-                    "body" => "New alerts from ". Auth::user()->name,
-                ]
-            ];
-            $dataString = json_encode($data);
+            // ->where('id', '=', Auth::user()->id)
+            ->get();
+        if (isset($userkeys)) {
+            foreach ($userkeys as $value) {
+                // if ($value->device_key) {
+                    $data = [
+                        "registration_ids" => [$value->device_key],
+                        "notification" => [
+                            "title" => "New alerts",
+                            "body" => "Update",
+                        ]
+                    ];
+                    $dataString = json_encode($data);
 
-            $headers = [
-                'Authorization: key=' . $SERVER_API_KEY,
-                'Content-Type: application/json',
-            ];
+                    $headers = [
+                        'Authorization: key=' . $SERVER_API_KEY,
+                        'Content-Type: application/json',
+                    ];
 
-            $ch = curl_init();
+                    $ch = curl_init();
 
-            curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+                    curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+                    curl_setopt($ch, CURLOPT_POST, true);
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
-            curl_exec($ch);
+                    curl_exec($ch);
 
 
-            return redirect()->back()->with('success', 'Station Alarmed!');
-        } else {
-            return redirect()->back()->with('success', 'Station is not active');
+                    return redirect()->back()->with('success', 'Station Alarmed!');
+                // } else {
+                //     return redirect()->back()->with('success', 'Station is not active');
+                // }
+                // return redirect()->back()->with('success', 'Station is not active');
+            }
+            return redirect()->back()->with('error', 'Station is not active');
         }
     }
 
-    public function test(){
+    public function test()
+    {
         return response()->json('test', 200);
     }
 }

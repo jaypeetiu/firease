@@ -62,12 +62,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/safety/create', [\App\Http\Controllers\SafetyController::class, 'create'])->name('safety.create');
     Route::post('/safety/store', [\App\Http\Controllers\SafetyController::class, 'store'])->name('safety.store');
     Route::get('/safety/{id}', [\App\Http\Controllers\SafetyController::class, 'update'])->name('safety.update');
+    Route::delete('safetytips-remove/{id}', [\App\Http\Controllers\SafetyController::class, 'destroy'])->name('safety.delete');
 
     //Aid
     Route::get('aid', [\App\Http\Controllers\AidsController::class, 'index'])->name('aid.index');
     Route::get('/aids/create', [\App\Http\Controllers\AidsController::class, 'create'])->name('aid.create');
     Route::post('/aids/store', [\App\Http\Controllers\AidsController::class, 'store'])->name('aid.store');
     Route::get('/aids/{id}', [\App\Http\Controllers\AidsController::class, 'update'])->name('aid.update');
+    Route::delete('aidtips-remove/{id}', [\App\Http\Controllers\AidsController::class, 'destroy'])->name('aid.delete');
 
     //About
     Route::get('aboutbfp', [\App\Http\Controllers\AboutController::class, 'index'])->name('about.index');

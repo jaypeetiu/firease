@@ -66,5 +66,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
         Route::get('aids', 'AidsController@indexJson');
         Route::get('safety', 'SafetyController@indexJson');
+
+        Route::post('delete', 'UserController@destroy');
     });
 });

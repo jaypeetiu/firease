@@ -82,7 +82,7 @@ class PostController extends Controller
                     "registration_ids" => [$value->device_key],
                     "notification" => [
                         "title" => "New alerts",
-                        "body" => "New alerts from ". Auth::user()->name,
+                        "body" => "Post",
                     ]
                 ];
                 $dataString = json_encode($data);
@@ -252,7 +252,7 @@ class PostController extends Controller
                 "registration_ids" => [$value->device_key],
                 "notification" => [
                     "title" => "New alerts",
-                    "body" => "New alerts",
+                    "body" => "Update",
                 ]
             ];
             $dataString = json_encode($data);

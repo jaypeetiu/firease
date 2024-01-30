@@ -41,7 +41,7 @@
 
 
                     <div class="px-2 py-1 text-white bg-blue-700 rounded mr-4 mb-4 self-center">
-                        Patrick
+                        John Doe
                     </div>
                     <div class="py-4 text-gray-600 self-center">
                         No message available.

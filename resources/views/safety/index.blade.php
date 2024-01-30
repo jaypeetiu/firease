@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <!-- Button to edit news -->
-                    <!-- <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Edit Tips</button> -->
+                    <button onclick="deleteTips({{$tip->id}})" class="bg-red-500 text-white px-4 py-2 rounded mt-2">Delete</button>
                 </div>
                 @endforeach
                 <!-- <div class="mb-4">
@@ -123,12 +123,12 @@
             });
         }
 
-        function deleteUser(userId) {
-            let text = "Please Confirm to delete user!\nPress Ok or Cancel.";
+        function deleteTips(Id) {
+            let text = "Please Confirm to delete!\nPress Ok or Cancel.";
             if (confirm(text) == true) {
                 $.ajax({
                     type: 'DELETE',
-                    url: 'user-remove/' + userId,
+                    url: 'safetytips-remove/' + Id,
                     data: {
                         _token: '{{ csrf_token() }}',
                         // Any additional data you want to send
@@ -145,8 +145,5 @@
             }
         }
     </script>
-
-    <script type="text/javascript"
-        src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap"></script>
 
 </x-app-layout>

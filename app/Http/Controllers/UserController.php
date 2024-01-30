@@ -61,6 +61,12 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'User Deleted!');
     }
 
+    public function destroy()
+    {
+        $user = User::where('id', Auth::user()->id);
+        $user->delete();
+    }
+
     public function uploadProfile(Request $request)
     {
         $user = User::where('id', Auth::user()->id)->first();

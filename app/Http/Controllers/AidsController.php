@@ -96,6 +96,7 @@ class AidsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $aid = Aids::where('id', $id)->first();
+        $aid->delete();
     }
 }
