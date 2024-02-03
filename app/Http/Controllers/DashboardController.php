@@ -45,7 +45,7 @@ class DashboardController extends Controller
             if ($check !== null) {
                 return view('dashboard', compact('latests', 'latestsender', 'image', 'vehicles', 'stations', 'firetypes', 'blocks'));
             } else {
-                return redirect()->back()->with('success', 'Station has no reports available');
+                return redirect()->back()->with('error', 'Station has no reports available');
             }
         } else {
             $blocks = StationUser::with('posts', 'user')->get();

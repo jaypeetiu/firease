@@ -8,6 +8,7 @@ use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Fire;
 use App\Models\Post;
+use App\Models\StationUser;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\VehicleHistory;
@@ -59,7 +60,7 @@ class PostController extends Controller
             $post->user_id = $request->user_id;
             $post->image = env('APP_URL') . '/uploads/fire/' . $imageName;
             $post->vehicle_id = null;
-            $post->station_id = null;
+            $post->station_id = $request->station_id;
             $post->save();
             event(new NewPostAdded($post));
             if (isset($post)) {
@@ -74,34 +75,66 @@ class PostController extends Controller
 
 
             //Send Push Notification
-
             $SERVER_API_KEY = env('SERVER_API_KEY');
             $userkeys = User::where('Device_key', '!=', '')->get();
-            foreach ($userkeys as $value) {
-                $data = [
-                    "registration_ids" => [$value->device_key],
-                    "notification" => [
-                        "title" => "New alerts",
-                        "body" => "Post",
-                    ]
-                ];
-                $dataString = json_encode($data);
+            $stationAssign = StationUser::where('station_id', $post->station_id)->get();
+            foreach ($stationAssign as $value) {
+                $adminStation = User::where('id', $value->user_id)->get();
+                foreach ($adminStation as $v) {
+                    if ($v->device_key != '') {
+                        $data = [
+                            "registration_ids" => [$v->device_key],
+                            "notification" => [
+                                "title" => "Alert Update",
+                                "body" => "Update",
+                            ]
+                        ];
+                        $dataString = json_encode($data);
 
-                $headers = [
-                    'Authorization: key=' . $SERVER_API_KEY,
-                    'Content-Type: application/json',
-                ];
+                        $headers = [
+                            'Authorization: key=' . $SERVER_API_KEY,
+                            'Content-Type: application/json',
+                        ];
 
-                $ch = curl_init();
+                        $ch = curl_init();
 
-                curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-                curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+                        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+                        curl_setopt($ch, CURLOPT_POST, true);
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
-                curl_exec($ch);
+                        curl_exec($ch);
+                    } else {
+                        foreach ($userkeys as $value) {
+                            $data = [
+                                "registration_ids" => [$value->device_key],
+                                "notification" => [
+                                    "title" => "New alerts",
+                                    "body" => "Post",
+                                ]
+                            ];
+                            $dataString = json_encode($data);
+
+                            $headers = [
+                                'Authorization: key=' . $SERVER_API_KEY,
+                                'Content-Type: application/json',
+                            ];
+
+                            $ch = curl_init();
+
+                            curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+                            curl_setopt($ch, CURLOPT_POST, true);
+                            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                            curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+                            curl_exec($ch);
+                        }
+                    }
+                }
             }
         }
     }
@@ -137,22 +170,55 @@ class PostController extends Controller
      */
     public function update(Request $request)
     {
+        $SERVER_API_KEY = env('SERVER_API_KEY');
         $stations = Auth::user()->stations;
         foreach ($stations as $station) {
             $post = Post::where('id', $request->id)->first();
             $post->fire_type = $request->fire_type;
-            $post->station_id = $station->id;
+            // $post->station_id = $station->id;
             $post->save();
         }
         if (isset($post)) {
             $fire = Fire::where('post_id', $post->id)->first();
             $fire->type = $request->fire_type;
             $fire->save();
+
+            $user = User::where('id', $post->user_id)->first();
+
+            $data = [
+                "registration_ids" => [$user->device_token], // after registering on mobile automatic save device token
+                "notification" => [
+                    "title" => "Firease Notification",
+                    "body" => 'Hello, we received a notification that you need us, they are on their way now.',
+                    // "sound" => 'alarm.mp3',
+                    "color" => 'red',
+                    "android_channel_id" => 'default',
+                ],
+                "data" => [
+                    "url" => "https://firease.page.link/home"
+                ],
+            ];
+            $dataString = json_encode($data);
+
+            $headers = [
+                'Authorization: key=' . $SERVER_API_KEY,
+                'Content-Type: application/json',
+            ];
+
+            $ch = curl_init();
+
+            curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+            curl_exec($ch);
         }
         event(new NewPostAdded($post));
         //Send Push Notification
 
-        $SERVER_API_KEY = env('SERVER_API_KEY');
         // $userkeys = User::where('Device_key', '!=', '')->get();
         // foreach ($userkeys as $value) {
             $data = [
@@ -218,12 +284,12 @@ class PostController extends Controller
 
         return redirect()->back()->with('success', 'Updated Successfully');
     }
-    
+
     public function deleteVehicle(Request $request, $id)
     {
         $exist = VehicleHistory::where('post_id', $id)->first();
         $exist->delete();
-        
+
         if (isset($exist)) {
             $post = Post::where('id', $exist->post_id)->first();
             $post->vehicle_id = null;
@@ -232,13 +298,13 @@ class PostController extends Controller
 
         return redirect()->back()->with('success', 'Deleted Successfully');
     }
-    
+
     public function userBadge()
     {
         $post = Post::where('user_id', Auth::user()->id)->count();
 
         return response()->json([
-            'badge' => $post > 2? 'Good Samaritan': 'Beginner',
+            'badge' => $post > 2 ? 'Good Samaritan' : 'Beginner',
         ], 200);
     }
     public function alarmStations()
