@@ -134,8 +134,8 @@ class AuthController extends Controller
                     $imageNameSelfie = time() . '.' . $request->selfie->getClientOriginalExtension();
                     $request->selfie->move(public_path('uploads/selfies'), $imageNameSelfie);
 
-                    $user->verification_id = env('APP_URL').'/uploads/'.$imageName;
-                    $user->avatar = env('APP_URL').'/uploads/selfies/'.$imageNameSelfie;
+                    $user->verification_id = 'https://fireasecdo-ffdead396a7d.herokuapp.com/uploads/'.$imageName;
+                    $user->avatar = 'https://fireasecdo-ffdead396a7d.herokuapp.com/uploads/selfies/'.$imageNameSelfie;
                     $user->save();
 
                     // return response()->json(['success' => true, 'image' => $imageName, 'selfieImage' => $imageNameSelfie]);
