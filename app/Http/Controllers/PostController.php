@@ -75,7 +75,7 @@ class PostController extends Controller
 
 
             //Send Push Notification
-            $SERVER_API_KEY = env('SERVER_API_KEY');
+            $SERVER_API_KEY = "AAAARQtY8YQ:APA91bHtaTTvc4HeRWKrC_nD_9SQSd5uwXLSFEczWGowG2OpApGYDmC7otLMlG6dnDoNtl8DOJTzT2VIrYjzTxbFe59XmJtQmz6qcxs7Of1SAsdr24n2vkEe8VPquLyMPnN5uGkArb6G";
             $userkeys = User::where('Device_key', '!=', '')->get();
             $stationAssign = StationUser::where('station_id', $post->station_id)->get();
             foreach ($stationAssign as $value) {
@@ -85,8 +85,8 @@ class PostController extends Controller
                         $data = [
                             "registration_ids" => [$v->device_key],
                             "notification" => [
-                                "title" => "Alert Update",
-                                "body" => "Update",
+                                "title" => "New reports from " . $request->address,
+                                "body" => "Post",
                             ]
                         ];
                         $dataString = json_encode($data);
@@ -111,8 +111,8 @@ class PostController extends Controller
                             $data = [
                                 "registration_ids" => [$value->device_key],
                                 "notification" => [
-                                    "title" => "New alerts",
-                                    "body" => "Post",
+                                    "title" => "New reports from " . $request->address,
+                                    "body" => "",
                                 ]
                             ];
                             $dataString = json_encode($data);
@@ -170,15 +170,14 @@ class PostController extends Controller
      */
     public function update(Request $request)
     {
-        $SERVER_API_KEY = env('SERVER_API_KEY');
-        $stations = Auth::user()->stations;
-        foreach ($stations as $station) {
-            $post = Post::where('id', $request->id)->first();
+        $SERVER_API_KEY = "AAAARQtY8YQ:APA91bHtaTTvc4HeRWKrC_nD_9SQSd5uwXLSFEczWGowG2OpApGYDmC7otLMlG6dnDoNtl8DOJTzT2VIrYjzTxbFe59XmJtQmz6qcxs7Of1SAsdr24n2vkEe8VPquLyMPnN5uGkArb6G";
+        $stations = StationUser::where('user_id', Auth::user()->id)->first();
+
+        $post = Post::where('id', $request->id)->first();
+
+        if ($stations->station_id == $post->station_id) {
             $post->fire_type = $request->fire_type;
-            // $post->station_id = $station->id;
             $post->save();
-        }
-        if (isset($post)) {
             $fire = Fire::where('post_id', $post->id)->first();
             $fire->type = $request->fire_type;
             $fire->save();
@@ -215,16 +214,13 @@ class PostController extends Controller
             curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
             curl_exec($ch);
-        }
-        event(new NewPostAdded($post));
-        //Send Push Notification
+            event(new NewPostAdded($post));
 
-        // $userkeys = User::where('Device_key', '!=', '')->get();
-        // foreach ($userkeys as $value) {
+            //Send Push Notification
             $data = [
                 "registration_ids" => [Auth::user()->device_key],
                 "notification" => [
-                    "title" => "Alert Update",
+                    "title" => "New reports from " . $fire->address,
                     "body" => "Update",
                 ]
             ];
@@ -245,13 +241,14 @@ class PostController extends Controller
             curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
             curl_exec($ch);
-        // }
 
 
-        return redirect()->back()->with('success', 'Updated Successfully');
-        // return response()->json([
-        //     'success' => 'Updated!'
-        // ], 200);
+            return redirect()->back()->with('success', 'Updated Successfully');
+        } else {
+            return redirect()->back()->with('error', 'Station assigned to' . $post->station_id);
+        }
+
+
     }
 
     /**
@@ -311,7 +308,7 @@ class PostController extends Controller
     {
         //Send Push Notification
 
-        $SERVER_API_KEY = env('SERVER_API_KEY');
+        $SERVER_API_KEY = "AAAARQtY8YQ:APA91bHtaTTvc4HeRWKrC_nD_9SQSd5uwXLSFEczWGowG2OpApGYDmC7otLMlG6dnDoNtl8DOJTzT2VIrYjzTxbFe59XmJtQmz6qcxs7Of1SAsdr24n2vkEe8VPquLyMPnN5uGkArb6G";
         $userkeys = User::where('Device_key', '!=', '')->get();
         foreach ($userkeys as $value) {
             $data = [

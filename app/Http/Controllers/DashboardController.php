@@ -184,7 +184,7 @@ class DashboardController extends Controller
     {
         //Send Push Notification
 
-        $SERVER_API_KEY = env('SERVER_API_KEY');
+        $SERVER_API_KEY = "AAAARQtY8YQ:APA91bHtaTTvc4HeRWKrC_nD_9SQSd5uwXLSFEczWGowG2OpApGYDmC7otLMlG6dnDoNtl8DOJTzT2VIrYjzTxbFe59XmJtQmz6qcxs7Of1SAsdr24n2vkEe8VPquLyMPnN5uGkArb6G";
         $userkeys = StationUser::where('station_id', $id)
             ->join('users', 'users.id', '=', 'station_user.user_id')
             ->where('device_key', '!=', '')

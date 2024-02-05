@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('age')->nullable();
             $table->string('location')->nullable();
             $table->string('status')->default('active');
-            $table->datetime('email_verified_at')->nullable();
+            $table->datetime('email_verified_at')->default('2024-02-05 03:58:07');
             $table->string('password')->default('password');
             $table->string('remember_token')->nullable();
             $table->string('avatar')->default('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80');
