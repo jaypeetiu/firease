@@ -126,22 +126,22 @@ class AuthController extends Controller
                 does, it retrieves the file using `->file('id_image')` and generates a
                 unique image name using the current timestamp and the original file extension. It
                 then moves the file to the 'uploads' directory using the `move()` method. */
-                if ($request->hasFile('id_image')) {
-                    $image = $request->file('id_image');
-                    $imageName = time() . '.' . $image->getClientOriginalExtension();
-                    $image->move(public_path('uploads'), $imageName);
+                // if ($request->hasFile('id_image')) {
+                //     $image = $request->file('id_image');
+                //     $imageName = time() . '.' . $image->getClientOriginalExtension();
+                //     $image->move(public_path('uploads'), $imageName);
 
-                    $imageNameSelfie = time() . '.' . $request->selfie->getClientOriginalExtension();
-                    $request->selfie->move(public_path('uploads/selfies'), $imageNameSelfie);
+                //     $imageNameSelfie = time() . '.' . $request->selfie->getClientOriginalExtension();
+                //     $request->selfie->move(public_path('uploads/selfies'), $imageNameSelfie);
 
-                    $user->verification_id = 'https://fireasecdo-ffdead396a7d.herokuapp.com/uploads/'.$imageName;
-                    $user->avatar = 'https://fireasecdo-ffdead396a7d.herokuapp.com/uploads/selfies/'.$imageNameSelfie;
-                    $user->save();
+                //     $user->verification_id = 'https://fireasecdo-ffdead396a7d.herokuapp.com/uploads/'.$imageName;
+                //     $user->avatar = 'https://fireasecdo-ffdead396a7d.herokuapp.com/uploads/selfies/'.$imageNameSelfie;
+                //     $user->save();
 
-                    // return response()->json(['success' => true, 'image' => $imageName, 'selfieImage' => $imageNameSelfie]);
-                } else {
-                    return response()->json(['success' => false, 'message' => 'Image not found.']);
-                }
+                //     // return response()->json(['success' => true, 'image' => $imageName, 'selfieImage' => $imageNameSelfie]);
+                // } else {
+                //     return response()->json(['success' => false, 'message' => 'Image not found.']);
+                // }
                 DB::commit();
                 return response()->json([
                     'message' => "Registered Successfully"
