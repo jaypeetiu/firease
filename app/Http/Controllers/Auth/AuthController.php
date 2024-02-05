@@ -116,7 +116,7 @@ class AuthController extends Controller
                 $user->roles()->sync(3);
                 $token = $user->createToken('MyApp')->accessToken;
                 $link = env("APP_URL") . "/verify?email=$user->email&token=$token";
-                Mail::to($user->email)->send(new UserEmail($user->name, $user->email, $request->password));
+                // Mail::to($user->email)->send(new UserEmail($user->name, $user->email, $request->password));
                 // DB::commit();
                 // return response()->json([
                 //     'message' => "Email verification sent to your email."
