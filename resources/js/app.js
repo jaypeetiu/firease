@@ -75,13 +75,16 @@ onMessage(messaging, (payload) => {
     // var audio = document.createElement("AUDIO")
     // document.body.appendChild(audio);
     // audio.src = "assets/alarm.mp3"
-    payload.notification.body == 'Post' ?
-        alertAudio.play() : '';
-    payload.notification.body == 'Update' ?
-        alertFire.play() : '';
-
-
-    alert('Message Received.');
+    // payload.notification.body == 'Post' ? alertAudio.play() : payload.notification.body == 'Update' ? alertFire.play() : '';
+    if(payload.notification.body == 'Post'){
+        alertAudio.play();
+        alert(payload.notification.title);
+    }else if(payload.notification.body == 'Update'){
+        alertFire.play();
+        alert(payload.notification.title);
+    }else{
+        alert(payload.notification.title);
+    }
 });
 
 window.Alpine = Alpine;
