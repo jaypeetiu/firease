@@ -245,7 +245,7 @@ class PostController extends Controller
 
             return redirect()->back()->with('success', 'Updated Successfully');
         } else {
-            return redirect()->back()->with('error', 'Station assigned to' . $post->station_id);
+            return redirect()->back()->with('error', 'Station assigned to ' . $post->station_id);
         }
 
 
