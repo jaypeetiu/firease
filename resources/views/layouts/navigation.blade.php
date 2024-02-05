@@ -49,7 +49,7 @@
                 </svg>
 
             </x-slot>
-            {{ __('Message') }}
+            {{ __('Stations') }}
         </x-nav-link>
 
         <x-nav-link href="{{ route('fires.index') }}" :active="request()->routeIs('fires.index')">
