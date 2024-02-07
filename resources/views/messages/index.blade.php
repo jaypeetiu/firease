@@ -14,13 +14,13 @@
                     Choose Status
                 </option>
                 <option value="1">
-                    Online
+                    Availbale
                 </option>
                 <option value="0">
-                    Offline
+                    On Response
                 </option>
                 <option value="maintenance">
-                    Maintenance
+                    On Maintenance
                 </option>
             </select>
             <button href="{{ route('export.users') }}"
