@@ -14,7 +14,7 @@
                     Choose Status
                 </option>
                 <option value="1">
-                    Availbale
+                    Available
                 </option>
                 <option value="0">
                     On Response
