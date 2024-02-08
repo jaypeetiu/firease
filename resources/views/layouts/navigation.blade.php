@@ -49,7 +49,7 @@
                 </svg>
 
             </x-slot>
-            {{ __('Stations') }}
+            {{ __('Station Status') }}
         </x-nav-link>
 
         <x-nav-link href="{{ route('fires.index') }}" :active="request()->routeIs('fires.index')">
@@ -79,7 +79,7 @@
                     <circle cx="12" cy="12" r="3" />
                 </svg>
             </x-slot>
-            {{ __('Stations') }}
+            {{ __('Station Status') }}
         </x-nav-link>
         @endcan
         @can('super_access')
