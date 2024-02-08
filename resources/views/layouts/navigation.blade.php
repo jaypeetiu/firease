@@ -79,7 +79,7 @@
                     <circle cx="12" cy="12" r="3" />
                 </svg>
             </x-slot>
-            {{ __('Station Status') }}
+            {{ __('Stations') }}
         </x-nav-link>
         @endcan
         @can('super_access')
